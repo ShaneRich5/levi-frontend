@@ -1,10 +1,10 @@
 <template>
-  <h1>Home</h1>
+  <h1>About</h1>
 </template>
 
 <script>
 export default {
-  name: 'home',
+  name: 'about',
   data() {
     return {
     };
@@ -12,8 +12,5 @@ export default {
 };
 </script>
 
-<style scoped>>
-div {
-  background: blue;
-}
+<style scoped>
 </style>
