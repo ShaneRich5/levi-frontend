@@ -1,5 +1,29 @@
 <template>
   <div id="app">
+    <md-toolbar class="md-warn">
+
+      <router-link to="/">
+        <h2 class="md-title" style="flex: 1">Levi</h2>
+      </router-link>
+
+      <router-link to="/about">
+        <md-button>About</md-button>
+      </router-link>
+      <router-link to="/contact">
+        <md-button>Contact</md-button>
+      </router-link>
+
+      <md-menu>
+        <md-button md-menu-trigger>Forms</md-button>
+
+        <md-menu-content>
+          <router-link :to="{ name: 'DistrictOverseerForm' }"><md-menu-item>District</md-menu-item></router-link>
+          <router-link :to="{ name: 'MonthlyFinancialForm' }"><md-menu-item>Monthly</md-menu-item></router-link>
+          
+          <md-menu-item>My Item 3</md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </md-toolbar>
     <img src="./assets/logo.png">
     <router-view></router-view>
   </div>
@@ -18,6 +42,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+h1 {
+  margin-top: 0;
 }
 </style>

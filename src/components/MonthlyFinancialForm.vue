@@ -1,10 +1,10 @@
 <template>
-  <h1>Home</h1>
+  <h1>Monthly Financial Breakdown</h1>
 </template>
 
 <script>
 export default {
-  name: 'home',
+  name: 'monthly-financial-form',
   data() {
     return {
     };
@@ -13,7 +13,4 @@ export default {
 </script>
 
 <style scoped>
-div {
-  background: blue;
-}
 </style>
