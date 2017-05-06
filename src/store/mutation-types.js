@@ -1,0 +1,2 @@
+export const ADD_DISTRICT_CHURCH = 'ADD_DISTRICT_CHURCH';
+export const UPDATE_VALUE = 'UPDATE_VALUE';

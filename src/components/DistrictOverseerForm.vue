@@ -5,11 +5,12 @@
       <md-table v-once>
         <md-table-header>
           <md-table-row>
-            <md-table-head>Dessert (100g serving)</md-table-head>
-            <md-table-head md-numeric>Calories (g)</md-table-head>
-            <md-table-head md-numeric>Fat (g)</md-table-head>
-            <md-table-head md-numeric>Carbs (g)</md-table-head>
-            <md-table-head md-numeric>Protein (g)</md-table-head>
+            <md-table-head></md-table-head>
+            <md-table-head>Name of Church</md-table-head>
+            <md-table-head md-numeric>Received for National Office</md-table-head>
+            <md-table-head md-numeric>Received for District Y.C.E.D.</md-table-head>
+            <md-table-head md-numeric>Received for District Fund</md-table-head>
+            <md-table-head md-numeric>Total from Local Church</md-table-head>
           </md-table-row>
         </md-table-header>
 
