@@ -13,8 +13,8 @@ const routes = [
   { path: '/', component: Home, name: 'Home' },
   { path: '/contact', component: Contact, name: 'Contact' },
   { path: '/about', component: About, name: 'About' },
-  { path: '/forms/monthly', component: MonthlyFinancialForm, name: 'MonthlyFinancialForm' },
-  { path: '/forms/district', component: DistrictOverseerForm, name: 'DistrictOverseerForm' },
+  { path: '/forms/monthly/:formId', component: MonthlyFinancialForm, name: 'MonthlyFinancialForm' },
+  { path: '/forms/district/:formId', component: DistrictOverseerForm, name: 'DistrictOverseerForm' },
   { path: '/hello', component: Hello, name: 'Hello' },
 ];
 

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <md-toolbar class="md-warn">
+    <md-toolbar>
 
       <router-link to="/">
         <h2 class="md-title" style="flex: 1">Levi</h2>
@@ -15,17 +15,16 @@
 
       <md-menu>
         <md-button md-menu-trigger>Forms</md-button>
-
         <md-menu-content>
-          <router-link :to="{ name: 'DistrictOverseerForm' }"><md-menu-item>District</md-menu-item></router-link>
-          <router-link :to="{ name: 'MonthlyFinancialForm' }"><md-menu-item>Monthly</md-menu-item></router-link>
-          
-          <md-menu-item>My Item 3</md-menu-item>
+          <router-link :to="{ name: 'DistrictOverseerForm', params: { formId: 1 }}"><md-menu-item>District</md-menu-item></router-link>
+          <router-link :to="{ name: 'MonthlyFinancialForm', params: { formId: 1 }}"><md-menu-item>Monthly</md-menu-item></router-link>
         </md-menu-content>
       </md-menu>
     </md-toolbar>
     <img src="./assets/logo.png">
-    <router-view></router-view>
+    <transition name="slide">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -46,5 +45,18 @@ export default {
 
 h1 {
   margin-top: 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition-property: opacity;
+  transition-duration: .25s;
+}
+
+.fade-enter-active {
+  transition-delay: .25s;
+}
+
+.fade-enter, .fade-leave-active {
+  opacity: 0
 }
 </style>

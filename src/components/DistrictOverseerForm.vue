@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>District Overseer's Monthly Report Form</h1>
+    <h2>{{ districtId }} - {{ district.name }}</h2>
     <md-table-card class="container">
       <md-table v-once>
         <md-table-header>
@@ -15,32 +16,38 @@
         </md-table-header>
 
         <md-table-body>
-          <md-table-row v-for="(row, index) in 5" :key="index">
-            <md-table-cell>Dessert Name</md-table-cell>
-            <md-table-cell v-for="(col, index) in 4" :key="index" md-numeric>10</md-table-cell>
+          <md-table-row v-for="(church, index) in churches" :key="index">
+            <md-table-cell>{{ index + 1 }}</md-table-cell>
+            <md-table-cell>
+              <router-link :to="{ name: 'MonthlyFinancialForm', params: { formId: index + 1 }}">{{ church.name }}</router-link>
+            </md-table-cell>
+            <md-table-cell>{{ church['national-office'] }}</md-table-cell>
+            <md-table-cell>{{ church['district-yced'] }}</md-table-cell>
+            <md-table-cell>{{ church['district-fund'] }}</md-table-cell>
+            <md-table-cell>{{ church.total }}</md-table-cell>
           </md-table-row>
         </md-table-body>
       </md-table>
     </md-table-card>
-    <p>{{name}}</p>
-    <ul>
-      <li v-for="church in churches">
-        {{ church }}
-      </li>
-    </ul>
   </div>
 </template>
 
-<script>
+<script scoped>
 export default {
   name: 'district-overseer-form',
   data() {
     return {
-      churches: [
-        'a', 'b', 'c',
-      ],
       name: 'Test',
+      districtId: this.$route.params.formId,
     };
+  },
+  computed: {
+    district() {
+      return this.$store.getters.getDistrictById(this.districtId);
+    },
+    churches() {
+      return this.$store.getters.getDistrictChurches(this.districtId);
+    },
   },
 };
 </script>

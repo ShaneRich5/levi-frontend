@@ -1,12 +1,15 @@
-function cartProducts(state) {
-  return state.cart.added.map(({ id, quantity }) => {
-    const product = state.products.all.find(p => p.id === id);
-    return {
-      title: product.title,
-      price: product.price,
-      quantity,
-    };
-  });
-}
+export const getDistrictById = state => id => state.districts[id];
 
-export default cartProducts;
+export const getChurchById = state => id => state.churches[id];
+
+export const getMonthly = state => id => state.monthly[id];
+
+export const getMonthlyTotal = state => (id) => {
+  const data = state.getters.getMonthly(id);
+  return Object.values(data).reduce((a, b) => a + b);
+};
+
+export const getDistrictChurches = state => (districtId) => {
+  const district = state.getters.getDistrictById(districtId);
+  return district.churches.map(churchId => state.getters.getChurchById(churchId));
+};
