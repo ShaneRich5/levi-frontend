@@ -21,10 +21,7 @@
         </md-menu-content>
       </md-menu>
     </md-toolbar>
-    <img src="./assets/logo.png">
-    <transition name="slide">
-      <router-view></router-view>
-    </transition>
+    <router-view></router-view>
   </div>
 </template>
 

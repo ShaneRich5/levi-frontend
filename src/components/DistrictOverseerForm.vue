@@ -43,10 +43,10 @@ export default {
   },
   computed: {
     district() {
-      return this.$store.getters.getDistrictById(this.districtId);
+      return this.$store.getters.getDistrictById(this.$route.params.formId);
     },
     churches() {
-      return this.$store.getters.getDistrictChurches(this.districtId);
+      return this.$store.getters.getDistrictChurches(this.$route.params.formId);
     },
   },
 };
