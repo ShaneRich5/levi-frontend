@@ -10,11 +10,12 @@ const calculateMonthlyTotalRaised = (fields) => {
 export default {
   [types.UPDATE_EXPENSE] (state, { id, index, name, cost }) {
     const expenses = [...state.districts[id].expenses];
-    expenses[index] = { name, cost };
+    expenses[index] = Object.assign({}, { name }, { cost: parseFloat(cost) });
     state.districts[id].expenses = expenses;
   },
   [types.CREATE_EXPENSE] (state, { id, name }) {
-    const expenses = [...state.districts[id].expenses, { name, cost: 0 }];
+    const expense = { name, cost: 0 };
+    const expenses = [...state.districts[id].expenses, expense];
     state.districts[id].expenses = expenses;
   },
   [types.UPDATE_MONTHLY_FIELD] (state, { id, field, value }) {

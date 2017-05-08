@@ -4,7 +4,7 @@
     <h2>{{ districtId }} - {{ district.name }}</h2>
 
     <md-layout md-align="center" md-flex="35">
-      <table v-once>
+      <table class="form">
         <tr>
           <th></th>
           <th></th>
@@ -32,45 +32,63 @@
             {{formatCurrency(column) }}
           </td> 
         </tr>
-      </table>
-    </md-layout>
-
-{{ district.expenses }}
-
-    <md-layout md-align="center" md-flex="35">
-      <table>
         <tr>
-          <th colspan="2">Expenses</th>
+          <th></th>
+          <th colspan="5">Expenses</th>
         </tr>
         <tr v-for="(expense, index) in district.expenses" :key="index">
-          <td>
-            <input 
+          <td></td>
+          <td colspan="4">
+            <input
               v-focus
               v-model="expense.name"
               v-on:keyup.enter="handleExpenseUpdate(index, expense)">
           </td>
           <td>
             <input 
+              type="number"
               v-model="expense.cost"
               v-on:keyup.enter="handleExpenseUpdate(index, expense)">
           </td>
         </tr>
         <tr>
-          <td>
+          <td></td>
+          <td colspan="4">
             <input
-              v-model="newExpense"
+              v-model="newExpenseName"
               v-on:keyup.enter="handleExpenseCreation()"
             />
           </td>
-          <td>
-          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th></th>
+          <th colspan="5">Summary</th>
+        </tr>
+        <tr>
+          <td rowspan="4"></td>
+          <td rowspan="4"> Testing</td>
+          <td colspan="3">Total Expenses for the month</td>
+          <td>$ {{ totalExpenses }}</td>
+        </tr>
+        <tr>
+          <td colspan="3">Net Income/(Expenditure) for the Month</td>
+          <td>{{ netIncome }}</td>
+        </tr>
+        <tr>
+          <td colspan="3">Opening District Fund Balance</td>
+          <td>$<input v-model="openingBalance"></td>
+        </tr>
+        <tr>
+          <td colspan="3">Closing District Fund Balance</td>
+          <td>$ {{ formatCurrency(closingBalance) }}</td>
         </tr>
       </table>
     </md-layout>
   </div>
 </template>
 
-<script scoped>
+<script>
 import { mapActions } from 'vuex';
 import Currency from './mixins/Currency';
 
@@ -80,7 +98,9 @@ export default {
   mixins: [Currency],
   data() {
     return {
-      newExpense: '',
+      grossTotal: 0,
+      newExpenseName: '',
+      openingBalance: 0,
       receiptsHeadings: [
         ['', '', 'A', 'B', 'C', '(A+B+C)'],
         ['', 'Name of Church', 'Received for National Office', 'Received for District Y.C.E.D.', 'Received for District Fund', 'Total from Local Church'],
@@ -95,7 +115,18 @@ export default {
       return this.$store.getters.getDistrictChurches(this.districtId);
     },
     totals() {
-      return this.receiptTotals();
+      const totals = this.receiptTotals();
+      this.grossTotal = totals[totals.length - 1];
+      return totals;
+    },
+    totalExpenses() {
+      return this.$store.getters.totalDistrictExpense(this.districtId);
+    },
+    netIncome() {
+      return this.grossTotal - this.totalExpenses;
+    },
+    closingBalance() {
+      return this.openingBalance + this.netIncome;
     },
   },
   methods: {
@@ -103,9 +134,9 @@ export default {
       this.updateExpense({ id: this.districtId, index, name, cost });
     },
     handleExpenseCreation() {
-      const districtExpense = { id: this.districtId, name: this.newExpense, cost: 0 };
+      const districtExpense = { id: this.districtId, name: this.newExpenseName, cost: 0 };
       this.createExpense(districtExpense);
-      this.newExpense = '';
+      this.newExpenseName = '';
     },
     receiptRow(church) {
       const dispursements = Object.assign({}, church.dispursements);
@@ -130,6 +161,11 @@ export default {
 </script>
 
 <style scoped>
+.form input {
+  border: none;
+  outline: none;
+  flex: 1;
+}
 th, td {
   border: solid;
 }

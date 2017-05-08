@@ -12,6 +12,11 @@ export const multipliers = state => (id) => {
   return Object.assign(church.dispursements, { total, balance });
 };
 
+export const totalDistrictExpense = state => (id) => {
+  const expenses = [...state.districts[id].expenses];
+  return expenses.reduce((accumulator, expense) => accumulator + expense.cost, 0);
+};
+
 export const getMonthly = state => id => deepCopy(state.monthly[id]);
 
 export const churchBalance = state => id => state.monthly[id].balance;
