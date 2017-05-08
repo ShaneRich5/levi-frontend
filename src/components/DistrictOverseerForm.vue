@@ -33,11 +33,11 @@
           </td> 
         </tr>
         <tr>
-          <th></th>
+          <th class="no-border"></th>
           <th colspan="5">Expenses</th>
         </tr>
         <tr v-for="(expense, index) in district.expenses" :key="index">
-          <td></td>
+          <td class="no-border"></td>
           <td colspan="4">
             <input
               v-focus
@@ -52,36 +52,36 @@
           </td>
         </tr>
         <tr>
-          <td></td>
+          <td class="no-border"></td>
           <td colspan="4">
             <input
               v-model="newExpenseName"
               v-on:keyup.enter="handleExpenseCreation()"
             />
           </td>
-          <td></td>
+          <td>0.00</td>
         </tr>
         <tr>
-          <th></th>
+          <th class="no-border"></th>
           <th colspan="5">Summary</th>
         </tr>
         <tr>
+          <td class="no-border" rowspan="4"></td>
           <td rowspan="4"></td>
-          <td rowspan="4"> Testing</td>
           <td colspan="3">Total Expenses for the month</td>
-          <td>$ {{ totalExpenses }}</td>
+          <td>{{ formatCurrency(totalExpenses) }}</td>
         </tr>
         <tr>
           <td colspan="3">Net Income/(Expenditure) for the Month</td>
-          <td>{{ netIncome }}</td>
+          <td>{{ formatCurrency(netIncome) }}</td>
         </tr>
         <tr>
           <td colspan="3">Opening District Fund Balance</td>
-          <td>$<input v-model="openingBalance"></td>
+          <td><input v-model="openingBalance"></td>
         </tr>
         <tr>
           <td colspan="3">Closing District Fund Balance</td>
-          <td>$ {{ formatCurrency(closingBalance) }}</td>
+          <td>{{ formatCurrency(closingBalance) }}</td>
         </tr>
       </table>
     </md-layout>
