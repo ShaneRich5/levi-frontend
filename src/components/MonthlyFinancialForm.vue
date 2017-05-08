@@ -1,6 +1,8 @@
 <template>
   <md-table-card class="container">
     <h1>Monthly Financial Breakdown - {{ monthlyId }}</h1>
+
+    
     <md-table>
       <md-table-header>
         <md-table-row>
@@ -38,26 +40,30 @@
 </template>
 
 <script>
+import Currency from './mixins/Currency';
+
 export default {
   name: 'monthly-financial-form',
+  props: ['monthlyId'],
+  mixins: [Currency],
   data() {
     return {
-      monthlyId: this.$route.params.formId,
-      multipliers: [0.1, 0.1, 0.1, 0.1, 0.4, 0.6],
     };
   },
   computed: {
     monthly() {
-      return this.$store.getters.getMonthly(this.$data.monthlyId);
+      return this.$store.getters.getMonthly(this.monthlyId);
+    },
+    church() {
+      return this.$store.getters.getChurchById(this.monthly.church);
+    },
+    multipliers() {
+      return this.$store.getters.multipliers(this.monthly.church);
     },
   },
   methods: {
     updateField(key, value) {
-      this.$store.dispatch('updateMonthlyField', { id: this.$data.monthlyId, field: key, value });
-    },
-    formatCurrency(value) {
-      const val = (value / 1).toFixed(2).replace(',', '.');
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      this.$store.dispatch('updateMonthlyField', { id: this.monthlyId, field: key, value });
     },
   },
 };

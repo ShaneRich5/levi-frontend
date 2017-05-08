@@ -16,8 +16,8 @@
       <md-menu>
         <md-button md-menu-trigger>Forms</md-button>
         <md-menu-content>
-          <router-link :to="{ name: 'DistrictOverseerForm', params: { formId: 1 }}"><md-menu-item>District</md-menu-item></router-link>
-          <router-link :to="{ name: 'MonthlyFinancialForm', params: { formId: 1 }}"><md-menu-item>Monthly</md-menu-item></router-link>
+          <router-link :to="{ name: 'DistrictOverseerForm', params: { districtId: 1 }}"><md-menu-item>District</md-menu-item></router-link>
+          <router-link :to="{ name: 'MonthlyFinancialForm', params: { monthlyId: 1 }}"><md-menu-item>Monthly</md-menu-item></router-link>
         </md-menu-content>
       </md-menu>
     </md-toolbar>
