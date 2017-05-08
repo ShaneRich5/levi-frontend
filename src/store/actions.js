@@ -1,5 +1,17 @@
 import * as types from './mutation-types';
 
+export const createExpense = ({ commit }, payload) => {
+  commit(types.CREATE_EXPENSE, payload);
+};
+
+export const updateExpense = ({ commit }, payload) => {
+  const { name, cost } = payload;
+  if (name === '' || isNaN(cost)) {
+    return;
+  }
+  commit(types.UPDATE_EXPENSE, payload);
+};
+
 export const updateMonthlyField = ({ commit }, payload) => {
   const { value } = payload;
 

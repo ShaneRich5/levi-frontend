@@ -8,6 +8,15 @@ const calculateMonthlyTotalRaised = (fields) => {
 /* eslint-disable no-param-reassign */
 /* eslint-disable space-before-function-paren */
 export default {
+  [types.UPDATE_EXPENSE] (state, { id, index, name, cost }) {
+    const expenses = [...state.districts[id].expenses];
+    expenses[index] = { name, cost };
+    state.districts[id].expenses = expenses;
+  },
+  [types.CREATE_EXPENSE] (state, { id, name }) {
+    const expenses = [...state.districts[id].expenses, { name, cost: 0 }];
+    state.districts[id].expenses = expenses;
+  },
   [types.UPDATE_MONTHLY_FIELD] (state, { id, field, value }) {
     state.monthly[id].raised = { ...state.monthly[id].raised, [field]: value };
   },

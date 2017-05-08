@@ -14,6 +14,10 @@ sync(store, router);
 Vue.use(VueMaterial);
 Vue.config.productionTip = false;
 
+Vue.directive('focus', {
+  inserted: el => Vue.nextTick(() => el.focus()),
+});
+
 /* eslint-disable no-new */
 new Vue({
   store,

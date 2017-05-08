@@ -1,8 +1,8 @@
 import { deepCopy } from './util';
 
-export const getDistrictById = state => id => state.districts[id];
+export const getDistrictById = state => id => deepCopy(state.districts[id]);
 
-export const getChurchById = state => id => state.churches[id];
+export const getChurchById = state => id => deepCopy(state.churches[id]);
 
 export const multipliers = state => (id) => {
   const church = deepCopy(state.churches[id]);
@@ -12,7 +12,7 @@ export const multipliers = state => (id) => {
   return Object.assign(church.dispursements, { total, balance });
 };
 
-export const getMonthly = state => id => state.monthly[id];
+export const getMonthly = state => id => deepCopy(state.monthly[id]);
 
 export const churchBalance = state => id => state.monthly[id].balance;
 

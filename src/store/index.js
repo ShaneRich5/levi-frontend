@@ -11,8 +11,8 @@ const debug = process.env.NODE_ENV !== 'production';
 
 const state = {
   districts: {
-    1: { id: 1, name: 'DistrictA', churches: [1, 3] },
-    2: { id: 1, name: 'DistrictB', churches: [2] },
+    1: { id: 1, name: 'DistrictA', expenses: [], churches: [1, 3] },
+    2: { id: 1, name: 'DistrictB', expenses: [], churches: [2] },
   },
   churches: {
     1: { id: 1, name: 'ChurchA', dispursements: { 'island-office': 0.1, 'district-office': 0.1, departments: 0.1, minister: 0.1 }, district: 1, monthly: 1 },

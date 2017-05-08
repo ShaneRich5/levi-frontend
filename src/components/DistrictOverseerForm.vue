@@ -28,17 +28,50 @@
         <tr>
           <td></td>
           <td>Total</td>
-          <td v-for="(column, index) in receiptTotal()" :key="index">
+          <td v-for="(column, index) in totals" :key="index">
             {{formatCurrency(column) }}
           </td> 
         </tr>
-        </router-link>
+      </table>
+    </md-layout>
+
+{{ district.expenses }}
+
+    <md-layout md-align="center" md-flex="35">
+      <table>
+        <tr>
+          <th colspan="2">Expenses</th>
+        </tr>
+        <tr v-for="(expense, index) in district.expenses" :key="index">
+          <td>
+            <input 
+              v-focus
+              v-model="expense.name"
+              v-on:keyup.enter="handleExpenseUpdate(index, expense)">
+          </td>
+          <td>
+            <input 
+              v-model="expense.cost"
+              v-on:keyup.enter="handleExpenseUpdate(index, expense)">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              v-model="newExpense"
+              v-on:keyup.enter="handleExpenseCreation()"
+            />
+          </td>
+          <td>
+          </td>
+        </tr>
       </table>
     </md-layout>
   </div>
 </template>
 
 <script scoped>
+import { mapActions } from 'vuex';
 import Currency from './mixins/Currency';
 
 export default {
@@ -47,7 +80,7 @@ export default {
   mixins: [Currency],
   data() {
     return {
-      name: 'Test',
+      newExpense: '',
       receiptsHeadings: [
         ['', '', 'A', 'B', 'C', '(A+B+C)'],
         ['', 'Name of Church', 'Received for National Office', 'Received for District Y.C.E.D.', 'Received for District Fund', 'Total from Local Church'],
@@ -61,8 +94,19 @@ export default {
     churches() {
       return this.$store.getters.getDistrictChurches(this.districtId);
     },
+    totals() {
+      return this.receiptTotals();
+    },
   },
   methods: {
+    handleExpenseUpdate(index, { name, cost }) {
+      this.updateExpense({ id: this.districtId, index, name, cost });
+    },
+    handleExpenseCreation() {
+      const districtExpense = { id: this.districtId, name: this.newExpense, cost: 0 };
+      this.createExpense(districtExpense);
+      this.newExpense = '';
+    },
     receiptRow(church) {
       const dispursements = Object.assign({}, church.dispursements);
       delete dispursements.minister;
@@ -73,10 +117,14 @@ export default {
       const total = receipts.reduce((a, b) => a + b);
       return receipts.concat(total);
     },
-    receiptTotal() {
+    receiptTotals() {
       const receipts = this.churches.map(church => this.receiptRow(church));
       return receipts.reduce((a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[0], a[3] + b[3]]);
     },
+    ...mapActions([
+      'createExpense',
+      'updateExpense',
+    ]),
   },
 };
 </script>
