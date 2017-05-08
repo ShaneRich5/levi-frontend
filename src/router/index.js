@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Hello from '@/components/Hello';
 import Home from '@/components/Home';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
@@ -15,7 +14,6 @@ const routes = [
   { path: '/about', component: About, name: 'About' },
   { path: '/forms/monthly/:formId', component: MonthlyFinancialForm, name: 'MonthlyFinancialForm' },
   { path: '/forms/district/:formId', component: DistrictOverseerForm, name: 'DistrictOverseerForm' },
-  { path: '/hello', component: Hello, name: 'Hello' },
 ];
 
 export default new Router({

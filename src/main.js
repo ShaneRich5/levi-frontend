@@ -4,9 +4,12 @@ import 'normalize.css';
 import 'vue-material/dist/vue-material.css';
 import Vue from 'vue';
 import VueMaterial from 'vue-material';
+import { sync } from 'vuex-router-sync';
 import App from './App';
 import router from './router';
 import store from './store';
+
+sync(store, router);
 
 Vue.use(VueMaterial);
 Vue.config.productionTip = false;

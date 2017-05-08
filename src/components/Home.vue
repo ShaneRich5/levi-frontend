@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>Home</h1>
+  <div class="home">
+    <h1>{{ message }}</h1>
   </div>
 </template>
 
@@ -9,6 +9,7 @@ export default {
   name: 'home',
   data() {
     return {
+      message: 'Homepage',
     };
   },
 };
