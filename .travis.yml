@@ -1,10 +1,7 @@
-language: java
+language: node_js
+node_js:
+  - "7"
 
-install:
-  - . $HOME/.nvm/nvm.sh
-  - nvm install stable
-  - nvm use stable
-  - npm install
+cache: yarn
 
-script:
-  - npm test
+script: npm run unit
