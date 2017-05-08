@@ -6,8 +6,8 @@
     <md-layout md-align="center" md-flex="35">
       <table class="form">
         <tr>
-          <th></th>
-          <th></th>
+          <th class="no-border"></th>
+          <th class="no-border"></th>
           <th colspan="4">Receipts</th>
         </tr>
         <tr v-for="(headingRow, headingRowIndex) in receiptsHeadings" :key="headingRowIndex">
@@ -26,7 +26,7 @@
           </td>
         </tr>
         <tr>
-          <td></td>
+          <td class="no-border"></td>
           <td>Total</td>
           <td v-for="(column, index) in totals" :key="index">
             {{formatCurrency(column) }}
@@ -161,6 +161,9 @@ export default {
 </script>
 
 <style scoped>
+.form {
+  border-collapse: collapse;
+}
 .form input {
   border: none;
   outline: none;
@@ -171,5 +174,8 @@ th, td {
 }
 .container {
   margin: 0 16px;
+}
+.no-border {
+  border: none;
 }
 </style>
