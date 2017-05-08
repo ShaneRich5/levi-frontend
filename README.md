@@ -1,4 +1,4 @@
-# levi
+# levi [![Build Status](https://travis-ci.com/ShaneRich5/levi-frontend.svg?token=dczsXq11ssrMDYiAU3sh&branch=master)](https://travis-ci.com/ShaneRich5/levi-frontend)
 
 > A administrative tool for churches
 
