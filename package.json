@@ -14,12 +14,14 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "firebase": "^3.9.0",
     "normalize.css": "^7.0.0",
     "vue": "^2.2.6",
     "vue-material": "^0.7.1",
     "vue-router": "^2.3.1",
     "vuex": "^2.3.1",
-    "vuex-router-sync": "^4.1.2"
+    "vuex-router-sync": "^4.1.2",
+    "vuexfire": "^2.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",

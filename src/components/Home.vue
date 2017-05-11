@@ -7,6 +7,11 @@
 <script>
 export default {
   name: 'home',
+  ready() {
+    this.$store.dispatch('addTest', 1);
+    this.$store.dispatch('addTest', 2);
+    this.$store.dispatch('addTest', -1);
+  },
   data() {
     return {
       message: 'Homepage',

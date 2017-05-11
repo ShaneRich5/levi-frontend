@@ -8,6 +8,20 @@ const calculateMonthlyTotalRaised = (fields) => {
 /* eslint-disable no-param-reassign */
 /* eslint-disable space-before-function-paren */
 export default {
+  [types.DISTRICT_DELETED] (state, index) {
+    state.districts = [...state.districts.slice(0, index), ...state.districts.slice(index + 1)];
+  },
+  [types.DISTRICT_CHANGED] (state, updatedDistrict) {
+    state.districts = state.districts.map((district) => {
+      if (district.id === updatedDistrict.id) {
+        return updatedDistrict;
+      }
+      return district;
+    });
+  },
+  [types.DISTRICT_LOADED] (state, district) {
+    state.districts = [...state.districts, district];
+  },
   [types.UPDATE_EXPENSE] (state, { id, index, name, cost }) {
     const expenses = [...state.districts[id].expenses];
     expenses[index] = Object.assign({}, { name }, { cost: parseFloat(cost) });

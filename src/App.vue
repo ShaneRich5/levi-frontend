@@ -5,13 +5,13 @@
       <router-link to="/">
         <h2 class="md-title" style="flex: 1">Levi</h2>
       </router-link>
-
       <router-link to="/about">
         <md-button>About</md-button>
       </router-link>
       <router-link to="/contact">
         <md-button>Contact</md-button>
       </router-link>
+
 
       <md-menu>
         <md-button md-menu-trigger>Forms</md-button>
@@ -26,8 +26,18 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'app',
+  mounted() {
+    this.$store.dispatch('setDistrictRef');
+  },
+  computed: {
+    ...mapGetters([
+      'test',
+    ]),
+  },
 };
 </script>
 
