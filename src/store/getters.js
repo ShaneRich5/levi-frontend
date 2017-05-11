@@ -2,6 +2,10 @@ import { deepCopy } from './util';
 
 export const districts = state => [...state.districts];
 
+export const districtById = state => id => state.districts.find(district => district.id === id);
+
+export const churches = state => [...state.churches];
+//
 export const getDistrictById = state => id => deepCopy(state.districts[id]);
 
 export const getChurchById = state => id => deepCopy(state.churches[id]);

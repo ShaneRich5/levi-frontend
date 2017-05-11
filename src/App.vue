@@ -5,8 +5,8 @@
       <router-link to="/">
         <h2 class="md-title" style="flex: 1">Levi</h2>
       </router-link>
-      <router-link to="/about">
-        <md-button>About</md-button>
+      <router-link :to="{ name: 'Districts' }">
+        <md-button>Districts</md-button>
       </router-link>
       <router-link to="/contact">
         <md-button>Contact</md-button>

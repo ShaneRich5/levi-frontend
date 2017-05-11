@@ -17,7 +17,8 @@
         <tr v-for="(church, churchIndex) in churches" :key="churchIndex">
           <td>{{ churchIndex + 1 }}</td>
           <td>
-            <router-link :to="{ name: 'MonthlyFinancialForm', params: { monthlyId: church.monthly.id }}">
+            <router-link 
+              :to="{ name: 'MonthlyFinancialForm', params: { monthlyId: church.monthly.id }}">
               {{ church['name'] }}
             </router-link>
           </td>

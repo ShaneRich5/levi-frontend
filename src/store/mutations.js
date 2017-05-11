@@ -8,6 +8,23 @@ const calculateMonthlyTotalRaised = (fields) => {
 /* eslint-disable no-param-reassign */
 /* eslint-disable space-before-function-paren */
 export default {
+  [types.CLEAR_CHURCHES] (state) {
+    state.churches = [];
+  },
+  [types.CHURCH_DELETED] (state, index) {
+    state.churches = [...state.churches.slice(0, index), ...state.churches.slice(index + 1)];
+  },
+  [types.CHURCH_CHANGED] (state, updatedChurch) {
+    state.churches = state.churches.map((church) => {
+      if (church.id === updatedChurch.id) {
+        return updatedChurch;
+      }
+      return church;
+    });
+  },
+  [types.CHURCH_LOADED] (state, church) {
+    state.churches = [...state.churches, church];
+  },
   [types.DISTRICT_DELETED] (state, index) {
     state.districts = [...state.districts.slice(0, index), ...state.districts.slice(index + 1)];
   },

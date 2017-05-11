@@ -20,15 +20,47 @@ export const setDistrictRef = ({ commit, state }) => {
   });
 };
 
-export const addDistrict = ({ commit }, { name }) => {
-  const newDistrictRef = services.districtRef.push();
-  newDistrictRef.set({
-    name,
-    expenses: [],
-    churches: [],
+export const setChurchRef = ({ commit, state }, { district }) => {
+  services.churchRef.on('child_added', (data) => {
+    const church = Object.assign({}, data.val(), { id: data.key });
+    if (church.district === district) {
+      commit(types.CHURCH_LOADED, church);
+    }
+  });
+
+  services.churchRef.on('child_changed', (data) => {
+    const church = Object.assign({}, data.val(), { id: data.key });
+    if (church.district === district) {
+      commit(types.CHURCH_CHANGED, church);
+    }
+  });
+
+  services.churchRef.on('child_removed', (data) => {
+    const index = state.churches.findIndex(church => church.id === data.key
+      && church.district === district);
+    if (index !== undefined) {
+      commit(types.CHURCH_DELETED, index);
+    }
   });
 };
 
+export const removeChurchRef = ({ commit }) => {
+  services.churchRef.off();
+  commit(types.CLEAR_CHURCHES);
+};
+
+export const createDistrict = ({ commit }, { name }) => {
+  const newDistrictRef = services.districtRef.push();
+  newDistrictRef.set({ name, balance: 0 });
+};
+
+export const createChurch = ({ commit }, { district, name }) => {
+  const newChurchRef = services.churchRef.push();
+  // const ref = services.districtRef.ref(district);
+  newChurchRef.set({ name, district });
+};
+
+//
 export const createExpense = ({ commit }, payload) => {
   commit(types.CREATE_EXPENSE, payload);
 };

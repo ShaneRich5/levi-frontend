@@ -17,4 +17,4 @@ export const rootRef = db.ref();
 
 export const districtRef = db.ref('districts');
 
-export const churchRef = db.ref('churchRef');
+export const churchRef = db.ref('churches');
