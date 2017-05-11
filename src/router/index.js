@@ -14,7 +14,7 @@ const routes = [
   { path: '/', component: Home, name: 'Home' },
   { path: '/contact', component: Contact, name: 'Contact' },
   { path: '/about', component: About, name: 'About' },
-  { path: '/about', component: Districts, name: 'Districts' },
+  { path: '/districts', component: Districts, name: 'Districts' },
   { path: '/forms/monthly/:monthlyId', component: MonthlyFinancialForm, name: 'MonthlyFinancialForm', props: true },
   { path: '/forms/district/:districtId', component: DistrictOverseerForm, name: 'DistrictOverseerForm', props: true },
   { path: '*', component: PageNotFound, name: 'PageNotFound' },
