@@ -1,18 +1,18 @@
 <template>
   <div id="app">
     <md-toolbar>
-
       <router-link to="/">
         <h2 class="md-title" style="flex: 1">Levi</h2>
       </router-link>
       <router-link :to="{ name: 'Districts' }">
         <md-button>Districts</md-button>
       </router-link>
+      <router-link :to="{ name: 'Churches' }">
+        <md-button>Churches</md-button>
+      </router-link>
       <router-link to="/contact">
         <md-button>Contact</md-button>
       </router-link>
-
-
       <md-menu>
         <md-button md-menu-trigger>Forms</md-button>
         <md-menu-content>
@@ -32,6 +32,11 @@ export default {
   name: 'app',
   mounted() {
     this.$store.dispatch('setDistrictRef');
+    this.$store.dispatch('setChurchRef');
+  },
+  beforeDestroy() {
+    this.$store.dispatch('removeDistrictRef');
+    this.$store.dispatch('removeChurchRef');
   },
   computed: {
     ...mapGetters([
@@ -52,6 +57,10 @@ export default {
 
 h1 {
   margin-top: 0;
+}
+
+a > button.md-button {
+  color: white;
 }
 
 .fade-enter-active, .fade-leave-active {

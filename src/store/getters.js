@@ -5,6 +5,11 @@ export const districts = state => [...state.districts];
 export const districtById = state => id => state.districts.find(district => district.id === id);
 
 export const churches = state => [...state.churches];
+
+export const churchById = state => id => deepCopy(state.churches.find(church => church.id === id));
+
+export const churchesByDistrict = state => districtId => state.churches
+  .filter(church => church.district === districtId);
 //
 export const getDistrictById = state => id => deepCopy(state.districts[id]);
 

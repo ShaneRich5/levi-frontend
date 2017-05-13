@@ -20,9 +20,10 @@ export const setDistrictRef = ({ commit, state }) => {
   });
 };
 
-export const setChurchRef = ({ commit, state }, { district }) => {
+export const setDistrictChurchesRef = ({ commit, state }, { district }) => {
   services.churchRef.on('child_added', (data) => {
     const church = Object.assign({}, data.val(), { id: data.key });
+
     if (church.district === district) {
       commit(types.CHURCH_LOADED, church);
     }
@@ -44,6 +45,44 @@ export const setChurchRef = ({ commit, state }, { district }) => {
   });
 };
 
+export const setChurchRef = ({ commit, state }) => {
+  services.churchRef.on('child_added', (data) => {
+    const church = Object.assign({}, data.val(), { id: data.key });
+
+    let district = state.districts.find(d => d.id === church.district);
+
+    if (undefined === district) {
+      services.districtRef.child(church.district).once('value').then((snapshot) => {
+        district = state.districts.find(d => d.id === church.district);
+        if (district === undefined) {
+          district = Object.assign({}, snapshot.val(), { id: church.district });
+          commit(types.DISTRICT_LOADED, district);
+        }
+      });
+    }
+
+    commit(types.CHURCH_LOADED, church);
+  });
+
+  services.churchRef.on('child_changed', (data) => {
+    const church = Object.assign({}, data.val(), { id: data.key });
+    commit(types.CHURCH_CHANGED, church);
+  });
+
+  services.churchRef.on('child_removed', (data) => {
+    const index = state.churches.findIndex(church => church.id === data.key);
+    if (index !== undefined) {
+      commit(types.CHURCH_DELETED, index);
+    }
+  });
+};
+
+export const removeDistrictRef = ({ commit }) => {
+  services.districtRef.off();
+  commit(types.CLEAR_DISTRICTS);
+  commit(types.CLEAR_DISTRICTS);
+};
+
 export const removeChurchRef = ({ commit }) => {
   services.churchRef.off();
   commit(types.CLEAR_CHURCHES);
@@ -55,9 +94,16 @@ export const createDistrict = ({ commit }, { name }) => {
 };
 
 export const createChurch = ({ commit }, { district, name }) => {
-  const newChurchRef = services.churchRef.push();
-  // const ref = services.districtRef.ref(district);
-  newChurchRef.set({ name, district });
+  const { key } = services.churchRef.push();
+  const church = { name, district };
+
+  /* eslint-disable prefer-template */
+  const updates = {
+    ['/churches/' + key]: church,
+    ['/districts/' + district + '/churches/' + key]: true,
+  };
+
+  services.rootRef.update(updates);
 };
 
 //

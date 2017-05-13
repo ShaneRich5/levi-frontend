@@ -11,6 +11,9 @@ export default {
   [types.CLEAR_CHURCHES] (state) {
     state.churches = [];
   },
+  [types.CLEAR_DISTRICTS] (state) {
+    state.districts = [];
+  },
   [types.CHURCH_DELETED] (state, index) {
     state.churches = [...state.churches.slice(0, index), ...state.churches.slice(index + 1)];
   },

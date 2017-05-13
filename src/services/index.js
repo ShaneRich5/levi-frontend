@@ -11,7 +11,7 @@ const configurations = {
 
 Firebase.initializeApp(configurations);
 
-const db = Firebase.database();
+export const db = Firebase.database();
 
 export const rootRef = db.ref();
 

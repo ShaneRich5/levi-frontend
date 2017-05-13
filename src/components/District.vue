@@ -1,10 +1,7 @@
 <template>
   <div>
     <md-layout md-align="center" md-flex="66">
-    </md-layout>
-    <md-layout md-align="center" md-flex="66">
-      <h2>{{ district }}</h2>
-      <p>{{ churches }}</p>
+      <h2>{{ district.name }}</h2>
     </md-layout>
     <md-layout md-align="center" md-flex="66">
       <md-table-card>
@@ -37,34 +34,36 @@
       </md-table-card>
     </md-layout>
     <md-layout md-align="center">
-      <md-button class="md-raised md-primary">Add</md-button>
+      <md-button>Generate</md-button>
+      <h2>2017</h2>
+    </md-layout>
+    <md-layout md-align="center" md-flex="66">
+      <md-table-card>
+        <md-toolbar>
+          <h1 class="md-title">Monthly Reports</h1>
+        </md-toolbar>
+      </md-table-card>
     </md-layout>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'district',
   props: ['id'],
-  mounted() {
-    this.$store.dispatch('setChurchRef', { district: this.id });
-  },
-  beforeDestroy() {
-    this.$store.dispatch('removeChurchRef');
-  },
   data() {
     return {
       churchName: '',
     };
   },
   computed: {
-    ...mapGetters([
-      'churches',
-    ]),
     district() {
       return this.$store.getters.districtById(this.id);
+    },
+    churches() {
+      return this.$store.getters.churchesByDistrict(this.district.id);
     },
   },
   methods: {
@@ -75,6 +74,7 @@ export default {
       if (this.churchName.length !== 0) {
         const church = { district: this.id, name: this.churchName };
         this.createChurch(church);
+        this.churchName = '';
       }
     },
   },

@@ -12,6 +12,7 @@ const debug = process.env.NODE_ENV !== 'production';
 const state = {
   districts: [],
   churches: [],
+  receipts: [],
   monthly: {
     1: { id: 1, church: 1, balance: 0, raised: { tithes: 0, 'sunday-school': 0, fth: 0, 'youth-fellowship': 0, 'women-ministry': 0, offering: 0, rally: 0, missions: 0, loans: 0, rent: 0, other: 0, 'pension-church': 0, 'pension-minister': 0, total: 0 } },
     2: { id: 2, church: 2, balance: 0, raised: { tithes: 0, 'sunday-school': 0, fth: 0, 'youth-fellowship': 0, 'women-ministry': 0, offering: 0, rally: 0, missions: 0, loans: 0, rent: 0, other: 0, 'pension-church': 0, 'pension-minister': 0, total: 0 } },
