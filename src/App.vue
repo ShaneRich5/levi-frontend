@@ -13,35 +13,29 @@
       <router-link to="/contact">
         <md-button>Contact</md-button>
       </router-link>
-      <md-menu>
-        <md-button md-menu-trigger>Forms</md-button>
-        <md-menu-content>
-          <router-link :to="{ name: 'DistrictOverseerForm', params: { districtId: 1 }}"><md-menu-item>District</md-menu-item></router-link>
-          <router-link :to="{ name: 'MonthlyFinancialForm', params: { monthlyId: 1 }}"><md-menu-item>Monthly</md-menu-item></router-link>
-        </md-menu-content>
-      </md-menu>
     </md-toolbar>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   name: 'app',
   mounted() {
     this.$store.dispatch('setDistrictRef');
     this.$store.dispatch('setChurchRef');
+    this.$store.dispatch('setDistrictReportRef');
+    this.$store.dispatch('setChurchReportRef');
+    this.$store.dispatch('setSourceRef');
+    this.$store.dispatch('setExpenseRef');
   },
   beforeDestroy() {
     this.$store.dispatch('removeDistrictRef');
     this.$store.dispatch('removeChurchRef');
-  },
-  computed: {
-    ...mapGetters([
-      'test',
-    ]),
+    this.$store.dispatch('removeDistrictReportRef');
+    this.$store.dispatch('removeChurchReportRef');
+    this.$store.dispatch('removeSourceRef');
+    this.$store.dispatch('removeExpenseRef');
   },
 };
 </script>

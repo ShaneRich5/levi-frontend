@@ -18,3 +18,11 @@ export const rootRef = db.ref();
 export const districtRef = db.ref('districts');
 
 export const churchRef = db.ref('churches');
+
+export const churchReportRef = db.ref('churchReports');
+
+export const districtReportRef = db.ref('districtReports');
+
+export const sourceRef = db.ref('sources');
+
+export const expenseRef = db.ref('expenses');

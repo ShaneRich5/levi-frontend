@@ -8,6 +8,77 @@ const calculateMonthlyTotalRaised = (fields) => {
 /* eslint-disable no-param-reassign */
 /* eslint-disable space-before-function-paren */
 export default {
+  [types.EXPENSE_LOADED] (state, expense) {
+    state.expenses = [...state.expenses, expense];
+  },
+  [types.EXPENSE_CHANGED] (state, updatedExpense) {
+    state.expenses = state.expenses.map((expense) => {
+      if (expense.id === updatedExpense.id) {
+        return updatedExpense;
+      }
+      return expense;
+    });
+  },
+  [types.EXPENSE_DELETED] (state, index) {
+    state.expenses = [...state.expenses.slice(0, index), ...state.expenses.slice(index + 1)];
+  },
+  [types.CLEAR_EXPENSES] (state) {
+    state.expenses = [];
+  },
+
+  [types.SOURCE_LOADED] (state, source) {
+    state.sources = [...state.sources, source];
+  },
+  [types.SOURCE_CHANGED] (state, updatedSource) {
+    state.sources = state.sources.map((source) => {
+      if (source.id === updatedSource.id) {
+        return updatedSource;
+      }
+      return source;
+    });
+  },
+  [types.SOURCE_DELETED] (state, index) {
+    state.sources = [...state.sources.slice(0, index), ...state.sources.slice(index + 1)];
+  },
+  [types.CLEAR_SOURCES] (state) {
+    state.sources = [];
+  },
+  [types.DISTRICT_REPORT_LOADED] (state, report) {
+    state.districtReports = [...state.districtReports, report];
+  },
+  [types.DISTRICT_REPORT_CHANGED] (state, updatedReport) {
+    state.districtReports = state.churchReports.map((report) => {
+      if (report.id === updatedReport.id) {
+        return updatedReport;
+      }
+      return report;
+    });
+  },
+  [types.DISTRICT_REPORT_DELETED] (state, index) {
+    state.districtReports = [...state.districtReports.slice(0, index),
+      ...state.districtReports.slice(index + 1)];
+  },
+  [types.CLEAR_DISTRICT_REPORTS] (state) {
+    state.districtReports = [];
+  },
+  [types.CHURCH_REPORT_LOADED] (state, report) {
+    state.churchReports = [...state.churchReports, report];
+  },
+  [types.CHURCH_REPORT_CHANGED] (state, updatedReport) {
+    state.churchReports = state.churchReports.map((report) => {
+      if (report.id === updatedReport.id) {
+        return updatedReport;
+      }
+      return report;
+    });
+  },
+  [types.CHURCH_REPORT_DELETED] (state, index) {
+    state.churchReports = [...state.churchReports.slice(0, index),
+      ...state.churchReports.slice(index + 1)];
+  },
+  [types.CLEAR_CHURCH_REPORTS] (state) {
+    state.churchReports = [];
+  },
   [types.CLEAR_CHURCHES] (state) {
     state.churches = [];
   },

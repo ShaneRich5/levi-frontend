@@ -19,7 +19,11 @@
           <md-table-body>
             <md-table-row v-for="church in churches" :key="church.id">
               <md-table-cell>{{ church.id }}</md-table-cell>
-              <md-table-cell>{{ church.name }}</md-table-cell>
+              <md-table-cell>
+                <router-link :to="{ name: 'Church', params: { id: church.id }}">
+                  {{ church.name }}
+                </router-link>
+              </md-table-cell>
             </md-table-row>
             <md-table-row>
               <md-table-cell>
@@ -34,14 +38,25 @@
       </md-table-card>
     </md-layout>
     <md-layout md-align="center">
-      <md-button>Generate</md-button>
-      <h2>2017</h2>
+      <md-button @click.native="handleFormCreation">Generate</md-button>
     </md-layout>
     <md-layout md-align="center" md-flex="66">
       <md-table-card>
         <md-toolbar>
-          <h1 class="md-title">Monthly Reports</h1>
+          <h1 class="md-title">District Overseer's Reports</h1>
         </md-toolbar>
+        <md-table>
+          <md-table-header>
+            <md-table-row>
+              <md-table-head>Id</md-table-head>
+            </md-table-row>
+          </md-table-header>
+          <md-table-body>
+            <md-table-row v-for="report in districtReports" :key="report.id">
+              <md-table-cell>{{ report.id }}</md-table-cell>
+            </md-table-row>
+          </md-table-body>
+        </md-table>
       </md-table-card>
     </md-layout>
   </div>
@@ -65,10 +80,14 @@ export default {
     churches() {
       return this.$store.getters.churchesByDistrict(this.district.id);
     },
+    districtReports() {
+      return this.$store.getters.districtReportsByDistrict(this.id);
+    },
   },
   methods: {
     ...mapActions([
       'createChurch',
+      'generateReports',
     ]),
     handleChurchCreation() {
       if (this.churchName.length !== 0) {
@@ -76,6 +95,10 @@ export default {
         this.createChurch(church);
         this.churchName = '';
       }
+    },
+    handleFormCreation() {
+      const keys = { district: this.district.id, churches: Object.keys(this.district.churches) };
+      this.generateReports(keys);
     },
   },
 };

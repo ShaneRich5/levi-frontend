@@ -3,8 +3,8 @@ import Router from 'vue-router';
 import Home from '@/components/Home';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
-import MonthlyFinancialForm from '@/components/MonthlyFinancialForm';
-import DistrictOverseerForm from '@/components/DistrictOverseerForm';
+import ChurchReport from '@/components/ChurchReport';
+import DistrictReport from '@/components/DistrictReport';
 import Districts from '@/components/Districts';
 import District from '@/components/District';
 import Churches from '@/components/Churches';
@@ -19,10 +19,10 @@ const routes = [
   { path: '/about', component: About, name: 'About' },
   { path: '/districts', component: Districts, name: 'Districts' },
   { path: '/districts/:id', component: District, name: 'District', props: true },
+  { path: '/district-reports/:id', component: DistrictReport, name: 'DistrictReport', props: true },
   { path: '/churches', component: Churches, name: 'Churches' },
   { path: '/churches/:id', component: Church, name: 'Church', props: true },
-  { path: '/forms/monthly/:monthlyId', component: MonthlyFinancialForm, name: 'MonthlyFinancialForm', props: true },
-  { path: '/forms/district/:districtId', component: DistrictOverseerForm, name: 'DistrictOverseerForm', props: true },
+  { path: '/church-reports/:id', component: ChurchReport, name: 'ChurchReport', props: true },
   { path: '*', component: PageNotFound, name: 'PageNotFound' },
 ];
 
