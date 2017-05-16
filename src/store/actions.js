@@ -1,6 +1,10 @@
 import * as types from './mutation-types';
 import * as services from '../services';
 
+export const updateDistrictReportOpeningFund = ({ commit }, { districtReport, amount }) => {
+  services.districtReportRef.child(districtReport).child('openingFund').set(amount);
+};
+
 /* eslint-disable prefer-template */
 export const createSource = ({ commit }, source) => {
   const { key } = services.sourceRef.push();
@@ -45,6 +49,7 @@ export const generateReports = ({ commit }, { district, churches }) => {
   // map district-report to district and vice versa
   updates['/districts/' + district + '/districtReports/' + districtReportKey] = true;
   updates['/districtReports/' + districtReportKey + '/district'] = district;
+  updates['/districtReports/' + districtReportKey + '/openingFund'] = 0;
 
   churches.forEach((church) => {
     const churchReportKey = services.churchReportRef.push().key;

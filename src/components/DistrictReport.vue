@@ -2,8 +2,7 @@
   <div>
     <h1>District Overseer's Monthly Report Form</h1>
     <h2>{{ id }}</h2>
-    <p>{{ expenses }}</p>
-
+    <p>{{ districtReport }}</p>
     <md-layout md-align="center" md-flex="35">
       <table class="form">
         <tr>
@@ -41,13 +40,13 @@
           <td
             v-for="(multiplier, index) in multipliers"
           >
-            {{ multiplier * calculatedTotal() }}
+            {{ multiplier * calculatedTotalSources() }}
           </td>
         </tr>
         <tr>
           <td class="no-border"></td>
           <td colspan="4">Total Receipts</td>
-          <td>{{ calculatedTotal() * 0.3 }}</td>
+          <td>{{ calculatedTotalSources() * 0.3 }}</td>
           <td>D</td>
         </tr>
         <tr>
@@ -80,6 +79,32 @@
           </td>
           <td>0.00</td>
         </tr>
+        <tr>
+          <td class="no-border"></td>
+          <td colspan="4">Total Expenses for the Month</td>
+          <td>{{ calculatedTotalExpenses() }}</td>
+        </tr>
+        <tr>
+          <td class="no-border"></td>
+          <td colspan="4">Net Income (Expenditure) for the Month</td>
+          <td>{{ calculatedNetIncome() }}</td>
+        </tr>
+        <tr>
+          <td class="no-border"></td>
+          <td colspan="4">Opening District Fund Balance</td>
+          <td>
+            <input
+              v-if="districtReport !== undefined"
+              type="number"
+              :value="districtReport.openingFund"
+              v-on:keyup.enter="handleOpeningFundUpdate($event.target.value)" />
+          </td>
+        </tr>
+        <tr>
+          <td class="no-border"></td>
+          <td colspan="4">Closing District Fund Balance</td>
+          <td>{{ formatCurrency(calculatedClosingBalance()) }}</td>
+        </tr>
       </table>
     </md-layout>
   </div>
@@ -95,10 +120,7 @@ export default {
   mixins: [Currency],
   data() {
     return {
-      expense: {},
-      grossTotal: 0,
       newExpenseName: '',
-      openingBalance: 0,
       receiptsHeadings: [
         ['', '', 'A', 'B', 'C', '(A+B+C)'],
         ['', 'Name of Church', 'Received for National Office', 'Received for District Y.C.E.D.', 'Received for District Fund', 'Total from Local Church'],
@@ -125,7 +147,7 @@ export default {
     },
     expenses() {
       if (this.districtReport === undefined) {
-        return {};
+        return [];
       }
       return this.$store.getters.expensesByDistrictReport(this.id);
     },
@@ -134,17 +156,31 @@ export default {
     totalSources(sources) {
       return sources.reduce((accumulator, source) => accumulator + Number(source.amount), 0);
     },
-    calculatedTotal() {
+    calculatedTotalSources() {
       const churches = Object.keys(this.churchReportSources);
       return churches
         .reduce((accumulator, church) =>
           accumulator + this.totalSources(this.churchReportSources[church].sources), 0);
+    },
+    calculatedTotalExpenses() {
+      return this.expenses
+        .reduce((accumulator, expense) => accumulator + Number(expense.amount), 0);
+    },
+    calculatedNetIncome() {
+      return (this.calculatedTotalSources() * 0.3) - this.calculatedTotalExpenses();
+    },
+    calculatedClosingBalance() {
+      return Number(this.districtReport.openingFund) + Number(this.calculatedNetIncome());
     },
     handleExpenseNameUpdate(id, name) {
       this.updateExpenseName({ id, name });
     },
     handleExpenseAmountUpdate(id, amount) {
       this.updateExpenseAmount({ id, amount });
+    },
+    handleOpeningFundUpdate(amount) {
+      const fund = { districtReport: this.id, amount };
+      this.updateDistrictReportOpeningFund(fund);
     },
     handleExpenseCreation() {
       const expense = {
@@ -175,6 +211,7 @@ export default {
       'updateExpenseName',
       'updateExpenseAmount',
       'updateExpense',
+      'updateDistrictReportOpeningFund',
     ]),
   },
 };
