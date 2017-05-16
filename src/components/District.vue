@@ -53,7 +53,12 @@
           </md-table-header>
           <md-table-body>
             <md-table-row v-for="report in districtReports" :key="report.id">
-              <md-table-cell>{{ report.id }}</md-table-cell>
+              <md-table-cell>
+                <router-link
+                  :to="{ name: 'DistrictReport', params: { id: report.id }}">
+                  {{ report.id }}
+                </router-link>
+              </md-table-cell>
             </md-table-row>
           </md-table-body>
         </md-table>

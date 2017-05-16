@@ -1,20 +1,22 @@
 <template>
   <div>
     <md-layout md-align="center" md-flex="66">
-      <p v-if="churchReport">{{ districtReport }}</p>
-    </md-layout>
-    <md-layout md-align="center" md-flex="66">
       <md-table-card>
         <md-toolbar>
           <h1 class="md-title">Monthly Financial Breakdown - {{ id }}</h1>
         </md-toolbar>
-
         <md-table>
           <md-table-header>
             <md-table-row>
               <md-table-head>Id</md-table-head>
               <md-table-head>Source</md-table-head>
               <md-table-head>Raised</md-table-head>
+              <md-table-head>Island Office</md-table-head>
+              <md-table-head>District Office</md-table-head>
+              <md-table-head>Departments</md-table-head>
+              <md-table-head>Minister I/C</md-table-head>
+              <md-table-head>Total</md-table-head>
+              <md-table-head>Balance (To Church)</md-table-head>
             </md-table-row>
           </md-table-header>
 
@@ -28,8 +30,12 @@
               </md-table-cell>
               <md-table-cell>
                 <input
-                  :value="source.raised"
-                  v-on:keyup.enter="handleSourceRaisedChanged(source.id, $event.target.raised)"/>
+                  type="number"
+                  :value="source.amount"
+                  v-on:keyup.enter="handleSourceAmountChanged(source.id, $event.target.value)"/>
+              </md-table-cell>
+              <md-table-cell v-for="(multiplier, index) in multipliers" :key="index">
+                {{ formatCurrency(multiplier * source.amount) }}
               </md-table-cell>
             </md-table-row>
             <md-table-row>
@@ -39,7 +45,15 @@
                   v-model="sourceName"
                   v-on:keyup.enter="handleSourceCreation()"/>
               </md-table-cell>
+              <md-table-cell v-for="i in 7" :key="i"></md-table-cell>
+            </md-table-row>
+            <md-table-row>
               <md-table-cell></md-table-cell>
+              <md-table-cell>Total</md-table-cell>
+              <md-table-cell>{{ formatCurrency(totalRaised) }}</md-table-cell>
+              <md-table-cell v-for="(multiplier, index) in multipliers" :key="index">
+                {{ formatCurrency(totalRaised * multiplier) }}
+              </md-table-cell>
             </md-table-row>
           </md-table-body>
         </md-table>
@@ -59,6 +73,7 @@ export default {
   data() {
     return {
       sourceName: '',
+      multipliers: [0.1, 0.1, 0.1, 0.1, 0.4, 0.6],
     };
   },
   computed: {
@@ -66,13 +81,25 @@ export default {
       return this.$store.getters.churchReportById(this.id);
     },
     districtReport() {
+      if (this.churchReport === undefined) {
+        return {};
+      }
       return this.$store.getters.districtReportById(this.churchReport.districtReport);
     },
     church() {
+      if (this.churchReport === undefined) {
+        return {};
+      }
       return this.$store.getters.churchById(this.churchReport.church);
     },
     sources() {
-      return [...this.$store.getters.sourcesByChurchReport(this.churchReport.id)];
+      if (this.churchReport === undefined) {
+        return [];
+      }
+      return this.$store.getters.sourcesByChurchReport(this.churchReport.id);
+    },
+    totalRaised() {
+      return this.sources.reduce((accumulator, source) => accumulator + Number(source.amount), 0);
     },
   },
   methods: {
@@ -86,7 +113,7 @@ export default {
         this.updateSourceName({ id, name });
       }
     },
-    handleSourceRaisedChanged(id, amount) {
+    handleSourceAmountChanged(id, amount) {
       if (!isNaN(amount) && amount >= 0) {
         this.updateSourceAmount({ id, amount });
       }
@@ -95,7 +122,7 @@ export default {
       if (this.sourceName.length !== 0) {
         const source = {
           name: this.sourceName,
-          raised: 0,
+          amount: 0,
           churchReport: this.id,
           districtReport: this.districtReport.id,
         };

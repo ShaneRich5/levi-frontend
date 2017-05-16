@@ -11,12 +11,30 @@ export const createSource = ({ commit }, source) => {
   services.rootRef.update(updates);
 };
 
+/* eslint-disable prefer-template */
+export const createExpense = ({ commit }, expense) => {
+  const { key } = services.expenseRef.push();
+  const { districtReport } = expense;
+  const updates = {};
+  updates['/expenses/' + key] = expense;
+  updates['/districtReports/' + districtReport + '/expenses/' + key] = true;
+  services.rootRef.update(updates);
+};
+
+export const updateExpenseName = ({ commit }, { id, name }) => {
+  services.expenseRef.child(id).child('name').set(name);
+};
+
+export const updateExpenseAmount = ({ commit }, { id, amount }) => {
+  services.expenseRef.child(id).child('amount').set(amount);
+};
+
 export const updateSourceName = ({ commit }, { id, name }) => {
   services.sourceRef.child(id).child('name').set(name);
 };
-/* eslint-disable no-unused-vars */
+
 export const updateSourceAmount = ({ commit }, { id, amount }) => {
-  // services.sourceRef.child(id).child('raised').set(amount);
+  services.sourceRef.child(id).child('amount').set(amount);
 };
 
 /* eslint-disable prefer-template */
@@ -33,7 +51,7 @@ export const generateReports = ({ commit }, { district, churches }) => {
     updates['/churches/' + church + '/churchReports/' + churchReportKey] = true;
     updates['/churchReports/' + churchReportKey + '/church'] = church;
     updates['/churchReports/' + churchReportKey + '/districtReport'] = districtReportKey;
-    updates['/districtReports/' + districtReportKey + '/churchesReports/' + churchReportKey] = true;
+    updates['/districtReports/' + districtReportKey + '/churchReports/' + churchReportKey] = true;
   });
 
   services.rootRef.update(updates);
@@ -58,10 +76,6 @@ export const createChurch = ({ commit }, { district, name }) => {
 };
 
 //
-export const createExpense = ({ commit }, payload) => {
-  commit(types.CREATE_EXPENSE, payload);
-};
-
 export const updateExpense = ({ commit }, payload) => {
   const { name, cost } = payload;
   if (name === '' || isNaN(cost)) {
@@ -189,18 +203,18 @@ export const setSourceRef = ({ commit, state }) => {
 export const setExpenseRef = ({ commit, state }) => {
   services.expenseRef.on('child_added', (data) => {
     const report = Object.assign({}, data.val(), { id: data.key });
-    commit(types.CHURCH_REPORT_LOADED, report);
+    commit(types.EXPENSE_LOADED, report);
   });
 
   services.expenseRef.on('child_changed', (data) => {
     const report = Object.assign({}, data.val(), { id: data.key });
-    commit(types.CHURCH_REPORT_CHANGED, report);
+    commit(types.EXPENSE_CHANGED, report);
   });
 
   services.expenseRef.on('child_removed', (data) => {
     const index = state.reports.findIndex(report => report.id === data.key);
     if (index !== undefined) {
-      commit(types.CHURCH_REPORT_DELETED, index);
+      commit(types.EXPENSE_DELETED, index);
     }
   });
 };

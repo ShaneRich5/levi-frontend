@@ -1,7 +1,8 @@
 <template>
   <div>
     <h1>District Overseer's Monthly Report Form</h1>
-    <h2>{{ districtId }} - {{ district.name }}</h2>
+    <h2>{{ id }}</h2>
+    <p>{{ expenses }}</p>
 
     <md-layout md-align="center" md-flex="35">
       <table class="form">
@@ -11,45 +12,62 @@
           <th colspan="4">Receipts</th>
         </tr>
         <tr v-for="(headingRow, headingRowIndex) in receiptsHeadings" :key="headingRowIndex">
-          <th v-for="(heading, headingIndex) in headingRow" :key="headingIndex">{{ heading }}</th>
+          <th
+            v-bind:class="[heading === '' ? 'no-border' : '']"
+            v-for="(heading, headingIndex) in headingRow" 
+            :key="headingIndex"
+          >
+            {{ heading }}
+          </th>
         </tr>
-      
-        <tr v-for="(church, churchIndex) in churches" :key="churchIndex">
-          <td>{{ churchIndex + 1 }}</td>
+        <tr v-for="(report, churchReportId, index) in churchReportSources" :key="churchReportId">
+          <td>{{ index + 1 }}</td>
           <td>
             <router-link 
-              :to="{ name: 'MonthlyFinancialForm', params: { monthlyId: church.monthly.id }}">
-              {{ church['name'] }}
+              :to="{ name: 'ChurchReport', params: { id: churchReportId }}">
+              {{ report.church.name }}
             </router-link>
           </td>
-          <td v-for="(receipt, receiptIndex) in receiptRow(church)" :key="receiptIndex">
-            {{ formatCurrency(receipt) }}
+          <td 
+            v-for="(multiplier, index) in multipliers" 
+            :key="index"
+          >
+            {{ formatCurrency(multiplier * totalSources(report.sources)) }}
           </td>
         </tr>
         <tr>
           <td class="no-border"></td>
           <td>Total</td>
-          <td v-for="(column, index) in totals" :key="index">
-            {{formatCurrency(column) }}
-          </td> 
+          <td
+            v-for="(multiplier, index) in multipliers"
+          >
+            {{ multiplier * calculatedTotal() }}
+          </td>
         </tr>
         <tr>
-          <th class="no-border"></th>
-          <th colspan="5">Expenses</th>
+          <td class="no-border"></td>
+          <td colspan="4">Total Receipts</td>
+          <td>{{ calculatedTotal() * 0.3 }}</td>
+          <td>D</td>
         </tr>
-        <tr v-for="(expense, index) in district.expenses" :key="index">
+        <tr>
+          <td class="no-border"></td>
+          <td colspan="5">Expenses</td>
+        </tr>
+        <tr
+          v-for="expense in expenses"
+          :key="expense.id"
+        >
           <td class="no-border"></td>
           <td colspan="4">
             <input
-              v-focus
-              v-model="expense.name"
-              v-on:keyup.enter="handleExpenseUpdate(index, expense)">
+              v-focus :value="expense.name"
+              v-on:keyup.enter="handleExpenseNameUpdate(expense.id, $event.target.value)">
           </td>
           <td>
-            <input 
-              type="number"
-              v-model="expense.cost"
-              v-on:keyup.enter="handleExpenseUpdate(index, expense)">
+            <input
+              :value="expense.amount"
+              v-on:keyup.enter="handleExpenseAmountUpdate(expense.id, $event.target.value)">
           </td>
         </tr>
         <tr>
@@ -62,28 +80,6 @@
           </td>
           <td>0.00</td>
         </tr>
-        <tr>
-          <th class="no-border"></th>
-          <th colspan="5">Summary</th>
-        </tr>
-        <tr>
-          <td class="no-border" rowspan="4"></td>
-          <td rowspan="4"></td>
-          <td colspan="3">Total Expenses for the month</td>
-          <td>{{ formatCurrency(totalExpenses) }}</td>
-        </tr>
-        <tr>
-          <td colspan="3">Net Income/(Expenditure) for the Month</td>
-          <td>{{ formatCurrency(netIncome) }}</td>
-        </tr>
-        <tr>
-          <td colspan="3">Opening District Fund Balance</td>
-          <td><input v-model="openingBalance"></td>
-        </tr>
-        <tr>
-          <td colspan="3">Closing District Fund Balance</td>
-          <td>{{ formatCurrency(closingBalance) }}</td>
-        </tr>
       </table>
     </md-layout>
   </div>
@@ -95,10 +91,11 @@ import Currency from './mixins/Currency';
 
 export default {
   name: 'district-overseer-form',
-  props: ['districtId'],
+  props: ['id'],
   mixins: [Currency],
   data() {
     return {
+      expense: {},
       grossTotal: 0,
       newExpenseName: '',
       openingBalance: 0,
@@ -106,37 +103,57 @@ export default {
         ['', '', 'A', 'B', 'C', '(A+B+C)'],
         ['', 'Name of Church', 'Received for National Office', 'Received for District Y.C.E.D.', 'Received for District Fund', 'Total from Local Church'],
       ],
+      multipliers: [0.1, 0.1, 0.1, 0.3],
     };
   },
   computed: {
+    districtReport() {
+      return this.$store.getters.districtReportById(this.id);
+    },
     district() {
-      return this.$store.getters.getDistrictById(this.districtId);
+      if (this.districtReport === undefined) {
+        return {};
+      }
+      return this.$store.getters.districtById(this.districtReport.district);
     },
-    churches() {
-      return this.$store.getters.getDistrictChurches(this.districtId);
+    churchReportSources() {
+      if (this.districtReport === undefined) {
+        return {};
+      }
+      const churchReports = Object.keys(this.districtReport.churchReports);
+      return this.$store.getters.churchReportSources(churchReports);
     },
-    totals() {
-      const totals = this.receiptTotals();
-      this.grossTotal = totals[totals.length - 1];
-      return totals;
-    },
-    totalExpenses() {
-      return this.$store.getters.totalDistrictExpense(this.districtId);
-    },
-    netIncome() {
-      return this.grossTotal - this.totalExpenses;
-    },
-    closingBalance() {
-      return this.openingBalance + this.netIncome;
+    expenses() {
+      if (this.districtReport === undefined) {
+        return {};
+      }
+      return this.$store.getters.expensesByDistrictReport(this.id);
     },
   },
   methods: {
-    handleExpenseUpdate(index, { name, cost }) {
-      this.updateExpense({ id: this.districtId, index, name, cost });
+    totalSources(sources) {
+      return sources.reduce((accumulator, source) => accumulator + Number(source.amount), 0);
+    },
+    calculatedTotal() {
+      const churches = Object.keys(this.churchReportSources);
+      return churches
+        .reduce((accumulator, church) =>
+          accumulator + this.totalSources(this.churchReportSources[church].sources), 0);
+    },
+    handleExpenseNameUpdate(id, name) {
+      this.updateExpenseName({ id, name });
+    },
+    handleExpenseAmountUpdate(id, amount) {
+      this.updateExpenseAmount({ id, amount });
     },
     handleExpenseCreation() {
-      const districtExpense = { id: this.districtId, name: this.newExpenseName, cost: 0 };
-      this.createExpense(districtExpense);
+      const expense = {
+        name: this.newExpenseName,
+        district: this.districtReport.district,
+        districtReport: this.id,
+        amount: 0,
+      };
+      this.createExpense(expense);
       this.newExpenseName = '';
     },
     receiptRow(church) {
@@ -155,6 +172,8 @@ export default {
     },
     ...mapActions([
       'createExpense',
+      'updateExpenseName',
+      'updateExpenseAmount',
       'updateExpense',
     ]),
   },
