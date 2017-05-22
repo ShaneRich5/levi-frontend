@@ -2,7 +2,6 @@
   <div>
     <h1>District Overseer's Monthly Report Form</h1>
     <h2>{{ id }}</h2>
-    <p>{{ districtReport }}</p>
     <md-layout md-align="center" md-flex="35">
       <table class="form">
         <tr>
