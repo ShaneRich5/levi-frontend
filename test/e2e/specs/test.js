@@ -12,7 +12,7 @@ module.exports = {
       .url(devServer)
       .waitForElementVisible('#app', 5000)
       .assert.elementPresent('.home')
-      .assert.containsText('h1', 'Homepage')
+      .assert.containsText('h1', 'Life Simplified')
       // .assert.elementCount('img', 1)
       .end();
   },

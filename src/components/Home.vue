@@ -65,7 +65,7 @@ export default {
   },
   data() {
     return {
-      message: 'life Simplified',
+      message: 'Life Simplified',
     };
   },
 };
