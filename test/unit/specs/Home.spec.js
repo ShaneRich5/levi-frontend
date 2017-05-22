@@ -6,7 +6,7 @@ describe('Home.vue', () => {
     const Constructor = Vue.extend(Home);
     const vm = new Constructor().$mount();
     expect(vm.$el.querySelector('.home h1').textContent)
-      .to.equal('Homepage');
+      .to.equal('Life Simplified');
   });
 });
 
