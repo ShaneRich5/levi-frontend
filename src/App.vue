@@ -1,5 +1,6 @@
 <template>
-  <div id="app">
+  <div id="app" >
+    <!--
     <md-toolbar>
       <router-link to="/">
         <h2 class="md-title" style="flex: 1">Levi</h2>
@@ -14,6 +15,8 @@
         <md-button>Contact</md-button>
       </router-link>
     </md-toolbar>
+
+    -->
     <router-view></router-view>
   </div>
 </template>
@@ -48,6 +51,8 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+
+
 
 h1 {
   margin-top: 0;

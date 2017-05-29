@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import 'normalize.css';
 import 'vue-material/dist/vue-material.css';
+import axios from 'axios';
 import Vue from 'vue';
 import VueMaterial from 'vue-material';
 import { sync } from 'vuex-router-sync';
@@ -11,6 +12,7 @@ import store from './store';
 
 sync(store, router);
 
+Vue.prototype.$http = axios;
 Vue.use(VueMaterial);
 Vue.config.productionTip = false;
 

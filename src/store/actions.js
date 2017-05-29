@@ -1,5 +1,14 @@
+import axios from 'axios';
 import * as types from './mutation-types';
 import * as services from '../services';
+
+/* eslint-disable no-console */
+export const registerUser = ({ commit }, { email, password }) => {
+  axios.post('http://localhost:8000/api/register', { email, password })
+    .then(response => response.data)
+    .then(console.log)
+    .catch(console.error);
+};
 
 export const updateDistrictReportOpeningFund = ({ commit }, { districtReport, amount }) => {
   services.districtReportRef.child(districtReport).child('openingFund').set(amount);
