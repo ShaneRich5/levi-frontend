@@ -1,7 +1,5 @@
 <template>
-
   <div class="form"> 
-  
     <ul class="tab-group">
       <li class="tab">
         <router-link :to="{ path: 'register' }">Sign Up</router-link>
@@ -13,7 +11,6 @@
     <div class="tab-content">    
       <div id="login">   
         <h1>Welcome Back!</h1>
-        
         <form>
           <div class="field-wrap">
             <label>

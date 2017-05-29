@@ -2,10 +2,10 @@
   <div class="form"> 
   
     <ul class="tab-group">
-      <li class="tab">
+      <li class="tab active">
         <router-link :to="{ path: 'register' }">Sign Up</router-link>
       </li>
-      <li class="tab active">
+      <li class="tab">
         <router-link :to="{ path: 'login' }">Log in</router-link>
       </li>
     </ul>
@@ -40,38 +40,10 @@
             </label>
             <input type="password" required autocomplete="off"/>
           </div>
-          <button type="submit" class="button button-block"/>Get Started</button>  
+          <button type="submit" class="button button-block">Get Started</button>  
         </form>
       </div>
         
-      <div id="login">   
-        <h1>Welcome Back!</h1>
-        
-        <form action="/" method="post">
-        
-          <div class="field-wrap">
-          <label>
-            Email Address<span class="req">*</span>
-          </label>
-          <input type="email"required autocomplete="off"/>
-        </div>
-        
-        <div class="field-wrap">
-          <label>
-            Password<span class="req">*</span>
-          </label>
-          <input type="password"required autocomplete="off"/>
-        </div>
-          
-          <p class="forgot"><a href="#">Forgot Password?</a></p>
-          
-          <button class="button button-block"/>Log In</button>
-          
-          </form>
-
-        </div>
-        
-      </div><!-- tab-content -->
       
 </div> <!-- /form -->
     </div>
@@ -80,7 +52,7 @@
 
 <script>
 export default {
-  name: 'LoginPage',
+  name: 'RegisterPage',
   data() {
     return {
     };
@@ -167,11 +139,11 @@ a:hover {
   background: #1ab188;
   color: #ffffff;
 }
-
+/*
 .tab-content > div:last-child {
   display: none;
 }
-
+*/
 h1 {
   text-align: center;
   color: #ffffff;

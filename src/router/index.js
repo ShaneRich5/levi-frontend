@@ -10,7 +10,7 @@ import District from '@/components/District';
 import Churches from '@/components/Churches';
 import Church from '@/components/Church';
 import PageNotFound from '@/components/PageNotFound';
-import RegistrationForm from '@/components/forms/RegistrationForm';
+import RegistrationPage from '@/components/pages/RegistrationPage';
 import LoginPage from '@/components/pages/LoginPage';
 
 Vue.use(Router);
@@ -18,7 +18,7 @@ Vue.use(Router);
 const routes = [
   { path: '/', component: Home, name: 'Home' },
   { path: '/login', component: LoginPage, name: 'login' },
-  { path: '/register', component: RegistrationForm, name: 'RegistrationForm' },
+  { path: '/register', component: RegistrationPage, name: 'register' },
   { path: '/contact', component: Contact, name: 'Contact' },
   { path: '/about', component: About, name: 'About' },
   { path: '/districts', component: Districts, name: 'Districts' },
