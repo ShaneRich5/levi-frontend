@@ -19,26 +19,26 @@
               <label>
                 First Name<span class="req">*</span>
               </label>
-              <input type="text" required autocomplete="off" />
+              <input v-model="user.firstName" type="text" required autocomplete="off" />
             </div>
             <div class="field-wrap">
               <label>
                 Last Name<span class="req">*</span>
               </label>
-              <input type="text"required autocomplete="off"/>
+              <input v-model="user.lastName" type="text"required autocomplete="off"/>
             </div>
           </div>
           <div class="field-wrap">
             <label>
               Email Address<span class="req">*</span>
             </label>
-            <input type="email"required autocomplete="off"/>
+            <input v-model="user.email" type="email"required autocomplete="off"/>
           </div>
           <div class="field-wrap">
             <label>
               Set A Password<span class="req">*</span>
             </label>
-            <input type="password" required autocomplete="off"/>
+            <input v-model="user.password" type="password" required autocomplete="off"/>
           </div>
           <button type="submit" class="button button-block">Get Started</button>  
         </form>
@@ -55,6 +55,12 @@ export default {
   name: 'RegisterPage',
   data() {
     return {
+      user: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+      },
     };
   },
 };
