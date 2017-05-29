@@ -3,8 +3,13 @@
 import 'normalize.css';
 import 'vue-material/dist/vue-material.css';
 import axios from 'axios';
+import VueAuthBearer from '@websanova/vue-auth/drivers/auth/bearer';
+import VueAuthAxiosDriver from '@websanova/vue-auth/drivers/http/axios.1.x';
+import VueAuthRouterDriver from '@websanova/vue-auth/drivers/router/vue-router.2.x';
+import VueAuth from '@websanova/vue-auth';
 import Vue from 'vue';
 import VueMaterial from 'vue-material';
+import VueAxios from 'vue-axios';
 import { sync } from 'vuex-router-sync';
 import App from './App';
 import router from './router';
@@ -12,9 +17,17 @@ import store from './store';
 
 sync(store, router);
 
-Vue.prototype.$http = axios;
 Vue.use(VueMaterial);
+Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
+
+Vue.use(VueAuth, {
+  auth: VueAuthBearer,
+  http: VueAuthAxiosDriver,
+  router: VueAuthRouterDriver,
+  // http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
+  // router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js')
+});
 
 Vue.directive('focus', {
   inserted: el => Vue.nextTick(() => el.focus()),
