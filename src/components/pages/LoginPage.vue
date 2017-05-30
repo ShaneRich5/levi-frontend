@@ -11,19 +11,29 @@
     <div class="tab-content">    
       <div id="login">   
         <h1>Welcome Back!</h1>
-        <form>
+        <form v-on:submit.prevent="attemptLogin">
           <div class="field-wrap">
             <label>
-              Email Address<span class="req">*</span>
+              <!-- Email Address<span class="req">*</span> -->
             </label>
-            <input type="email"required autocomplete="off"/>
+            <input
+              placeholder="Email"
+              v-model="user.email" 
+              type="email" 
+              autocomplete="off"
+            />
           </div>
         
           <div class="field-wrap">
             <label>
-              Password<span class="req">*</span>
+              <!-- Password<span class="req">*</span> -->
             </label>
-            <input type="password"required autocomplete="off"/>
+            <input
+              v-model="user.password" 
+              placeholder="Password" 
+              type="password" 
+              autocomplete="off"
+            />
           </div>
           
           <p class="forgot"><a href="#">Forgot Password?</a></p>
@@ -36,11 +46,32 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   name: 'LoginPage',
   data() {
     return {
+      user: {
+        email: '',
+        password: '',
+      },
     };
+  },
+  computed: {
+    ...mapGetters([
+      'token',
+    ]),
+  },
+  methods: {
+    ...mapActions([
+      'login',
+    ]),
+    attemptLogin() {
+      /* eslint-disable no-console */
+      // const { email, password } = {this.user};
+      this.login({ email: 'admin@admin.com', password: 'password' });
+    },
   },
 };
 </script>

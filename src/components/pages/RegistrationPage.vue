@@ -63,6 +63,10 @@ export default {
       },
     };
   },
+  methods: {
+    register() {
+    },
+  },
 };
 </script>
 

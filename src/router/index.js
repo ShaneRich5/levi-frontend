@@ -15,10 +15,18 @@ import LoginPage from '@/components/pages/LoginPage';
 
 Vue.use(Router);
 
+const onlyGuest = (to, from, next) => {
+  if (localStorage.token === 'undefined' || localStorage.token === null) {
+    next();
+  } else {
+    next({ name: 'Home' });
+  }
+};
+
 const routes = [
   { path: '/', component: Home, name: 'Home' },
-  { path: '/login', component: LoginPage, name: 'login' },
-  { path: '/register', component: RegistrationPage, name: 'register' },
+  { path: '/login', component: LoginPage, name: 'login', beforeEnter: onlyGuest },
+  { path: '/register', component: RegistrationPage, name: 'register', beforeEnter: onlyGuest },
   { path: '/contact', component: Contact, name: 'Contact' },
   { path: '/about', component: About, name: 'About' },
   { path: '/districts', component: Districts, name: 'Districts' },

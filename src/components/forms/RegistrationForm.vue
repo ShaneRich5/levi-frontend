@@ -37,9 +37,9 @@ export default {
   },
   methods: {
     ...mapActions([
-      'registerUser',
+      'register',
     ]),
-    register() {
+    registerUser() {
       this.errorMessage = 'Roat';
     },
   },
