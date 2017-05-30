@@ -16,22 +16,18 @@ export const login = ({ commit }, { email, password }) => {
 export const loadUser = ({ commit }) => {
   const savedToken = localStorage.token;
 
-  console.log(savedToken);
-
-  if (savedToken === 'undefined') {
+  if (savedToken === 'undefined' || savedToken === undefined) {
     return;
   }
-  // axios.defaults.headers.common.Authorization = `Bearer ${savedToken}`;
-
 
   axios.get(Config.api.userFromTokenUrl(savedToken))
     .then(response => response.data)
     .then((data) => {
       const { user } = data;
       localStorage.token = savedToken;
-      commit(types.LOGIN, { user, savedToken });
+      commit(types.LOGIN, { user, token: savedToken });
     })
-    .catch(console.error);
+    .catch(() => commit(types.LOGOUT));
 };
 
-export const e = axios;
+export const logout = ({ commit }) => commit(types.LOGOUT);

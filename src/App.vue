@@ -18,35 +18,16 @@
 
     -->
 
-    <md-toolbar>
-      <md-icon>menu</md-icon>
-      <router-link class="nav-link" :to="{ name: 'Home' }">Home</router-link>
-      <h2 class="md-title" style="flex: 1;">Levi</h2>
-      <router-link v-if="!isAauthenticated" class="nav-link" :to="{ name: 'login' }">Login</router-link>
-      <router-link v-if="!isAauthenticated" class="nav-link" :to="{ name: 'register' }">Register</router-link>
-      <md-button v-if="isAauthenticated" @click.native="logout">Logout</md-button>
-    </md-toolbar>
+    
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-
 export default {
   name: 'app',
   mounted() {
     this.$store.dispatch('loadUser');
-  },
-  computed: {
-    ...mapGetters([
-      'isAauthenticated',
-    ]),
-  },
-  methods: {
-    ...mapActions([
-      'logout',
-    ]),
   },
 };
 </script>

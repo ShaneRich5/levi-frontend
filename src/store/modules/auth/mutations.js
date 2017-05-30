@@ -8,4 +8,9 @@ export default {
     state.user = user;
     state.authenticated = true;
   },
+  [types.LOGOUT] (state) {
+    state.token = null;
+    state.user = {};
+    state.authenticated = false;
+  },
 };

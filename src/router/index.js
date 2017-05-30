@@ -1,5 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Dashboard from '@/components/layouts/Dashboard';
+import MainLayout from '@/components/layouts/MainLayout';
+import PageNotFound from '@/components/pages/PageNotFound';
+import RegistrationPage from '@/components/pages/RegistrationPage';
+import LoginPage from '@/components/pages/LoginPage';
+import JournalVoucher from '@/components/forms/JournalVoucher';
 import Home from '@/components/Home';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
@@ -9,26 +15,47 @@ import Districts from '@/components/Districts';
 import District from '@/components/District';
 import Churches from '@/components/Churches';
 import Church from '@/components/Church';
-import PageNotFound from '@/components/PageNotFound';
-import RegistrationPage from '@/components/pages/RegistrationPage';
-import LoginPage from '@/components/pages/LoginPage';
 
 Vue.use(Router);
 
 const onlyGuest = (to, from, next) => {
-  if (localStorage.token === 'undefined' || localStorage.token === null) {
+  console.log('router-guest', localStorage.token, localStorage.token === 'undefined');
+  if (localStorage.token === 'undefined' || localStorage.token === undefined) {
     next();
   } else {
-    next({ name: 'Home' });
+    next(false);
+  }
+};
+
+const requireAuth = (to, from, next) => {
+  if (localStorage.token === 'undefined' || localStorage.token === undefined) {
+    next({ name: 'login' });
+  } else {
+    next();
   }
 };
 
 const routes = [
-  { path: '/', component: Home, name: 'Home' },
-  { path: '/login', component: LoginPage, name: 'login', beforeEnter: onlyGuest },
-  { path: '/register', component: RegistrationPage, name: 'register', beforeEnter: onlyGuest },
-  { path: '/contact', component: Contact, name: 'Contact' },
-  { path: '/about', component: About, name: 'About' },
+  {
+    path: '/',
+    component: MainLayout,
+    children: [
+      { path: '', component: Home, name: 'home' },
+      { path: '/login', component: LoginPage, name: 'login', beforeEnter: onlyGuest },
+      { path: '/register', component: RegistrationPage, name: 'register', beforeEnter: onlyGuest },
+      { path: '/contact', component: Contact, name: 'Contact' },
+      { path: '/about', component: About, name: 'About' },
+    ],
+  },
+  {
+    path: '/dashboard',
+    component: Dashboard,
+    name: 'dashboard',
+    beforeEnter: requireAuth,
+    children: [
+      { path: '', component: JournalVoucher },
+    ],
+  },
   { path: '/districts', component: Districts, name: 'Districts' },
   { path: '/districts/:id', component: District, name: 'District', props: true },
   { path: '/district-reports/:id', component: DistrictReport, name: 'DistrictReport', props: true },
