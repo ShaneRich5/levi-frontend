@@ -15,11 +15,11 @@ import Districts from '@/components/Districts';
 import District from '@/components/District';
 import Churches from '@/components/Churches';
 import Church from '@/components/Church';
+import NationalOfficeForm from '@/components/forms/NationalOfficeForm';
 
 Vue.use(Router);
 
 const onlyGuest = (to, from, next) => {
-  console.log('router-guest', localStorage.token, localStorage.token === 'undefined');
   if (localStorage.token === 'undefined' || localStorage.token === undefined) {
     next();
   } else {
@@ -54,6 +54,7 @@ const routes = [
     beforeEnter: requireAuth,
     children: [
       { path: '', component: JournalVoucher },
+      { path: 'national-office', component: NationalOfficeForm, name: 'national-office' },
     ],
   },
   { path: '/districts', component: Districts, name: 'Districts' },
