@@ -64,3 +64,5 @@ export function isPromise(val) {
 export function assert(condition, msg) {
   if (!condition) throw new Error(`[vuex] ${msg}`);
 }
+
+export const extractResponseData = response => response.data;

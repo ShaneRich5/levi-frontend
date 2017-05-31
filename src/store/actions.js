@@ -2,12 +2,45 @@ import axios from 'axios';
 import * as types from './mutation-types';
 import * as services from '../services';
 
+export const loadNationalOffices = ({ commit }) => {
+  const token = localStorage.getItem('token');
+  axios.get(`http://localhost:8000/api/national-offices?token=${token}`)
+    .then(response => response.data)
+    .then((data) => {
+      const { nationalOffices } = data;
+      commit(types.ADD_NATIONAL_OFFICES, nationalOffices);
+    })
+    .catch();
+};
+
+export const loadDistrictOffices = ({ commit }) => {
+  const token = localStorage.getItem('token');
+  axios.get(`http://localhost:8000/api/district-offices?token=${token}`)
+    .then(response => response.data)
+    .then((data) => {
+      const { districtOffices } = data;
+      commit(types.ADD_DISTRICT_OFFICES, districtOffices);
+    })
+    .catch();
+};
+
+export const loadChurches = ({ commit }) => {
+  const token = localStorage.getItem('token');
+  axios.get(`http://localhost:8000/api/churches?token=${token}`)
+    .then(response => response.data)
+    .then((data) => {
+      const { churches } = data;
+      commit(types.ADD_CHURCHES, churches);
+    })
+    .catch();
+};
+
 /* eslint-disable no-console */
 export const registerUser = ({ commit }, { email, password }) => {
   axios.post('http://localhost:8000/api/register', { email, password })
     .then(response => response.data)
     .then(console.log)
-    .catch(console.error);
+    .catch();
 };
 
 export const updateDistrictReportOpeningFund = ({ commit }, { districtReport, amount }) => {

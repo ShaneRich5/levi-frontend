@@ -7,5 +7,8 @@ export default {
     registerUrl: apiUrl('register'),
     userFromTokenUrl: token => tokenUrl('user', token),
     user: apiUrl('user'),
+    nationOfficesUrl: apiUrl('national-offices'),
+    districtOfficesUrl: apiUrl('district-offices'),
+    churchesUrl: apiUrl('churchs'),
   },
 };

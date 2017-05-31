@@ -8,6 +8,15 @@ const calculateMonthlyTotalRaised = (fields) => {
 /* eslint-disable no-param-reassign */
 /* eslint-disable space-before-function-paren */
 export default {
+  [types.ADD_NATIONAL_OFFICES] (state, nationalOffices) {
+    state.nationalOffices = [...nationalOffices];
+  },
+  [types.ADD_DISTRICT_OFFICES] (state, districtOffices) {
+    state.districtOffices = [...districtOffices];
+  },
+  [types.ADD_CHURCHES] (state, churches) {
+    state.churches = [...churches];
+  },
   [types.EXPENSE_LOADED] (state, expense) {
     state.expenses = [...state.expenses, expense];
   },
