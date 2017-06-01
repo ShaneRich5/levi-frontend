@@ -13,20 +13,41 @@
         </router-link>
       </md-list-item>
     </md-list>
+    <district-report 
+      v-for="report in districtReports" 
+      :report="report"
+      :key="report.id"
+    >
+    </district-report>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import DistrictReport from './DistrictReport';
+
 export default {
   name: 'district-office',
   props: ['id'],
+  components: { DistrictReport },
+  created() {
+    this.loadDistrictReportsByDistrict(this.id);
+  },
   computed: {
     districtOffice() {
       return this.$store.getters.districtOfficeById(this.id);
     },
+    districtReports() {
+      return this.$store.getters.districtReportsByDistrict(this.id);
+    },
     churches() {
       return this.$store.getters.churchesByDistrict(this.id);
     },
+  },
+  methods: {
+    ...mapActions([
+      'loadDistrictReportsByDistrict',
+    ]),
   },
 };
 </script>

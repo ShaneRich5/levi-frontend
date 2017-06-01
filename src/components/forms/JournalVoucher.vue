@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <h1>Journal Voucher Form</h1>
-
+  <div class="container">
+    <h1>{{ journal.title }}</h1>
     <md-layout md-align="center" md-flex="35">
       <table>
         <tr>
@@ -10,11 +9,11 @@
           <th>Account No.</th>
           <th>Amount</th>
         </tr>
-        <tr>
+        <tr v-for="(account, index) in journal.accounts">
+          <td>{{ index + 1 }}</td>
+          <td>{{ account.name }}</td>
           <td>10</td>
-          <td>Tithes</td>
-          <td>10</td>
-          <td>10</td>
+          <td>{{ formatCurrency(account.amount) }}</td>
         </tr>
       </table>
     </md-layout>
@@ -22,9 +21,14 @@
 </template>
 
 <script>
+import Currency from '../mixins/Currency';
 
 export default {
   name: 'journal-voucher',
+  props: {
+    journal: Object,
+  },
+  mixins: [Currency],
   data() {
     return {
     };
@@ -35,4 +39,7 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  margin: 30px 15px;
+}
 </style>

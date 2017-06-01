@@ -33,6 +33,15 @@ export const sources = state => [...state.sources];
 export const sourcesByChurchReport = state => id =>
   [...state.sources.filter(source => +source.church_report_id === +id)];
 
+export const districtReportsByDistrict = state => id =>
+  [...state.districtReports
+    .filter(districtReport => +districtReport.district_office_id === +id)];
+
+export const churchReportsByDistrictOffice = state => id =>
+  [...state.churchReports.filter(report => +report.district_report_id === +id)];
+
+export const journals = state => [...state.journals];
+
 /* old getters */
 
 export const totalDistrictExpense = state => (id) => {
@@ -54,9 +63,6 @@ export const districtReports = state => [...state.districtReports];
 export const districtReportById = state => id =>
   deepCopy(state.districtReports.find(report => report.id === id));
 
-export const districtReportsByDistrict = state => id =>
-  [...state.districtReports.filter(districtReport => districtReport.district === id)];
-
 export const churchReportsByDistrictReport = state => id =>
   [...state.churchReports.filter(churchReport => churchReport.districtReport === id)];
 
@@ -76,8 +82,8 @@ export const churchReportById = state => id => deepCopy(state.churchReports
 
 export const expenses = state => [...state.expenses];
 
-export const expensesByDistrictReport = state => districtReport =>
-  [...state.expenses.filter(expense => expense.districtReport === districtReport)];
+export const expensesByDistrictReport = state => id =>
+  [...state.expenses.filter(expense => +expense.district_report_id === +id)];
 //
 export const getDistrictById = state => id => deepCopy(state.districts[id]);
 

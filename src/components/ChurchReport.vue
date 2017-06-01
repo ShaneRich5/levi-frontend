@@ -103,6 +103,12 @@ export default {
         this.updateSource({ id, name, amount });
       }
     },
+    handleSourceCreation() {
+      if (this.sourceName.length > 0) {
+        this.createSource({ reportId: this.report.id, name: this.sourceName });
+      }
+      this.sourceName = '';
+    },
   },
 };
 </script>

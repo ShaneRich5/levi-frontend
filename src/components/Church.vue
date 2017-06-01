@@ -1,5 +1,5 @@
 <template>
-  <div class="container" style="background: blue;">
+  <div class="container">
     <h1>Church</h1>
     <p v-if="church">{{ church.name }}</p>
     <md-layout md-align="center" md-flex="66">

@@ -44,6 +44,29 @@ export const loadChurches = ({ commit }) => {
     });
 };
 
+export const loadChurchReportsByDistrict = ({ commit }, districtId) => {
+  const token = localStorage.getItem('token');
+  const url = `http://localhost:8000/api/district-offices/${districtId}/church-reports?token=${token}`;
+  axios.get(url).then(response => response.data)
+    .then((data) => {
+      const { districtReports } = data;
+      commit(types.ADD_DISTRICT_REPORTS, districtReports);
+    })
+    .catch();
+};
+
+export const loadDistrictReportsByDistrict = ({ commit }, districtId) => {
+  const token = localStorage.getItem('token');
+  const districtReportUrl = `http://localhost:8000/api/district-offices/${districtId}/reports?token=${token}`;
+  axios.get(districtReportUrl).then(response => response.data)
+    .then((data) => {
+      const { districtReports, churchReports } = data;
+      commit(types.ADD_DISTRICT_REPORTS, districtReports);
+      commit(types.ADD_CHURCH_REPORTS, churchReports);
+    })
+    .catch();
+};
+
 export const loadChurchReportsByChurch = ({ commit }, churchId) => {
   const token = localStorage.getItem('token');
   const url = `http://localhost:8000/api/churches/${churchId}/reports?token=${token}`;
@@ -52,10 +75,7 @@ export const loadChurchReportsByChurch = ({ commit }, churchId) => {
       const { churchReports } = data;
       commit(types.ADD_CHURCH_REPORTS, churchReports);
     })
-    .catch(() => {
-      delete localStorage.token;
-      commit(types.LOGOUT);
-    });
+    .catch();
 };
 
 export const createChurchReportSourceListener = ({ commit, state }, churchReportId) => {
@@ -88,18 +108,48 @@ export const removeSourceRef = ({ commit }) => {
   commit(types.CLEAR_SOURCES);
 };
 
+export const createDistrictReportExpenseListener = ({ commit, state }, id) => {
+  services.expenseRef.on('child_added', (data) => {
+    const expense = data.val();
+    if (+expense.district_report_id === +id) {
+      commit(types.EXPENSE_LOADED, expense);
+    }
+  });
+
+  services.expenseRef.on('child_changed', (data) => {
+    const expense = data.val();
+    if (+expense.district_report_id === +id) {
+      commit(types.EXPENSE_CHANGED, expense);
+    }
+  });
+
+  services.expenseRef.on('child_removed', (data) => {
+    if (+data.district_report_id === +id) {
+      const index = state.expenses.findIndex(expense => expense.id === data.key);
+      if (index !== undefined) {
+        commit(types.EXPENSE_DELETED, index);
+      }
+    }
+  });
+};
+
+export const removeExpenseRef = ({ commit }) => {
+  services.expenseRef.off();
+  commit(types.CLEAR_EXPENSES);
+};
+
+export const createExpense = ({ commit }, { reportId, name }) => {
+  const token = localStorage.getItem('token');
+  const url = `http://localhost:8000/api/district-reports/${reportId}/expenses?token=${token}`;
+  axios.post(url, { name }).then(response => response.data)
+    .catch();
+};
+
 export const createSource = ({ commit }, { reportId, name }) => {
   const token = localStorage.getItem('token');
   const url = `http://localhost:8000/api/church-reports/${reportId}/sources?token=${token}`;
   axios.post(url, { name }).then(response => response.data)
-    .then((data) => {
-      const { churchReports } = data;
-      commit(types.ADD_CHURCH_REPORTS, churchReports);
-    })
-    .catch(() => {
-      delete localStorage.token;
-      commit(types.LOGOUT);
-    });
+    .catch();
 };
 
 export const updateSource = ({ commit }, { id, name, amount }) => {
@@ -118,20 +168,28 @@ export const updateSourceAmount = ({ commit }, { id, amount }) => {
   services.sourceRef.child(id).child('amount').set(amount);
 };
 
+export const updateExpense = ({ commit }, { id, name, amount }) => {
+  const token = localStorage.getItem('token');
+  const url = `http://localhost:8000/api/expenses/${id}?token=${token}`;
+  axios.post(url, { name, amount }).then(response => response.data)
+    .catch();
+};
+
+export const loadJournal = ({ commit }) => {
+  const url = 'http://localhost:8000/api/journal';
+  axios.get(url)
+    .then(response => response.data)
+    .then((data) => {
+      const { journal } = data;
+      commit(types.ADD_JOURNALS, [journal]);
+    })
+    .catch();
+};
+
 /* old actions */
 
 export const updateDistrictReportOpeningFund = ({ commit }, { districtReport, amount }) => {
   services.districtReportRef.child(districtReport).child('openingFund').set(amount);
-};
-
-/* eslint-disable prefer-template */
-export const createExpense = ({ commit }, expense) => {
-  const { key } = services.expenseRef.push();
-  const { districtReport } = expense;
-  const updates = {};
-  updates['/expenses/' + key] = expense;
-  updates['/districtReports/' + districtReport + '/expenses/' + key] = true;
-  services.rootRef.update(updates);
 };
 
 export const updateExpenseName = ({ commit }, { id, name }) => {
@@ -182,13 +240,6 @@ export const createChurch = ({ commit }, { district, name }) => {
 };
 
 //
-export const updateExpense = ({ commit }, payload) => {
-  const { name, cost } = payload;
-  if (name === '' || isNaN(cost)) {
-    return;
-  }
-  commit(types.UPDATE_EXPENSE, payload);
-};
 
 export const updateMonthlyField = ({ commit }, payload) => {
   const { value } = payload;
@@ -266,11 +317,6 @@ export const setExpenseRef = ({ commit, state }) => {
       commit(types.EXPENSE_DELETED, index);
     }
   });
-};
-
-export const removeExpenseRef = ({ commit }) => {
-  services.expenseRef.off();
-  commit(types.CLEAR_EXPENSES);
 };
 
 export const removeDistrictReportRef = ({ commit }) => {
