@@ -1,23 +1,29 @@
 <template>
-  <div class="container">
-    <h1>{{ journal.title }}</h1>
-    <md-layout md-align="center" md-flex="35">
-      <table>
-        <tr>
-          <th>No.</th>
-          <th>Account Description</th>
-          <th>Account No.</th>
-          <th>Amount</th>
-        </tr>
-        <tr v-for="(account, index) in journal.accounts">
-          <td>{{ index + 1 }}</td>
-          <td>{{ account.name }}</td>
-          <td>10</td>
-          <td>{{ formatCurrency(account.amount) }}</td>
-        </tr>
-      </table>
-    </md-layout>
-  </div>
+  <md-layout md-align="center" md-flex="66">
+    <md-table-card>
+      <md-toolbar>
+        <h1 class="md-title">{{ journal.title }}</h1>
+      </md-toolbar>
+      <md-table>
+        <md-table-header>
+          <md-table-row>
+            <md-table-head>No.</md-table-head>
+            <md-table-head>Account Description</md-table-head>
+            <md-table-head>Account No.</md-table-head>
+            <md-table-head>Amount</md-table-head>
+          </md-table-row>
+        </md-table-header>
+        <md-table-body>
+          <md-table-row v-for="(account, index) in journal.accounts">
+            <md-table-cell>{{ index + 1 }}</md-table-cell>
+            <md-table-cell>{{ account.name }}</md-table-cell>
+            <md-table-cell>10</md-table-cell>
+            <md-table-cell>{{ formatCurrency(account.amount) }}</md-table-cell>
+          </md-table-row>
+        </md-table-body>
+      </md-table>
+    </md-table-card>
+  </md-layout>
 </template>
 
 <script>
