@@ -2,9 +2,18 @@ import axios from 'axios';
 import * as types from './mutation-types';
 import * as services from '../services';
 
+const debug = process.env.NODE_ENV !== 'production';
+let baseUrl;
+
+if (debug) {
+  baseUrl = 'http://localhost:8000';
+} else {
+  baseUrl = 'http://levi-backend.herokuapp.com';
+}
+
 export const loadNationalOffices = ({ commit }) => {
   const token = localStorage.getItem('token');
-  axios.get(`http://localhost:8000/api/national-offices?token=${token}`)
+  axios.get(`${baseUrl}/api/national-offices?token=${token}`)
     .then(response => response.data)
     .then((data) => {
       const { nationalOffices } = data;
@@ -18,7 +27,7 @@ export const loadNationalOffices = ({ commit }) => {
 
 export const loadDistrictOffices = ({ commit }) => {
   const token = localStorage.getItem('token');
-  axios.get(`http://localhost:8000/api/district-offices?token=${token}`)
+  axios.get(`${baseUrl}/api/district-offices?token=${token}`)
     .then(response => response.data)
     .then((data) => {
       const { districtOffices } = data;
@@ -32,7 +41,7 @@ export const loadDistrictOffices = ({ commit }) => {
 
 export const loadChurches = ({ commit }) => {
   const token = localStorage.getItem('token');
-  axios.get(`http://localhost:8000/api/churches?token=${token}`)
+  axios.get(`${baseUrl}/api/churches?token=${token}`)
     .then(response => response.data)
     .then((data) => {
       const { churches } = data;
@@ -46,7 +55,7 @@ export const loadChurches = ({ commit }) => {
 
 export const loadChurchReportsByDistrict = ({ commit }, districtId) => {
   const token = localStorage.getItem('token');
-  const url = `http://localhost:8000/api/district-offices/${districtId}/church-reports?token=${token}`;
+  const url = `${baseUrl}/api/district-offices/${districtId}/church-reports?token=${token}`;
   axios.get(url).then(response => response.data)
     .then((data) => {
       const { districtReports } = data;
@@ -57,7 +66,7 @@ export const loadChurchReportsByDistrict = ({ commit }, districtId) => {
 
 export const loadDistrictReportsByDistrict = ({ commit }, districtId) => {
   const token = localStorage.getItem('token');
-  const districtReportUrl = `http://localhost:8000/api/district-offices/${districtId}/reports?token=${token}`;
+  const districtReportUrl = `${baseUrl}/api/district-offices/${districtId}/reports?token=${token}`;
   axios.get(districtReportUrl).then(response => response.data)
     .then((data) => {
       const { districtReports, churchReports } = data;
@@ -69,7 +78,7 @@ export const loadDistrictReportsByDistrict = ({ commit }, districtId) => {
 
 export const loadChurchReportsByChurch = ({ commit }, churchId) => {
   const token = localStorage.getItem('token');
-  const url = `http://localhost:8000/api/churches/${churchId}/reports?token=${token}`;
+  const url = `${baseUrl}/api/churches/${churchId}/reports?token=${token}`;
   axios.get(url).then(response => response.data)
     .then((data) => {
       const { churchReports } = data;
@@ -140,14 +149,14 @@ export const removeExpenseRef = ({ commit }) => {
 
 export const createExpense = ({ commit }, { reportId, name }) => {
   const token = localStorage.getItem('token');
-  const url = `http://localhost:8000/api/district-reports/${reportId}/expenses?token=${token}`;
+  const url = `${baseUrl}/api/district-reports/${reportId}/expenses?token=${token}`;
   axios.post(url, { name }).then(response => response.data)
     .catch();
 };
 
 export const createSource = ({ commit }, { reportId, name }) => {
   const token = localStorage.getItem('token');
-  const url = `http://localhost:8000/api/church-reports/${reportId}/sources?token=${token}`;
+  const url = `${baseUrl}/api/church-reports/${reportId}/sources?token=${token}`;
   axios.post(url, { name }).then(response => response.data)
     .catch();
 };
@@ -155,7 +164,7 @@ export const createSource = ({ commit }, { reportId, name }) => {
 export const updateSource = ({ commit }, { id, name, amount }) => {
   // services.sourceRef.child(id).child('name').set(name);
   const token = localStorage.getItem('token');
-  const url = `http://localhost:8000/api/sources/${id}?token=${token}`;
+  const url = `${baseUrl}/api/sources/${id}?token=${token}`;
   axios.post(url, { name, amount }).then(response => response.data)
     .catch();
 };
@@ -170,18 +179,113 @@ export const updateSourceAmount = ({ commit }, { id, amount }) => {
 
 export const updateExpense = ({ commit }, { id, name, amount }) => {
   const token = localStorage.getItem('token');
-  const url = `http://localhost:8000/api/expenses/${id}?token=${token}`;
+  const url = `${baseUrl}/api/expenses/${id}?token=${token}`;
   axios.post(url, { name, amount }).then(response => response.data)
     .catch();
 };
 
 export const loadJournal = ({ commit }) => {
-  const url = 'http://localhost:8000/api/journal';
+  const url = `${baseUrl}/api/journal`;
+
+  const relief = {
+    id: 2,
+    title: 'Hurricance Relief',
+    created_at: '2017-06-01 14:45:35',
+    national_office_id: 1,
+    updated_at: '2017-06-01 14:45:35',
+    accounts: [
+      { name: 'Hurricane Relief - Mullet Hall', amount: 0 },
+      { name: 'Hurricane Relief - Rocky Settlement', amount: 0 },
+      { name: 'Hurricane Relief - St. Vincent', amount: 0 },
+    ],
+  };
+
+  const compulsory = {
+    id: 2,
+    title: 'Compulsory Saving',
+    created_at: '2017-06-01 14:45:35',
+    national_office_id: 1,
+    updated_at: '2017-06-01 14:45:35',
+    accounts: [
+      { name: 'Compulsory Saving - Lower Buxton', amount: 0 },
+      { name: 'Compulsory Saving - Cheesefield', amount: 0 },
+      { name: 'Compulsory Saving - Bamboo', amount: 0 },
+      { name: 'Compulsory Saving - Claremont (St. Ann.)', amount: 0 },
+      { name: 'Compulsory Saving - Rock River', amount: 0 },
+      { name: 'Compulsory Saving - Cumberland', amount: 0 },
+      { name: 'Compulsory Saving - Brandon Hill', amount: 0 },
+      { name: 'Compulsory Saving - Johnnies Hill', amount: 0 },
+      { name: 'Compulsory Saving - Sturge Town', amount: 0 },
+      { name: 'Compulsory Saving - Ramble (Heartease)', amount: 0 },
+      { name: 'Compulsory Saving - Galloway', amount: 0 },
+      { name: 'Compulsory Saving - Mount Stewart', amount: 0 },
+      { name: 'Compulsory Saving - Clark\'s Town', amount: 0 },
+      { name: 'Compulsory Saving - Samuel Prospect', amount: 0 },
+      { name: 'Compulsory Saving - Mount Salus', amount: 0 },
+      { name: 'Compulsory Saving - Chantilly', amount: 0 },
+      { name: 'Compulsory Saving - Discovery Bay', amount: 0 },
+      { name: 'Compulsory Saving - Thicketts', amount: 0 },
+      { name: 'Compulsory Saving - Kintyre', amount: 0 },
+      { name: 'Compulsory Saving - Flagstaff', amount: 0 },
+      { name: 'Compulsory Saving - Frome', amount: 0 },
+      { name: 'Compulsory Saving - Rosetta', amount: 0 },
+      { name: 'Compulsory Saving - Knibb Street', amount: 0 },
+      { name: 'Compulsory Saving - Trysee', amount: 0 },
+      { name: 'Compulsory Saving - Glendevon', amount: 0 },
+      { name: 'Compulsory Saving - Lilliput', amount: 0 },
+      { name: 'Compulsory Saving - Burnt Savannah (Grange Hill)', amount: 0 },
+      { name: 'Compulsory Saving - Fort George', amount: 0 },
+      { name: 'Compulsory Saving - Castle Kelly', amount: 0 },
+      { name: 'Compulsory Saving - Windsor Castle', amount: 0 },
+      { name: 'Compulsory Saving - Linstead', amount: 0 },
+      { name: 'Compulsory Saving - Georges Valley', amount: 0 },
+      { name: 'Compulsory Saving - Broadleaf', amount: 0 },
+      { name: 'Compulsory Saving - Epping Forrest', amount: 0 },
+      { name: 'Compulsory Saving - Brokenhurst', amount: 0 },
+      { name: 'Compulsory Saving - Mandeville', amount: 0 },
+      { name: 'Compulsory Saving - Battersea', amount: 0 },
+      { name: 'Compulsory Saving - Grey Ground', amount: 0 },
+      { name: 'Compulsory Saving - Middle Quarters', amount: 0 },
+      { name: 'Compulsory Saving - Comfort', amount: 0 },
+      { name: 'Compulsory Saving - Toll gate', amount: 0 },
+      { name: 'Compulsory Saving - Swaby\'s Hope', amount: 0 },
+      { name: 'Compulsory Saving - Montego Bay', amount: 0 },
+      { name: 'Compulsory Saving - Negril', amount: 0 },
+      { name: 'Compulsory Saving - Little London', amount: 0 },
+      { name: 'Compulsory Saving - Old Harbour Bay', amount: 0 },
+      { name: 'Compulsory Saving - Porus', amount: 0 },
+      { name: 'Compulsory Saving - Blue Mountain', amount: 0 },
+      { name: 'Compulsory Saving - Mount Pelier', amount: 0 },
+      { name: 'Compulsory Saving - Sandy Bay (Hanover)', amount: 0 },
+      { name: 'Compulsory Saving - Salem', amount: 0 },
+      { name: 'Compulsory Saving - Forrest', amount: 0 },
+      { name: 'Compulsory Saving - Byles', amount: 0 },
+      { name: 'Compulsory Saving - Freeman\'s Hall', amount: 0 },
+      { name: 'Compulsory Saving - Stettin', amount: 0 },
+      { name: 'Compulsory Saving - Temple Hall', amount: 0 },
+      { name: 'Compulsory Saving - Rocky Settlement', amount: 0 },
+      { name: 'Compulsory Saving - Water Lane', amount: 0 },
+    ],
+  };
+
+  const youthDept = {
+    id: 2,
+    title: 'Youth Department',
+    created_at: '2017-06-01 14:45:35',
+    national_office_id: 1,
+    updated_at: '2017-06-01 14:45:35',
+    accounts: [
+      { name: 'Youth Department Payable - Mountain View', amount: 0 },
+      { name: 'Youth Department Payable - Kintyre', amount: 0 },
+      { name: 'Youth Department Payable - Sandy Park', amount: 0 },
+    ],
+  };
+
   axios.get(url)
     .then(response => response.data)
     .then((data) => {
       const { journal } = data;
-      commit(types.ADD_JOURNALS, [journal]);
+      commit(types.ADD_JOURNALS, [journal, relief, compulsory, youthDept]);
     })
     .catch();
 };

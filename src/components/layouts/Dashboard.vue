@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <md-sidenav id="sidebar-panel" class="main-sidebar">
+    <md-sidenav id="sidebar-panel" class="main-sidebar" ref="main-sidebar">
       <md-toolbar>
         <h2 class="md-title" style="flex: 1">Default</h2>
       </md-toolbar>
@@ -60,6 +60,12 @@ export default {
     };
   },
   methods: {
+    toggleSidenav() {
+      this.$refs['main-sidebar'].toggle();
+    },
+    closeSidenav() {
+      this.$refs['main-sidebar'].close();
+    },
     ...mapActions([
       'loadNationalOffices',
       'loadDistrictOffices',

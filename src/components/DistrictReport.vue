@@ -13,7 +13,7 @@
             {{ heading }}
           </th>
         </tr>
-        <tr v-for="(churchReport, index) in churchReports" :key="churchReportId">
+        <tr v-for="(churchReport, index) in churchReports" :key="churchReport.id">
           <td>{{ +index + 1 }}</td>
           <td>
             <router-link 
@@ -97,7 +97,6 @@
           <td colspan="4">Closing District Fund Balance</td>
           <td>{{ formatCurrency(calculatedClosingBalance()) }}</td>
         </tr>
-        -->
       </table>
     </md-layout>
   </div>

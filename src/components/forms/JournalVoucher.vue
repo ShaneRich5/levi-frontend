@@ -17,7 +17,7 @@
           <md-table-row v-for="(account, index) in journal.accounts">
             <md-table-cell>{{ index + 1 }}</md-table-cell>
             <md-table-cell>{{ account.name }}</md-table-cell>
-            <md-table-cell>10</md-table-cell>
+            <md-table-cell>{{ 3110 + index * 2 }}-{{ index + 12}}</md-table-cell>
             <md-table-cell>{{ formatCurrency(account.amount) }}</md-table-cell>
           </md-table-row>
         </md-table-body>

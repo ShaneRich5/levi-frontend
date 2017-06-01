@@ -77,4 +77,12 @@ div.md-toolbar.md-theme-default {
 .md-toolbar .nav-link:hover {
   text-decoration: none;
 }
+
+h2 {
+  line-height: 40px;
+}
+
+h1 {
+  line-height: 25px;
+}
 </style>
