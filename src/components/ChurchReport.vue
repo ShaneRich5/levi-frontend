@@ -1,9 +1,8 @@
 <template>
-  <div>
     <md-layout md-align="center" md-flex="66">
       <md-table-card>
         <md-toolbar>
-          <h1 class="md-title">Monthly Financial Breakdown - {{ id }}</h1>
+          <h1 class="md-title">{{ report.title }} - {{ report.id }}</h1>
         </md-toolbar>
         <md-table>
           <md-table-header>
@@ -26,13 +25,13 @@
               <md-table-cell>
                 <input
                   :value="source.name"
-                  v-on:keyup.enter="handleSourceNameChanged(source.id, $event.target.value)"/>
+                  v-on:keyup.enter="handleSourceUpdate(source.id, $event.target.value, source.amount)"/>
               </md-table-cell>
               <md-table-cell>
                 <input
                   type="number"
                   :value="source.amount"
-                  v-on:keyup.enter="handleSourceAmountChanged(source.id, $event.target.value)"/>
+                  v-on:keyup.enter="handleSourceUpdate(source.id, source.name, $event.target.value)"/>
               </md-table-cell>
               <md-table-cell v-for="(multiplier, index) in multipliers" :key="index">
                 {{ formatCurrency(multiplier * source.amount) }}
@@ -59,7 +58,6 @@
         </md-table>
       </md-table-card>
     </md-layout>
-  </div>
 </template>
 
 <script>
@@ -67,9 +65,17 @@ import { mapActions } from 'vuex';
 import Currency from './mixins/Currency';
 
 export default {
-  name: 'monthly-financial-form',
-  props: ['id'],
+  name: 'church-report',
+  props: {
+    report: Object,
+  },
   mixins: [Currency],
+  mounted() {
+    this.$store.dispatch('createChurchReportSourceListener', this.report.id);
+  },
+  beforeDestroy() {
+    this.$store.dispatch('removeSourceRef');
+  },
   data() {
     return {
       sourceName: '',
@@ -77,26 +83,11 @@ export default {
     };
   },
   computed: {
-    churchReport() {
-      return this.$store.getters.churchReportById(this.id);
-    },
-    districtReport() {
-      if (this.churchReport === undefined) {
-        return {};
-      }
-      return this.$store.getters.districtReportById(this.churchReport.districtReport);
-    },
     church() {
-      if (this.churchReport === undefined) {
-        return {};
-      }
-      return this.$store.getters.churchById(this.churchReport.church);
+      return this.$store.getters.churchById(this.report.church_id);
     },
     sources() {
-      if (this.churchReport === undefined) {
-        return [];
-      }
-      return this.$store.getters.sourcesByChurchReport(this.churchReport.id);
+      return this.$store.getters.sourcesByChurchReport(this.report.id);
     },
     totalRaised() {
       return this.sources.reduce((accumulator, source) => accumulator + Number(source.amount), 0);
@@ -105,29 +96,11 @@ export default {
   methods: {
     ...mapActions([
       'createSource',
-      'updateSourceAmount',
-      'updateSourceName',
+      'updateSource',
     ]),
-    handleSourceNameChanged(id, name) {
-      if (name.length > 0) {
-        this.updateSourceName({ id, name });
-      }
-    },
-    handleSourceAmountChanged(id, amount) {
-      if (!isNaN(amount) && amount >= 0) {
-        this.updateSourceAmount({ id, amount });
-      }
-    },
-    handleSourceCreation() {
-      if (this.sourceName.length !== 0) {
-        const source = {
-          name: this.sourceName,
-          amount: 0,
-          churchReport: this.id,
-          districtReport: this.districtReport.id,
-        };
-        this.createSource(source);
-        this.sourceName = '';
+    handleSourceUpdate(id, name, amount) {
+      if (name.length > 0 && !isNaN(amount) && amount > 0) {
+        this.updateSource({ id, name, amount });
       }
     },
   },

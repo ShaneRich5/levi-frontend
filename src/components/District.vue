@@ -71,7 +71,7 @@
 import { mapActions } from 'vuex';
 
 export default {
-  name: 'district',
+  name: 'district-office',
   props: ['id'],
   data() {
     return {

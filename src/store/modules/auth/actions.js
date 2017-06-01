@@ -38,4 +38,5 @@ export const loadUser = ({ commit }) => {
 export const logout = ({ commit }) => {
   commit(types.LOGOUT);
   delete localStorage.token;
+  router.push('/');
 };

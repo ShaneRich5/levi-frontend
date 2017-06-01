@@ -40,6 +40,7 @@
           <md-icon>menu</md-icon>
         </md-button>
         <h2 class="md-title" style="flex: 1">Levi</h2>
+        <md-button @click.native="logout">Logout</md-button>
       </md-toolbar>
       <router-view></router-view>
     </div>
@@ -51,7 +52,7 @@ import { mapActions } from 'vuex';
 
 export default {
   name: 'dashboard',
-  mounted() {
+  created() {
     this.loadNationalOffices();
     this.loadDistrictOffices();
     this.loadChurches();
@@ -65,6 +66,7 @@ export default {
       'loadNationalOffices',
       'loadDistrictOffices',
       'loadChurches',
+      'logout',
     ]),
   },
 };

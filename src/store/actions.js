@@ -10,7 +10,10 @@ export const loadNationalOffices = ({ commit }) => {
       const { nationalOffices } = data;
       commit(types.ADD_NATIONAL_OFFICES, nationalOffices);
     })
-    .catch();
+    .catch(() => {
+      delete localStorage.token;
+      commit(types.LOGOUT);
+    });
 };
 
 export const loadDistrictOffices = ({ commit }) => {
@@ -21,7 +24,10 @@ export const loadDistrictOffices = ({ commit }) => {
       const { districtOffices } = data;
       commit(types.ADD_DISTRICT_OFFICES, districtOffices);
     })
-    .catch();
+    .catch(() => {
+      delete localStorage.token;
+      commit(types.LOGOUT);
+    });
 };
 
 export const loadChurches = ({ commit }) => {
@@ -32,29 +38,91 @@ export const loadChurches = ({ commit }) => {
       const { churches } = data;
       commit(types.ADD_CHURCHES, churches);
     })
-    .catch();
+    .catch(() => {
+      delete localStorage.token;
+      commit(types.LOGOUT);
+    });
 };
 
-/* eslint-disable no-console */
-export const registerUser = ({ commit }, { email, password }) => {
-  axios.post('http://localhost:8000/api/register', { email, password })
-    .then(response => response.data)
+export const loadChurchReportsByChurch = ({ commit }, churchId) => {
+  const token = localStorage.getItem('token');
+  const url = `http://localhost:8000/api/churches/${churchId}/reports?token=${token}`;
+  axios.get(url).then(response => response.data)
+    .then((data) => {
+      const { churchReports } = data;
+      commit(types.ADD_CHURCH_REPORTS, churchReports);
+    })
+    .catch(() => {
+      delete localStorage.token;
+      commit(types.LOGOUT);
+    });
+};
+
+export const createChurchReportSourceListener = ({ commit, state }, churchReportId) => {
+  services.sourceRef.on('child_added', (data) => {
+    const source = Object.assign({}, data.val());
+    if (+source.church_report_id === +churchReportId) {
+      commit(types.SOURCE_LOADED, source);
+    }
+  });
+
+  services.sourceRef.on('child_changed', (data) => {
+    const source = data.val();
+    if (+source.church_report_id === +churchReportId) {
+      commit(types.SOURCE_CHANGED, source);
+    }
+  });
+
+  services.sourceRef.on('child_removed', (data) => {
+    if (+data.church_report_id === +churchReportId) {
+      const index = state.sources.findIndex(source => source.id === data.key);
+      if (index !== undefined) {
+        commit(types.SOURCE_DELETED, index);
+      }
+    }
+  });
+};
+
+export const removeSourceRef = ({ commit }) => {
+  services.sourceRef.off();
+  commit(types.CLEAR_SOURCES);
+};
+
+export const createSource = ({ commit }, { reportId, name }) => {
+  const token = localStorage.getItem('token');
+  const url = `http://localhost:8000/api/church-reports/${reportId}/sources?token=${token}`;
+  axios.post(url, { name }).then(response => response.data)
+    .then((data) => {
+      const { churchReports } = data;
+      commit(types.ADD_CHURCH_REPORTS, churchReports);
+    })
+    .catch(() => {
+      delete localStorage.token;
+      commit(types.LOGOUT);
+    });
+};
+
+export const updateSource = ({ commit }, { id, name, amount }) => {
+  // services.sourceRef.child(id).child('name').set(name);
+  const token = localStorage.getItem('token');
+  const url = `http://localhost:8000/api/sources/${id}?token=${token}`;
+  axios.post(url, { name, amount }).then(response => response.data)
     .then(console.log)
     .catch();
 };
 
-export const updateDistrictReportOpeningFund = ({ commit }, { districtReport, amount }) => {
-  services.districtReportRef.child(districtReport).child('openingFund').set(amount);
+export const updateSourceName = ({ commit }, { id, name }) => {
+  services.sourceRef.child(id).child('name').set(name);
 };
 
-/* eslint-disable prefer-template */
-export const createSource = ({ commit }, source) => {
-  const { key } = services.sourceRef.push();
-  const { churchReport } = source;
-  const updates = {};
-  updates['/sources/' + key] = source;
-  updates['/churchReports/' + churchReport + '/sources/' + key] = true;
-  services.rootRef.update(updates);
+export const updateSourceAmount = ({ commit }, { id, amount }) => {
+  services.sourceRef.child(id).child('amount').set(amount);
+};
+
+/* old actions */
+
+export const updateDistrictReportOpeningFund = ({ commit }, { districtReport, amount }) => {
+  services.districtReportRef.child(districtReport).child('openingFund').set(amount);
 };
 
 /* eslint-disable prefer-template */
@@ -73,14 +141,6 @@ export const updateExpenseName = ({ commit }, { id, name }) => {
 
 export const updateExpenseAmount = ({ commit }, { id, amount }) => {
   services.expenseRef.child(id).child('amount').set(amount);
-};
-
-export const updateSourceName = ({ commit }, { id, name }) => {
-  services.sourceRef.child(id).child('name').set(name);
-};
-
-export const updateSourceAmount = ({ commit }, { id, amount }) => {
-  services.sourceRef.child(id).child('amount').set(amount);
 };
 
 /* eslint-disable prefer-template */
@@ -168,44 +228,6 @@ export const setDistrictRef = ({ commit, state }) => {
   });
 };
 
-export const setChurchRef = ({ commit, state }) => {
-  services.churchRef.on('child_added', (data) => {
-    const church = Object.assign({}, data.val(), { id: data.key });
-    commit(types.CHURCH_LOADED, church);
-  });
-
-  services.churchRef.on('child_changed', (data) => {
-    const church = Object.assign({}, data.val(), { id: data.key });
-    commit(types.CHURCH_CHANGED, church);
-  });
-
-  services.churchRef.on('child_removed', (data) => {
-    const index = state.churches.findIndex(church => church.id === data.key);
-    if (index !== undefined) {
-      commit(types.CHURCH_DELETED, index);
-    }
-  });
-};
-
-export const setDistrictReportRef = ({ commit, state }) => {
-  services.districtReportRef.on('child_added', (data) => {
-    const report = Object.assign({}, data.val(), { id: data.key });
-    commit(types.DISTRICT_REPORT_LOADED, report);
-  });
-
-  services.districtReportRef.on('child_changed', (data) => {
-    const report = Object.assign({}, data.val(), { id: data.key });
-    commit(types.DISTRICT_REPORT_CHANGED, report);
-  });
-
-  services.districtReportRef.on('child_removed', (data) => {
-    const index = state.reports.findIndex(report => report.id === data.key);
-    if (index !== undefined) {
-      commit(types.DISTRICT_REPORT_DELETED, index);
-    }
-  });
-};
-
 export const setChurchReportRef = ({ commit, state }) => {
   services.churchReportRef.on('child_added', (data) => {
     const report = Object.assign({}, data.val(), { id: data.key });
@@ -228,25 +250,6 @@ export const setChurchReportRef = ({ commit, state }) => {
   });
 };
 
-export const setSourceRef = ({ commit, state }) => {
-  services.sourceRef.on('child_added', (data) => {
-    const source = Object.assign({}, data.val(), { id: data.key });
-    commit(types.SOURCE_LOADED, source);
-  });
-
-  services.sourceRef.on('child_changed', (data) => {
-    const source = Object.assign({}, data.val(), { id: data.key });
-    commit(types.SOURCE_CHANGED, source);
-  });
-
-  services.sourceRef.on('child_removed', (data) => {
-    const index = state.sources.findIndex(source => source.id === data.key);
-    if (index !== undefined) {
-      commit(types.SOURCE_DELETED, index);
-    }
-  });
-};
-
 export const setExpenseRef = ({ commit, state }) => {
   services.expenseRef.on('child_added', (data) => {
     const report = Object.assign({}, data.val(), { id: data.key });
@@ -264,11 +267,6 @@ export const setExpenseRef = ({ commit, state }) => {
       commit(types.EXPENSE_DELETED, index);
     }
   });
-};
-
-export const removeSourceRef = ({ commit }) => {
-  services.sourceRef.off();
-  commit(types.CLEAR_SOURCES);
 };
 
 export const removeExpenseRef = ({ commit }) => {

@@ -10,14 +10,15 @@ Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 
 const state = {
-  districts: [],
-  churches: [],
-  districtOffices: [],
   nationalOffices: [],
-  churchReports: [],
+  districtOffices: [],
+  churches: [],
+  journals: [],
   districtReports: [],
+  churchReports: [],
   sources: [],
   expenses: [],
+  districts: [],
 };
 
 const store = new Vuex.Store({
