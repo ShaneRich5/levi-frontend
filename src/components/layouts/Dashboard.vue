@@ -9,15 +9,13 @@
           <md-list>
             <md-list-item>
               <md-icon>whatshot</md-icon>
-              <span>News</span>
-
-              <md-list-expand>
-                <md-list>
-                  <md-list-item class="md-inset">World</md-list-item>
-                  <md-list-item class="md-inset">Americas</md-list-item>
-                  <md-list-item class="md-inset">Europe</md-list-item>
-                </md-list>
-              </md-list-expand>
+              <span>Insights</span>
+            </md-list-item>
+            <md-list-item>
+              <span>Notifications</span>
+            </md-list-item>
+            <md-list-item>
+              <span>Archives</span>
             </md-list-item>
             <!--
             <md-list-item>

@@ -107,7 +107,6 @@ export const updateSource = ({ commit }, { id, name, amount }) => {
   const token = localStorage.getItem('token');
   const url = `http://localhost:8000/api/sources/${id}?token=${token}`;
   axios.post(url, { name, amount }).then(response => response.data)
-    .then(console.log)
     .catch();
 };
 

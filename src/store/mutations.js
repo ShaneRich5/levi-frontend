@@ -8,7 +8,7 @@ const calculateMonthlyTotalRaised = (fields) => {
 /* eslint-disable no-param-reassign */
 /* eslint-disable space-before-function-paren */
 export default {
-  [types.ADD_JOURNAL] (state, journals) {
+  [types.ADD_JOURNALS] (state, journals) {
     state.journals = [...journals];
   },
   [types.ADD_DISTRICT_REPORTS] (state, districtReports) {

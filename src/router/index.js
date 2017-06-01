@@ -46,10 +46,9 @@ const routes = [
   {
     path: '/dashboard',
     component: Dashboard,
-    name: 'dashboard',
     beforeEnter: requireAuth,
     children: [
-      { path: '', component: WelcomePage },
+      { path: '', component: WelcomePage, name: 'dashboard' },
       { path: 'national-offices/:id', component: NationalOffice, name: 'national-office', props: true },
       { path: 'district-offices/:id', component: DistrictOffice, name: 'district-office', props: true },
       { path: 'churches/:id', component: Church, name: 'church', props: true },
