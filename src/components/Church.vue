@@ -20,7 +20,7 @@ import ChurchReport from './ChurchReport';
 export default {
   props: ['id'],
   created() {
-    this.loadChurchReportsByChurch(this.id);
+    this.loadChurchReportByChurch(this.id);
   },
   components: { ChurchReport },
   computed: {

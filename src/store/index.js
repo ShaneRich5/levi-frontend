@@ -4,6 +4,8 @@ import * as getters from './getters';
 import * as actions from './actions';
 import mutations from './mutations';
 import auth from './modules/auth';
+import status from './modules/status';
+import reports from './modules/reports';
 
 Vue.use(Vuex);
 
@@ -29,6 +31,8 @@ const store = new Vuex.Store({
   strict: debug,
   modules: {
     auth,
+    status,
+    reports,
   },
 });
 

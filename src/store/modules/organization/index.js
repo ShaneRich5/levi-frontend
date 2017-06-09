@@ -1,7 +1,10 @@
+
 import mutations from './mutations';
 
 const state = {
-  users: [],
+  churches: [],
+  districts: [],
+  nationalOffices: [],
 };
 
 const module = {

@@ -1,11 +1,5 @@
 import { deepCopy } from './util';
 
-export const nationalOffices = state => [...state.nationalOffices];
-
-export const districtOffices = state => [...state.districtOffices];
-
-export const churches = state => [...state.churches];
-
 export const nationalOfficeById = state => id =>
   state.nationalOffices.find(office => office.id === +id);
 
@@ -40,16 +34,12 @@ export const districtReportsByDistrict = state => id =>
 export const churchReportsByDistrictOffice = state => id =>
   [...state.churchReports.filter(report => +report.district_report_id === +id)];
 
-export const journals = state => [...state.journals];
-
 /* old getters */
 
 export const totalDistrictExpense = state => (id) => {
   const expenses = [...state.districts[id].expenses];
   return expenses.reduce((accumulator, expense) => accumulator + expense.cost, 0);
 };
-
-export const districts = state => [...state.districts];
 
 export const districtById = state => id =>
   deepCopy(state.districts.find(district => district.id === id));
