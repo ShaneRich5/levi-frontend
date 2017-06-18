@@ -18,24 +18,16 @@
 
     -->
 
-    
+
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import io from 'socket.io-client';
-
-const socket = io('http://localhost:3000');
-
 export default {
   name: 'app',
   mounted() {
     this.$store.dispatch('loadUser');
-    /* eslint-disable no-console*/
-    socket.on('connect', () => console.log('connected'));
-    socket.on('test-channel:UserSignedUp', data => console.log(data));
-    socket.on('disconnect', () => console.log('disconnected'));
   },
 };
 </script>

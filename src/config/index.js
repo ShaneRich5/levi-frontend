@@ -17,6 +17,6 @@ export default {
     user: apiUrl('user'),
     nationOfficesUrl: apiUrl('national-offices'),
     districtOfficesUrl: apiUrl('district-offices'),
-    churchesUrl: apiUrl('churchs'),
+    churches: apiUrl('churches'),
   },
 };

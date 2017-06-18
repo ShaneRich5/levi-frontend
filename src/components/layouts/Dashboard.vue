@@ -7,27 +7,16 @@
       <div class="main-sidebar-links">
         <div class="phone-viewport">
           <md-list>
-            <md-list-item>
+            <md-list-item href="/dashboard/national-offices">
               <md-icon>whatshot</md-icon>
-              <span>Insights</span>
+              <span>National Offices</span>
             </md-list-item>
-            <md-list-item>
-              <span>Notifications</span>
+            <md-list-item href="/dashboard/district-offices">
+              <span>District Offices</span>
             </md-list-item>
-            <md-list-item>
-              <span>Archives</span>
+            <md-list-item href="/dashboard/churches">
+              <span>Churches</span>
             </md-list-item>
-            <!--
-            <md-list-item>
-              <router-link :to="{ name: 'national-office' }">National Office</router-link>
-            </md-list-item>
-            <md-list-item>
-              <router-link :to="{ name: 'district-office' }">District Offices</router-link>
-            </md-list-item>
-            <md-list-item>
-              <router-link :to="{ name: 'churches' }">Churches</router-link>
-            </md-list-item>
-            -->
           </md-list>
         </div>
       </div>
@@ -51,9 +40,6 @@ import { mapActions } from 'vuex';
 export default {
   name: 'dashboard',
   created() {
-    this.loadNationalOffices();
-    this.loadDistrictOffices();
-    this.loadChurches();
   },
   data() {
     return {
@@ -67,9 +53,6 @@ export default {
       this.$refs['main-sidebar'].close();
     },
     ...mapActions([
-      'loadNationalOffices',
-      'loadDistrictOffices',
-      'loadChurches',
       'logout',
     ]),
   },
@@ -79,13 +62,13 @@ export default {
 <style>
 @media (min-width: 1281px) {
   #sidebar-panel.md-theme-default.md-sidenav.main-sidebar .md-sidenav-content {
-    box-shadow: 0 1px 5px rgba(0,0,0,.2), 
-      0 2px 2px rgba(0,0,0,.14), 
+    box-shadow: 0 1px 5px rgba(0,0,0,.2),
+      0 2px 2px rgba(0,0,0,.14),
       0 3px 1px -2px rgba(0,0,0,.12);
       display: flex;
       flex-flow: column;
       overflow: hidden;
-      
+
         pointer-events: auto;
         transform: translate3d(0, 0, 0);
   }

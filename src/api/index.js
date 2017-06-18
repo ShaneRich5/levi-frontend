@@ -1,26 +1,56 @@
 import axios from 'axios';
-import Config from '../config';
 
-export const login = () => {
-  axios.post(Config.api.loginUrl, { email, password })
-    .then(response => response.data)
-    .then((data) => {
-      const { token, user } = data;
-      localStorage.token = token;
-      commit(types.LOGIN, { user, token });
-      router.push('/');
-    })
-    .catch();
+axios.defaults.baseURL = 'http://localhost:8000';
+
+const getRequest = (url, handleData, handleError) => {
+  axios.get(url).then(response => response.data)
+    .then(handleData).catch(handleError);
 };
 
-export const register = () => {
-
-};
-
-export const setToken = (token) => {
-  axios.defaults.headers.common.Authorization = token;
-};
-
-export const getChurches = () => {
-
+export default {
+  getNationalOffices(callback) {
+    getRequest('api/national-offices', (data) => {
+      const { nationalOffices } = data;
+      callback(nationalOffices);
+    });
+  },
+  getDistrictOffices(callback) {
+    getRequest('api/district-offices', (data) => {
+      const { districtOffices } = data;
+      callback(districtOffices);
+    });
+  },
+  getChurches(callback) {
+    getRequest('api/churches', (data) => {
+      const { churches } = data;
+      callback(churches);
+    });
+  },
+  getNationalOfficeById(id, callback) {
+    getRequest(`api/national-offices/${id}`, (data) => {
+      const { nationalOffice } = data;
+      callback(nationalOffice);
+    });
+  },
+  getDistrictOfficeById(id, callback) {
+    getRequest(`api/district-offices/${id}`, (data) => {
+      const { districtOffice } = data;
+      callback(districtOffice);
+    });
+  },
+  getChurchById(id, callback) {
+    getRequest(`api/churches/${id}`, (data) => {
+      const { church } = data;
+      callback(church);
+    });
+  },
+  login(email, password, successCb, errorCb) {
+    axios.post('api/login')
+      .then(response => response.data)
+      .then((data) => {
+        const { token } = data;
+        successCb(token);
+      })
+      .error(errorCb);
+  },
 };
