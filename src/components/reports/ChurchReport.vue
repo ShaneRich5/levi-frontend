@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h1>{{ id }}</h1>
+  <div class="container">
     <md-table-card v-if="churchReport">
       <md-toolbar>
         <h1 class="md-title">{{ churchReport.title }}</h1>
@@ -46,3 +45,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.container {
+  margin: 15px;
+}
+</style>
+
