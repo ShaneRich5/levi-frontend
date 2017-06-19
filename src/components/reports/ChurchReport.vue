@@ -1,6 +1,8 @@
 <template>
   <div>
     <h1>{{ id }}</h1>
+
+    <p>{{ churchReport }}</p>
   </div>
 </template>
 
@@ -12,7 +14,7 @@ export default {
   created() {
     this.loadChurchReportById(this.id);
   },
-  getters: {
+  computed: {
     churchReport() {
       return this.$store.getters.churchReportById(this.id);
     },
