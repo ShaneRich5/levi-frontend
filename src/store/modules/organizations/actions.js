@@ -1,6 +1,15 @@
 import api from '../../../api';
 import * as types from '../../mutation-types';
 
+export const loadOrganizations = ({ commit }) => {
+  api.getOrganizations((organizations) => {
+    const { nationalOffices, districtOffices, churches } = organizations;
+    commit(types.NATIONAL_OFFICES_LOADED, nationalOffices);
+    commit(types.DISTRICT_OFFICES_LOADED, districtOffices);
+    commit(types.CHURCHES_LOADED, churches);
+  });
+};
+
 export const loadNationalOffices = ({ commit }) => {
   api.getNationalOffices((offices) => {
     commit(types.NATIONAL_OFFICES_LOADED, offices);
@@ -8,8 +17,8 @@ export const loadNationalOffices = ({ commit }) => {
 };
 
 export const loadDistrictOffices = ({ commit }) => {
-  api.getDistrictOffices((offices) => {
-    commit(types.DISTRICT_OFFICES_LOADED, offices);
+  api.getDistrictOffices((districtOffices) => {
+    commit(types.DISTRICT_OFFICES_LOADED, districtOffices);
   });
 };
 

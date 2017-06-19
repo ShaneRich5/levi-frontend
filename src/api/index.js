@@ -8,6 +8,9 @@ const getRequest = (url, handleData, handleError) => {
 };
 
 export default {
+  getOrganizations(callback) {
+    getRequest('api/organizations', callback);
+  },
   getNationalOffices(callback) {
     getRequest('api/national-offices', (data) => {
       const { nationalOffices } = data;

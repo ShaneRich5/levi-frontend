@@ -9,12 +9,7 @@ import WelcomePage from '@/components/pages/WelcomePage';
 import MainLayout from '@/components/layouts/MainLayout';
 import PageNotFound from '@/components/pages/PageNotFound';
 import RegistrationPage from '@/components/pages/RegistrationPage';
-import NationalOffices from '@/components/NationalOffices';
-import DistrictOffices from '@/components/DistrictOffices';
-import Churches from '@/components/Churches';
-import NationalOffice from '@/components/NationalOffice';
-import DistrictOffice from '@/components/DistrictOffice';
-import Church from '@/components/Church';
+import Church from '@/components/entities/Church';
 
 Vue.use(Router);
 
@@ -52,12 +47,7 @@ const routes = [
     beforeEnter: requireAuth,
     children: [
       { path: '', component: WelcomePage, name: 'dashboard' },
-      { path: 'national-offices', component: NationalOffices, name: 'national-offices' },
-      { path: 'district-offices', component: DistrictOffices, name: 'district-offices' },
-      { path: 'churches', component: Churches, name: 'churches' },
-      { path: 'national-offices/:id', component: NationalOffice, name: 'national-office', props: true },
-      { path: 'district-offices/:id', component: DistrictOffice, name: 'district-office', props: true },
-      { path: 'churches/:id', component: Church, name: 'church', props: true },
+      { path: 'church/:id', compontent: Church, name: 'church', props: true },
     ],
   },
   { path: '*', component: PageNotFound, name: 'PageNotFound' },

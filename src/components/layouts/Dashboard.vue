@@ -7,14 +7,14 @@
       <div class="main-sidebar-links">
         <div class="phone-viewport">
           <md-list>
-            <md-list-item href="/dashboard/national-offices">
+            <md-list-item href="/dashboard">
               <md-icon>whatshot</md-icon>
-              <span>National Offices</span>
+              <span>Home</span>
             </md-list-item>
-            <md-list-item href="/dashboard/district-offices">
+            <md-list-item>
               <span>District Offices</span>
             </md-list-item>
-            <md-list-item href="/dashboard/churches">
+            <md-list-item>
               <span>Churches</span>
             </md-list-item>
           </md-list>

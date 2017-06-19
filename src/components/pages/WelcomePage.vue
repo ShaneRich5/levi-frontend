@@ -1,10 +1,10 @@
 <template>
   <div>
     <h2>National Office</h2>
-    
+
     <md-layout class="cards" :md-gutter="8">
       <md-layout class="card"
-        v-for="nationalOffice in nationalOffices" 
+        v-for="nationalOffice in nationalOffices"
         :key="nationalOffice.id"
       >
         <router-link :to="{ name: 'national-office', params: { id: nationalOffice.id }}">
@@ -25,10 +25,10 @@
 
     <md-layout class="cards" :md-gutter="8">
       <md-layout class="card"
-        v-for="districtOffice in districtOffices" 
+        v-for="districtOffice in districtOffices"
         :key="districtOffice.id"
       >
-        <router-link :to="{ name: 'district-office', params: { id: districtOffice.id }}">    
+        <router-link :to="{ name: 'district-office', params: { id: districtOffice.id }}">
           <md-card>
             <md-card-header>
               <div class="md-title">{{ districtOffice.name }}</div>
@@ -43,11 +43,11 @@
     </md-layout>
 
     <h2>Churches</h2>
-    
+
 
     <md-layout class="cards" :md-gutter="8">
       <md-layout class="card"
-        v-for="church in churches" 
+        v-for="church in churches"
         :key="church.id"
       >
         <router-link :to="{ name: 'church', params: { id: church.id }}">
@@ -67,16 +67,22 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'welcome-page',
+  created() {
+    this.$store.dispatch('loadOrganizations');
+  },
   computed: {
     ...mapGetters([
       'nationalOffices',
       'districtOffices',
       'churches',
     ]),
+  },
+  method: {
+    ...mapActions(['loadOrganizations']),
   },
 };
 </script>
