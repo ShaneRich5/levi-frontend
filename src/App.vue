@@ -15,9 +15,7 @@
         <md-button>Contact</md-button>
       </router-link>
     </md-toolbar>
-
     -->
-
 
     <router-view></router-view>
   </div>

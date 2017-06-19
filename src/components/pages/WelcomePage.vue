@@ -44,7 +44,6 @@
 
     <h2>Churches</h2>
 
-
     <md-layout class="cards" :md-gutter="8">
       <md-layout class="card"
         v-for="church in churches"
@@ -67,22 +66,16 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'welcome-page',
-  created() {
-    this.$store.dispatch('loadOrganizations');
-  },
   computed: {
     ...mapGetters([
       'nationalOffices',
       'districtOffices',
       'churches',
     ]),
-  },
-  method: {
-    ...mapActions(['loadOrganizations']),
   },
 };
 </script>

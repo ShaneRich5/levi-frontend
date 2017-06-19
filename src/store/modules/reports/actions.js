@@ -1,12 +1,14 @@
-import axios from 'axios';
+import api from '../../../api';
+import * as types from '../../mutation-types';
 // import io from 'socket.io-client';
 
 // const socket = io('http://localhost:3000');
 
-export const loadChurchReportByChurch = ({ commit }, id) => {
-  const url = `http://localhost:8000/api/church-reports/${id}`;
-  axios.get(url).then(response => response.data)
-    .catch();
+export const loadChurchReportsByChurch = ({ commit }, id) => {
+  api.getChurchReportsByChurchId(id, (data) => {
+    const { churchReports } = data;
+    commit(types.CHURCH_REPORTS_LOADED, churchReports);
+  });
 };
 
 export const listenForChurchReportUpdates = () => {

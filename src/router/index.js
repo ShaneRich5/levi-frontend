@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Church from '@/components/entities/Church';
+import ChurchReport from '@/components/reports/ChurchReport';
 import Home from '@/components/Home';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
@@ -9,7 +11,6 @@ import WelcomePage from '@/components/pages/WelcomePage';
 import MainLayout from '@/components/layouts/MainLayout';
 import PageNotFound from '@/components/pages/PageNotFound';
 import RegistrationPage from '@/components/pages/RegistrationPage';
-import Church from '@/components/entities/Church';
 
 Vue.use(Router);
 
@@ -47,7 +48,8 @@ const routes = [
     beforeEnter: requireAuth,
     children: [
       { path: '', component: WelcomePage, name: 'dashboard' },
-      { path: 'church/:id', compontent: Church, name: 'church', props: true },
+      { path: 'churches/:id', component: Church, name: 'church', props: true },
+      { path: 'church-reports/:id', component: ChurchReport, name: 'church-report', props: true },
     ],
   },
   { path: '*', component: PageNotFound, name: 'PageNotFound' },

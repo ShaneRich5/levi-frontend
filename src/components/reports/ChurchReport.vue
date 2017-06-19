@@ -1,6 +1,9 @@
 <template>
   <div>
     <h1>{{ church.name }}</h1>
+    <p>{{ church }}</p>
+    <p>{{ churchReports }}</p>
+
     <md-table>
       <md-table-header>
         <md-table-row>

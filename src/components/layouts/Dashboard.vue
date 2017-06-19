@@ -11,12 +11,6 @@
               <md-icon>whatshot</md-icon>
               <span>Home</span>
             </md-list-item>
-            <md-list-item>
-              <span>District Offices</span>
-            </md-list-item>
-            <md-list-item>
-              <span>Churches</span>
-            </md-list-item>
           </md-list>
         </div>
       </div>
@@ -40,6 +34,7 @@ import { mapActions } from 'vuex';
 export default {
   name: 'dashboard',
   created() {
+    this.$store.dispatch('loadOrganizations');
   },
   data() {
     return {
@@ -52,9 +47,7 @@ export default {
     closeSidenav() {
       this.$refs['main-sidebar'].close();
     },
-    ...mapActions([
-      'logout',
-    ]),
+    ...mapActions(['logout', 'loadOrganizations']),
   },
 };
 </script>

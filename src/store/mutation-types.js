@@ -1,11 +1,11 @@
-// // auth
+// auth
 export const REGISTER = 'REGISTER';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const SET_TOKEN = 'SET_TOKEN';
 export const SET_USER = 'SET_USER';
 
-// // organization
+// organization
 export const NATIONAL_OFFICES_LOADED = 'NATIONAL_OFFICES_LOADED';
 export const DISTRICT_OFFICES_LOADED = 'DISTRICT_OFFICES_LOADED';
 export const CHURCHES_LOADED = 'CHURCHES_LOADED';
@@ -13,3 +13,6 @@ export const CHURCHES_LOADED = 'CHURCHES_LOADED';
 export const NATIONAL_OFFICE_LOADED = 'NATIONAL_OFFICE_LOADED';
 export const DISTRICT_OFFICE_LOADED = 'DISTRICT_OFFICE_LOADED';
 export const CHURCH_LOADED = 'CHURCH_LOADED';
+
+// reports
+export const CHURCH_REPORTS_LOADED = 'CHURCH_REPORTS_LOADED';
