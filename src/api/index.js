@@ -8,6 +8,9 @@ const getRequest = (url, handleData, handleError) => {
 };
 
 export default {
+  getChurchReportById(id, callback) {
+    getRequest(`api/church-reports/${id}`, callback);
+  },
   getChurchReportsByChurchId(id, callback) {
     getRequest(`api/churches/${id}/church-reports`, callback);
   },

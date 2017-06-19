@@ -11,6 +11,17 @@ export const loadChurchReportsByChurch = ({ commit }, id) => {
   });
 };
 
+export const loadChurchReportById = ({ commit }, id) => {
+  api.getChurchReportById(id, (data) => {
+    const { churchReport, sources } = data;
+    // console.log(data);
+    // console.log(churchReport);
+    // console.log(sources);
+    commit(types.CHURCH_REPORT_LOADED, churchReport);
+    commit(types.SOURCES_LOADED, sources);
+  });
+};
+
 export const listenForChurchReportUpdates = () => {
   // /* eslint-disable no-console*/
   // socket.on('connect', () => console.log('connected'));

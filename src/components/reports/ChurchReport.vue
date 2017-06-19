@@ -1,47 +1,25 @@
 <template>
   <div>
-    <h1>{{ church.name }}</h1>
-    <p>{{ church }}</p>
-    <p>{{ churchReports }}</p>
-
-    <md-table>
-      <md-table-header>
-        <md-table-row>
-          <md-table-head md-numeric>ID</md-table-head>
-          <md-table-head>Title</md-table-head>
-          <md-table-head>Date</md-table-head>
-        </md-table-row>
-      </md-table-header>
-
-      <md-table-body>
-        <md-table-row v-for="report in churchReports" :key="report.id">
-          <md-table-cell>{{ report.id }}</md-table-cell>
-          <md-table-cell>
-            {{ report.title }}
-          </md-table-cell>
-          <md-table-cell>{{ report.created_at }}</md-table-cell>
-        </md-table-row>
-      </md-table-body>
-    </md-table>
+    <h1>{{ id }}</h1>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   props: ['id'],
   created() {
-    this.loadChurchReportsByChurch(this.id);
+    this.loadChurchReportById(this.id);
   },
-  computed: {
-    church() {
-      return this.$store.getters.churchById(this.id);
+  getters: {
+    churchReport() {
+      return this.$store.getters.churchReportById(this.id);
     },
-    ...mapGetters(['churchReports']),
+    ...mapGetters(['sources']),
   },
   methods: {
-    ...mapActions(['loadChurchReportsByChurch']),
+    ...mapActions(['loadChurchReportById']),
   },
 };
 </script>

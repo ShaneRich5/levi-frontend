@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>{{ church.name }}</h1>
+    <h1>{{ church.title }}</h1>
+
     <md-table>
       <md-table-header>
         <md-table-row>
@@ -14,7 +15,9 @@
         <md-table-row v-for="report in churchReports" :key="report.id">
           <md-table-cell>{{ report.id }}</md-table-cell>
           <md-table-cell>
-            {{ report.title }}
+            <router-link :to="{ name: 'church-report', params: { id: report.id }}">
+              {{ report.title }}
+            </router-link>
           </md-table-cell>
           <md-table-cell>{{ report.created_at }}</md-table-cell>
         </md-table-row>
