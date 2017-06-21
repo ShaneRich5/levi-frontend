@@ -17,8 +17,21 @@
         <md-table-body>
           <md-table-row v-for="source in sources" :key="source.id">
             <md-table-cell>{{ source.id }}</md-table-cell>
-            <md-table-cell>{{ source.name }}</md-table-cell>
-            <md-table-cell>{{ source.amount }}</md-table-cell>
+            <md-table-cell>
+              <input
+                type="text"
+                :value="source.name"
+                v-on:keyup.enter="handleSourceNameUpdate(source.id, $event.target.value)"
+              />
+            </md-table-cell>
+            <md-table-cell>
+              <input
+                type="number"
+                :value="source.amount"
+                @keyup.enter="handleSourceAmountUpdate(source.id, $event.target.value)"
+              />
+              {{ source.amount }}
+            </md-table-cell>
           </md-table-row>
         </md-table-body>
       </md-table>
@@ -33,6 +46,7 @@ export default {
   props: ['id'],
   created() {
     this.loadChurchReportById(this.id);
+    this.listenForSourceChanges(this.id);
   },
   computed: {
     churchReport() {
@@ -41,7 +55,20 @@ export default {
     ...mapGetters(['sources']),
   },
   methods: {
-    ...mapActions(['loadChurchReportById']),
+    ...mapActions([
+      'loadChurchReportById',
+      'listenForSourceChanges',
+      'updateSourceName',
+      'updateSourceAmount',
+    ]),
+    handleSourceNameUpdate(id, name) {
+      // console.log(id, name);
+      this.updateSourceName({ id, name });
+    },
+    handleSourceAmountUpdate(id, amount) {
+      // console.log(id, amount);
+      this.updateSourceAmount({ id, amount });
+    },
   },
 };
 </script>
@@ -51,4 +78,3 @@ export default {
   margin: 15px;
 }
 </style>
-

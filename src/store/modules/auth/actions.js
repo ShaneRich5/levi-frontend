@@ -1,18 +1,16 @@
 import axios from 'axios';
 import router from '../../../router';
 import Config from '../../../config';
+import api from '../../../api';
 import * as types from '../../mutation-types';
 
 export const login = ({ commit }, { email, password }) => {
-  axios.post(Config.api.loginUrl, { email, password })
-    .then(response => response.data)
-    .then((data) => {
-      const { token, user } = data;
-      localStorage.token = token;
-      commit(types.LOGIN, { user, token });
-      router.push('/');
-    })
-    .catch();
+  api.login({ email, password }, (data) => {
+    const { token, user } = data;
+    localStorage.token = token;
+    commit(types.LOGIN, { user, token });
+    router.push('/');
+  });
 };
 
 export const loadUser = ({ commit }) => {
@@ -36,6 +34,7 @@ export const loadUser = ({ commit }) => {
 };
 
 export const logout = ({ commit }) => {
+  // should tell laravel
   commit(types.LOGOUT);
   delete localStorage.token;
   router.push('/');

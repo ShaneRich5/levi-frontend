@@ -1,8 +1,8 @@
+import io from 'socket.io-client';
 import api from '../../../api';
 import * as types from '../../mutation-types';
-// import io from 'socket.io-client';
 
-// const socket = io('http://localhost:3000');
+const socket = io('http://localhost:3000');
 
 export const loadChurchReportsByChurch = ({ commit }, id) => {
   api.getChurchReportsByChurchId(id, (data) => {
@@ -19,9 +19,31 @@ export const loadChurchReportById = ({ commit }, id) => {
   });
 };
 
-export const listenForChurchReportUpdates = () => {
-  // /* eslint-disable no-console*/
-  // socket.on('connect', () => console.log('connected'));
-  // socket.on('church-report', data => console.log(data));
-  // socket.on('disconnect', () => console.log('disconnected'));
+export const listenForSourceChanges = () => {
+  /* eslint-disable no-console*/
+  socket.on('connect', () => console.log('connected'));
+  socket.on('levi-notifications:App\\Events\\SourceUpdated', (data) => {
+    console.log(data);
+  });
+  socket.on('disconnect', () => console.log('disconnected'));
+};
+
+export const updateSourceName = ({ commit }, { id, name }) => {
+  api.updateSourceName({ id, name }, (data) => {
+    const { source } = data;
+    commit(types.SOURCE_NAME_UPDATED, source);
+  },
+  (error) => {
+    console.log(error);
+  });
+};
+
+export const updateSourceAmount = ({ commit }, { id, amount }) => {
+  api.updateSourceAmount({ id, amount }, (data) => {
+    const { source } = data;
+    commit(types.SOURCE_AMOUNT_UPDATED, source);
+  },
+  (error) => {
+    console.log(error);
+  });
 };
