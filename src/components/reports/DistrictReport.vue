@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   props: ['id'],
   created() {
@@ -15,6 +17,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['loadDistrictReportById']),
   },
 };
 </script>

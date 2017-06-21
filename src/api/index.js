@@ -34,6 +34,12 @@ export default {
   updateSourceAmount({ id, amount }, callback, errorCallback) {
     update(`api/sources/${id}`, { id, amount }, callback, errorCallback);
   },
+  getDistrictReportById(id, callback) {
+    get(`api/district-reports/${id}`, callback);
+  },
+  getDistrictReportsByDistrictOfficeId(id, callback) {
+    get(`api/district-offices/${id}/district-reports`, callback);
+  },
   getChurchReportById(id, callback) {
     get(`api/church-reports/${id}`, callback);
   },

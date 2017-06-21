@@ -11,11 +11,26 @@ export const loadChurchReportsByChurch = ({ commit }, id) => {
   });
 };
 
+export const loadDistrictReportsByDistrictOffice = ({ commit }, id) => {
+  api.getDistrictReportsByDistrictOfficeId(id, (data) => {
+    const { districtReports } = data;
+    commit(types.DISTRICT_REPORTS_LOADED, districtReports);
+  });
+};
+
 export const loadChurchReportById = ({ commit }, id) => {
   api.getChurchReportById(id, (data) => {
     const { churchReport, sources } = data;
     commit(types.CHURCH_REPORT_LOADED, churchReport);
     commit(types.SOURCES_LOADED, sources);
+  });
+};
+
+export const loadDistrictReportById = ({ commit }, id) => {
+  api.getDistrictReportById(id, (data) => {
+    const { districtReport, expenses } = data;
+    commit(types.DISTRICT_REPORT_LOADED, districtReport);
+    commit(types.EXPENSES_LOADED, expenses);
   });
 };
 

@@ -9,6 +9,12 @@ export default {
   [types.CHURCH_REPORT_LOADED] (state, churchReport) {
     state.churchReports = [Object.assign({}, churchReport)];
   },
+  [types.DISTRICT_REPORTS_LOADED] (state, districtReports) {
+    state.districtReports = [...districtReports];
+  },
+  [types.DISTRICT_REPORT_LOADED] (state, districtReport) {
+    state.districtReports = [Object.assign({}, districtReport)];
+  },
   [types.SOURCES_LOADED] (state, sources) {
     state.sources = [...sources];
   },
@@ -30,5 +36,15 @@ export default {
     state.sources = [...state.sources.slice(0, index),
       source,
       ...state.sources.slice(index + 1)];
+  },
+  [types.EXPENSES_LOADED] (state, expenses) {
+    state.expenses = [...expenses];
+  },
+  [types.EXPENSE_UPDATED] (state, expense) {
+    const index = state.expenses.findIndex(s => s.id === +expense.id);
+    if (index === -1) return;
+    state.expenses = [...state.expenses.slice(0, index),
+      expense,
+      ...state.expenses.slice(index + 1)];
   },
 };

@@ -2,6 +2,7 @@
   <div class="container">
     <h1>District Office</h1>
 
+    {{ districtReports }}
 
     <md-table-card>
       <md-toolbar>
@@ -30,9 +31,14 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   name: 'district-office',
   props: ['id'],
+  created() {
+    this.loadDistrictReportsByDistrictOffice(this.id);
+  },
   computed: {
     districtOffice() {
       return this.$store.getters.districtOfficeById(this.id);
@@ -40,6 +46,10 @@ export default {
     churches() {
       return this.$store.getters.churchesByDistrictOffice(this.id);
     },
+    ...mapGetters(['districtReports']),
+  },
+  methods: {
+    ...mapActions(['loadDistrictReportsByDistrictOffice']),
   },
 };
 </script>
