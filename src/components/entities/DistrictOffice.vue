@@ -2,7 +2,6 @@
   <div class="container">
     <h1>District Office</h1>
 
-    {{ districtOffice }}
 
     <md-table-card>
       <md-toolbar>

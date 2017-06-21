@@ -10,6 +10,9 @@ export default {
   created() {
   },
   computed: {
+    districtReport() {
+      return this.$store.getters.districtReportById(this.id);
+    },
   },
   methods: {
   },
