@@ -24,4 +24,11 @@ export default {
       source,
       ...state.sources.slice(index + 1)];
   },
+  [types.SOURCE_UPDATED] (state, source) {
+    const index = state.sources.findIndex(s => s.id === +source.id);
+    if (index === -1) return;
+    state.sources = [...state.sources.slice(0, index),
+      source,
+      ...state.sources.slice(index + 1)];
+  },
 };

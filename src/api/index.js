@@ -23,7 +23,7 @@ export default {
     post('api/login', { email, password },
       (data) => {
         const { token } = data;
-        axios.defaults.headers.common['Auth-Token'] = 'foo bar';
+        axios.defaults.headers.common.Authorization = `Bearer ${token}`;
         successCb(data);
       })
       .error(errorCb);

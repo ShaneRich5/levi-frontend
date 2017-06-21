@@ -19,19 +19,23 @@ export const loadChurchReportById = ({ commit }, id) => {
   });
 };
 
-export const listenForSourceChanges = () => {
+export const listenForSourceChanges = ({ commit }) => {
   /* eslint-disable no-console*/
   socket.on('connect', () => console.log('connected'));
   socket.on('levi-notifications:App\\Events\\SourceUpdated', (data) => {
     console.log(data);
+    // const { source, user, changed } = data;
+    const { source } = data;
+    commit(types.SOURCE_UPDATED, source);
   });
   socket.on('disconnect', () => console.log('disconnected'));
 };
 
 export const updateSourceName = ({ commit }, { id, name }) => {
   api.updateSourceName({ id, name }, (data) => {
-    const { source } = data;
-    commit(types.SOURCE_NAME_UPDATED, source);
+    console.log(data);
+    // const { source } = data;
+    // commit(types.SOURCE_NAME_UPDATED, source);
   },
   (error) => {
     console.log(error);
@@ -40,8 +44,9 @@ export const updateSourceName = ({ commit }, { id, name }) => {
 
 export const updateSourceAmount = ({ commit }, { id, amount }) => {
   api.updateSourceAmount({ id, amount }, (data) => {
-    const { source } = data;
-    commit(types.SOURCE_AMOUNT_UPDATED, source);
+    console.log(data);
+    // const { source } = data;
+    // commit(types.SOURCE_AMOUNT_UPDATED, source);
   },
   (error) => {
     console.log(error);
