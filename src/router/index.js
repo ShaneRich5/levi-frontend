@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Church from '@/components/entities/Church';
+import DistrictOffice from '@/components/entities/DistrictOffice';
+import NationalOffice from '@/components/entities/NationalOffice';
 import ChurchReport from '@/components/reports/ChurchReport';
 import DistrictReport from '@/components/reports/DistrictReport';
 import Journal from '@/components/reports/Journal';
@@ -51,6 +53,8 @@ const routes = [
     children: [
       { path: '', component: WelcomePage, name: 'dashboard' },
       { path: 'churches/:id', component: Church, name: 'church', props: true },
+      { path: 'district-offices/:id', component: DistrictOffice, name: 'district-office', props: true },
+      { path: 'national-offices/:id', component: NationalOffice, name: 'national-office', props: true },
       { path: 'church-reports/:id', component: ChurchReport, name: 'church-report', props: true },
       { path: 'district-reports/:id', component: DistrictReport, name: 'district-report', props: true },
       { path: 'journal/:id', component: Journal, name: 'journal', props: true },

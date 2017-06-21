@@ -14,3 +14,9 @@ export const districtOfficeById = state => id =>
 
 export const churchById = state => id =>
   deepCopy(state.churches.find(church => church.id === +id));
+
+export const districtOfficesByNationalOffice = state => id =>
+  [...state.districtOffices.filter(office => office.id === +id)];
+
+export const churchesByDistrictOffice = state => id =>
+  [...state.churches.filter(church => church.id === +id)];
