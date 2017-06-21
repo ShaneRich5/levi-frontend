@@ -28,9 +28,10 @@ export const loadChurchReportById = ({ commit }, id) => {
 
 export const loadDistrictReportById = ({ commit }, id) => {
   api.getDistrictReportById(id, (data) => {
-    const { districtReport, expenses } = data;
+    const { districtReport, churchReports, expenses } = data;
     commit(types.DISTRICT_REPORT_LOADED, districtReport);
     commit(types.EXPENSES_LOADED, expenses);
+    commit(types.CHURCH_REPORTS_LOADED, churchReports);
   });
 };
 

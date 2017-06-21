@@ -14,12 +14,18 @@
 
       <md-table>
         <md-table-header>
-          <md-table-row>
-            <md-table-head md-numeric>ID</md-table-head>
-            <md-table-head>Name</md-table-head>
-            <md-table-head md-numeric>Amount ($)</md-table-head>
-          </md-table-row>
-        </md-table-header>
+            <md-table-row>
+              <md-table-head>Id</md-table-head>
+              <md-table-head>Source</md-table-head>
+              <md-table-head>Raised</md-table-head>
+              <md-table-head>Island Office</md-table-head>
+              <md-table-head>District Office</md-table-head>
+              <md-table-head>Departments</md-table-head>
+              <md-table-head>Minister I/C</md-table-head>
+              <md-table-head>Total</md-table-head>
+              <md-table-head>Balance (To Church)</md-table-head>
+            </md-table-row>
+          </md-table-header>
 
         <md-table-body>
           <md-table-row v-for="source in sources" :key="source.id">
@@ -38,6 +44,12 @@
                 @keyup.enter="handleSourceAmountUpdate(source.id, $event.target.value)"
               />
             </md-table-cell>
+            <md-table-cell></md-table-cell>
+            <md-table-cell></md-table-cell>
+            <md-table-cell></md-table-cell>
+            <md-table-cell></md-table-cell>
+            <md-table-cell></md-table-cell>
+            <md-table-cell></md-table-cell>
           </md-table-row>
         </md-table-body>
       </md-table>
