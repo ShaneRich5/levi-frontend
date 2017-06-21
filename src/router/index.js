@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Church from '@/components/entities/Church';
 import ChurchReport from '@/components/reports/ChurchReport';
+import DistrictReport from '@/components/reports/DistrictReport';
+import Journal from '@/components/reports/Journal';
 import Home from '@/components/Home';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
@@ -50,6 +52,8 @@ const routes = [
       { path: '', component: WelcomePage, name: 'dashboard' },
       { path: 'churches/:id', component: Church, name: 'church', props: true },
       { path: 'church-reports/:id', component: ChurchReport, name: 'church-report', props: true },
+      { path: 'district-reports/:id', component: DistrictReport, name: 'district-report', props: true },
+      { path: 'journal/:id', component: Journal, name: 'journal', props: true },
     ],
   },
   { path: '*', component: PageNotFound, name: 'PageNotFound' },

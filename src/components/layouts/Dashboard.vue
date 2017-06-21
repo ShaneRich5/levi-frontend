@@ -9,7 +9,7 @@
           <md-list>
             <md-list-item href="/dashboard">
               <md-icon>whatshot</md-icon>
-              <span>Home</span>
+              <span>Organizations</span>
             </md-list-item>
           </md-list>
         </div>

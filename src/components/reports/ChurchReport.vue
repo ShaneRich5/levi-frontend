@@ -1,5 +1,13 @@
 <template>
   <div class="container">
+    <router-link :to="{ name: 'church', params: { id: churchReport.church_id }}">
+      Church
+    </router-link>
+    <router-link :to="{ name: 'district-report', params: { id: churchReport.district_report_id }}">
+      District Report
+    </router-link>
+    {{ churchReport }}
+
     <md-table-card v-if="churchReport">
       <md-toolbar>
         <h1 class="md-title">{{ churchReport.title }}</h1>
