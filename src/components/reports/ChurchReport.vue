@@ -30,7 +30,6 @@
                 :value="source.amount"
                 @keyup.enter="handleSourceAmountUpdate(source.id, $event.target.value)"
               />
-              {{ source.amount }}
             </md-table-cell>
           </md-table-row>
         </md-table-body>
@@ -62,11 +61,9 @@ export default {
       'updateSourceAmount',
     ]),
     handleSourceNameUpdate(id, name) {
-      // console.log(id, name);
       this.updateSourceName({ id, name });
     },
     handleSourceAmountUpdate(id, amount) {
-      // console.log(id, amount);
       this.updateSourceAmount({ id, amount });
     },
   },
