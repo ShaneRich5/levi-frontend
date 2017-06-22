@@ -1,7 +1,18 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:8000';
+// axios.defaults.baseURL = 'http://192.241.155.43';
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+
+axios.interceptors.request.use((config) => {
+  const token = localStorage.token;
+
+  if (token !== undefined && token !== null) {
+    /* eslint-disable no-param-reassign*/
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}, error => Promise.reject(error));
 
 const get = (endpoint, handleData, handleError) => {
   axios.get(endpoint).then(response => response.data)
@@ -18,15 +29,34 @@ const update = (endpoint, data, handleReponse, handleError) => {
     .then(handleReponse).catch(handleError);
 };
 
+const addTokenToHeader = (data) => {
+  const { token } = data;
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
+
 export default {
   login({ email, password }, successCb, errorCb) {
     post('api/login', { email, password },
       (data) => {
-        const { token } = data;
-        axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+        addTokenToHeader(data);
         successCb(data);
-      })
-      .error(errorCb);
+      }, errorCb);
+  },
+  register({ email, password, firstName, lastName }, successCb, errorCb) {
+    post('api/register', { email, password, firstName, lastName },
+      (data) => {
+        addTokenToHeader(data);
+        successCb(data);
+      }, errorCb);
+  },
+  createExpense({ id, name, amount }, callback, errorCallback) {
+    post('api/expenses', { district_report_id: id, name, amount }, callback, errorCallback);
+  },
+  updateExpenseName({ id, name }, callback, errorCallback) {
+    update(`api/expenses/${id}`, { id, name }, callback, errorCallback);
+  },
+  updateExpenseAmount({ id, amount }, callback, errorCallback) {
+    update(`api/expenses/${id}`, { id, amount }, callback, errorCallback);
   },
   updateSourceName({ id, name }, callback, errorCallback) {
     update(`api/sources/${id}`, { id, name }, callback, errorCallback);

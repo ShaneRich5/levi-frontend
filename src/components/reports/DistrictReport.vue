@@ -1,7 +1,6 @@
 <template>
   <div class="container" style="margin-top: 10px;">
     <md-layout md-align="center" md-flex="35">
-      {{ churchReports }}
       <table class="form">
         <tr>
           <th class="no-border"></th>
@@ -79,12 +78,13 @@
           </td>
           <td>0.00</td>
         </tr>
-        <!--
         <tr>
           <td class="no-border"></td>
           <td colspan="4">Total Expenses for the Month</td>
-          <td>{{ calculatedTotalExpenses() }}</td>
+          <td>{{ totalExpense }}</td>
         </tr>
+
+        <!--
         <tr>
           <td class="no-border"></td>
           <td colspan="4">Net Income (Expenditure) for the Month</td>
@@ -131,6 +131,8 @@ export default {
   },
   created() {
     this.loadDistrictReportById(this.id);
+    this.listenForChurchReportUpdates(this.id);
+    this.listenForExpenseUpdates(this.id);
   },
   computed: {
     districtReport() {
@@ -139,18 +141,36 @@ export default {
     grandTotal() {
       return this.churchReports.reduce((total, report) => report.total + total, 0);
     },
-    ...mapGetters(['churchReports']),
+    totalExpense() {
+      return this.expenses.reduce((total, expense) => expense.amount + total, 0);
+    },
+    ...mapGetters(['churchReports', 'expenses']),
   },
   methods: {
+    ...mapActions([
+      'listenForChurchReportUpdates', 'listenForExpenseUpdates',
+      'loadDistrictReportById', 'updateExpenseName',
+      'updateExpenseAmount', 'createExpense',
+    ]),
     handleExpenseNameUpdate(id, name) {
-      console.log(id, name);
+      if (name === '') {
+        return;
+      }
+      this.updateExpenseName({ id, name });
     },
     handleExpenseAmountUpdate(id, amount) {
-      console.log(id, amount);
+      if (amount < 0) {
+        return;
+      }
+      this.updateExpenseAmount({ id, amount });
     },
     handleExpenseCreation() {
+      if (this.newExpenseName === '') {
+        return;
+      }
+      this.createExpense({ id: this.id, name: this.newExpenseName });
+      this.newExpenseName = '';
     },
-    ...mapActions(['loadDistrictReportById']),
   },
 };
 </script>

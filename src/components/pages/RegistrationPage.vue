@@ -1,6 +1,6 @@
 <template>
-  <div class="form"> 
-  
+  <div class="form">
+
     <ul class="tab-group">
       <li class="tab active">
         <router-link :to="{ path: 'register' }">Sign Up</router-link>
@@ -9,11 +9,11 @@
         <router-link :to="{ path: 'login' }">Log in</router-link>
       </li>
     </ul>
-    
+
     <div class="tab-content">
-      <div id="signup">   
-        <h1>Sign Up for Free</h1>        
-        <form action="/" method="post">
+      <div id="signup">
+        <h1>Sign Up for Free</h1>
+        <form v-on:submit.prevent="attemptRegister">
           <div class="top-row">
             <div class="field-wrap">
               <label>
@@ -40,17 +40,16 @@
             </label>
             <input v-model="user.password" type="password" required autocomplete="off"/>
           </div>
-          <button type="submit" class="button button-block">Get Started</button>  
+          <button type="submit" class="button button-block">Get Started</button>
         </form>
-      </div>
-        
-      
-</div> <!-- /form -->
+      </div> <!-- /form -->
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'RegisterPage',
   data() {
@@ -64,7 +63,11 @@ export default {
     };
   },
   methods: {
-    register() {
+    ...mapActions([
+      'register',
+    ]),
+    attemptRegister() {
+      this.register(this.user);
     },
   },
 };
@@ -262,5 +265,5 @@ textarea {
 .forgot {
   margin-top: -20px;
   text-align: right;
-} 
+}
 </style>

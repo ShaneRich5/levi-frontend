@@ -64,7 +64,7 @@ export default {
   props: ['id'],
   created() {
     this.loadChurchReportById(this.id);
-    this.listenForSourceChanges(this.id);
+    this.listenForSourceUpdates(this.id);
   },
   computed: {
     churchReport() {
@@ -75,7 +75,7 @@ export default {
   methods: {
     ...mapActions([
       'loadChurchReportById',
-      'listenForSourceChanges',
+      'listenForSourceUpdates',
       'updateSourceName',
       'updateSourceAmount',
     ]),

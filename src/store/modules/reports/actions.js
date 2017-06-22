@@ -29,20 +29,66 @@ export const loadChurchReportById = ({ commit }, id) => {
 export const loadDistrictReportById = ({ commit }, id) => {
   api.getDistrictReportById(id, (data) => {
     const { districtReport, churchReports, expenses } = data;
-    commit(types.DISTRICT_REPORT_LOADED, districtReport);
     commit(types.EXPENSES_LOADED, expenses);
+    commit(types.DISTRICT_REPORT_LOADED, districtReport);
     commit(types.CHURCH_REPORTS_LOADED, churchReports);
   });
 };
 
-export const listenForSourceChanges = ({ commit }) => {
+export const listenForChurchReportUpdates = ({ commit }, id) => {
+  /* eslint-disable no-console*/
+  socket.on('connect', () => console.log('connected'));
+  socket.on('levi-notifications:App\\Events\\ChurchReportUpdated', (data) => {
+    console.log(data);
+    const { churchReport } = data;
+    if (+churchReport.district_report_id === +id) {
+      commit(types.CHURCH_REPORT_UPDATED, churchReport);
+    }
+  });
+  socket.on('disconnect', () => console.log('disconnected'));
+};
+
+// export const listenForChurchReportUpdates = ({ commit }, id) => {
+//   socket.on('connect', () => console.log('connected'));
+//   socket.on('levi-notifications:App\\Events\\ChurchReportUpdated', (data) => {
+//     console.log(data);
+//     const { churchReport } = data;
+//     if (+churchReport.district_report_id === +id) {
+//       commit(types.CHURCH_REPORT_UPDATED, churchReport);
+//     }
+//   });
+//   socket.on('disconnect', () => console.log('disconnected'));
+// }
+
+export const listenForExpenseUpdates = ({ commit }, id) => {
+  /* eslint-disable no-console*/
+  socket.on('connect', () => console.log('connected'));
+  socket.on('levi-notifications:App\\Events\\ExpenseUpdated', (data) => {
+    console.log(data);
+    const { expense } = data;
+    if (+expense.district_report_id === +id) {
+      commit(types.EXPENSE_UPDATED, expense);
+    }
+  });
+  socket.on('levi-notifications:App\\Events\\ExpenseCreated', (data) => {
+    const { expense } = data;
+    if (+expense.district_report_id === +id) {
+      commit(types.EXPENSE_ADDED, expense);
+    }
+  });
+  socket.on('disconnect', () => console.log('disconnected'));
+};
+
+export const listenForSourceUpdates = ({ commit }, id) => {
   /* eslint-disable no-console*/
   socket.on('connect', () => console.log('connected'));
   socket.on('levi-notifications:App\\Events\\SourceUpdated', (data) => {
     console.log(data);
     // const { source, user, changed } = data;
     const { source } = data;
-    commit(types.SOURCE_UPDATED, source);
+    if (+source.church_report_id === +id) {
+      commit(types.SOURCE_UPDATED, source);
+    }
   });
   socket.on('disconnect', () => console.log('disconnected'));
 };
@@ -63,6 +109,32 @@ export const updateSourceAmount = ({ commit }, { id, amount }) => {
     console.log(data);
     // const { source } = data;
     // commit(types.SOURCE_AMOUNT_UPDATED, source);
+  },
+  (error) => {
+    console.log(error);
+  });
+};
+
+export const createExpense = ({ commit }, { id, name }) => {
+  api.createExpense({ id, name, amount: 0 }, (data) => {
+    console.log(data);
+  }, (error) => {
+    console.log(error);
+  });
+};
+
+export const updateExpenseName = ({ commit }, { id, name }) => {
+  api.updateExpenseName({ id, name }, (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.log(error);
+  });
+};
+
+export const updateExpenseAmount = ({ commit }, { id, amount }) => {
+  api.updateExpenseAmount({ id, amount }, (data) => {
+    console.log(data);
   },
   (error) => {
     console.log(error);
