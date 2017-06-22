@@ -9,7 +9,7 @@ export const journals = state => [...state.journals];
 export const churchReportsById = state => id =>
   deepCopy(state.churchReports.find(churchReport => churchReport.id === +id));
 
-export const districtReportsById = state => id =>
+export const districtReportById = state => id =>
   deepCopy(state.districtReports.find(districtReport => districtReport.id === +id));
 
 export const journalsById = state => id =>

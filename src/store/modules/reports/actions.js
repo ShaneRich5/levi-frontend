@@ -48,18 +48,6 @@ export const listenForChurchReportUpdates = ({ commit }, id) => {
   socket.on('disconnect', () => console.log('disconnected'));
 };
 
-// export const listenForChurchReportUpdates = ({ commit }, id) => {
-//   socket.on('connect', () => console.log('connected'));
-//   socket.on('levi-notifications:App\\Events\\ChurchReportUpdated', (data) => {
-//     console.log(data);
-//     const { churchReport } = data;
-//     if (+churchReport.district_report_id === +id) {
-//       commit(types.CHURCH_REPORT_UPDATED, churchReport);
-//     }
-//   });
-//   socket.on('disconnect', () => console.log('disconnected'));
-// }
-
 export const listenForExpenseUpdates = ({ commit }, id) => {
   /* eslint-disable no-console*/
   socket.on('connect', () => console.log('connected'));
@@ -139,4 +127,8 @@ export const updateExpenseAmount = ({ commit }, { id, amount }) => {
   (error) => {
     console.log(error);
   });
+};
+
+export const updateDistrictReportOpeningFund = ({ commit }, { id, amount }) => {
+  commit(types.DISTRICT_REPORT_OPENING_FUND_UPDATED, { id, amount });
 };

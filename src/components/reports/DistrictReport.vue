@@ -1,5 +1,14 @@
 <template>
   <div class="container" style="margin-top: 10px;">
+    <template v-if="districtReport">
+      <router-link :to="{ name: 'district-office', params: { id: districtReport.district_office_id }}">
+        District
+      </router-link>
+      <router-link :to="{ name: 'journal', params: { id: districtReport.journal_id }}">
+        Journal
+      </router-link>
+    </template>
+
     <md-layout md-align="center" md-flex="35">
       <table class="form">
         <tr>
@@ -39,13 +48,13 @@
           <td
             v-for="(multiplier, index) in multipliers"
           >
-            {{ multiplier * grandTotal }}
+            {{ formatCurrency(multiplier * grandTotal) }}
           </td>
         </tr>
         <tr>
           <td class="no-border"></td>
           <td colspan="4">Total Receipts</td>
-          <td>{{ grandTotal * 0.3 }}</td>
+          <td>{{ formatCurrency(grandTotal * 0.3) }}</td>
           <td>D</td>
         </tr>
         <tr>
@@ -81,32 +90,29 @@
         <tr>
           <td class="no-border"></td>
           <td colspan="4">Total Expenses for the Month</td>
-          <td>{{ totalExpense }}</td>
+          <td>{{ formatCurrency(totalExpenses) }}</td>
         </tr>
-
-        <!--
         <tr>
           <td class="no-border"></td>
           <td colspan="4">Net Income (Expenditure) for the Month</td>
-          <td>{{ calculatedNetIncome() }}</td>
+          <td>{{ formatCurrency(netIncome) }}</td>
         </tr>
         <tr>
           <td class="no-border"></td>
           <td colspan="4">Opening District Fund Balance</td>
           <td>
             <input
-              v-if="districtReport !== undefined"
               type="number"
-              :value="districtReport.openingFund"
+              v-if="districtReport !== undefined"
+              :value="districtReport.opening_fund"
               v-on:keyup.enter="handleOpeningFundUpdate($event.target.value)" />
           </td>
         </tr>
         <tr>
           <td class="no-border"></td>
           <td colspan="4">Closing District Fund Balance</td>
-          <td>{{ formatCurrency(0) }}</td>
+          <td v-if="districtReport">{{ formatCurrency(districtReport.opening_fund + netIncome) }}</td>
         </tr>
-        -->
       </table>
     </md-layout>
   </div>
@@ -141,8 +147,11 @@ export default {
     grandTotal() {
       return this.churchReports.reduce((total, report) => report.total + total, 0);
     },
-    totalExpense() {
+    totalExpenses() {
       return this.expenses.reduce((total, expense) => expense.amount + total, 0);
+    },
+    netIncome() {
+      return (this.grandTotal * 0.3) - this.totalExpenses;
     },
     ...mapGetters(['churchReports', 'expenses']),
   },
@@ -150,7 +159,7 @@ export default {
     ...mapActions([
       'listenForChurchReportUpdates', 'listenForExpenseUpdates',
       'loadDistrictReportById', 'updateExpenseName',
-      'updateExpenseAmount', 'createExpense',
+      'updateExpenseAmount', 'createExpense', 'updateDistrictReportOpeningFund',
     ]),
     handleExpenseNameUpdate(id, name) {
       if (name === '') {
@@ -170,6 +179,10 @@ export default {
       }
       this.createExpense({ id: this.id, name: this.newExpenseName });
       this.newExpenseName = '';
+    },
+    handleOpeningFundUpdate(amount) {
+      const fund = { id: this.id, amount };
+      this.updateDistrictReportOpeningFund(fund);
     },
   },
 };

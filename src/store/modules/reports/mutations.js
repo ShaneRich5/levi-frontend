@@ -15,6 +15,14 @@ export default {
   [types.DISTRICT_REPORT_LOADED] (state, districtReport) {
     state.districtReports = [Object.assign({}, districtReport)];
   },
+  [types.DISTRICT_REPORT_OPENING_FUND_UPDATED] (state, { id, amount }) {
+    const index = state.districtReports.findIndex(report => +report.id === +id);
+    if (index === -1) return;
+    const report = Object.assign({}, state.districtReports[index], { opening_fund: amount });
+    state.districtReports = [...state.districtReports.split(0, index),
+      report,
+      ...state.districtReports.split(index + 1)];
+  },
   [types.SOURCES_LOADED] (state, sources) {
     state.sources = [...sources];
   },

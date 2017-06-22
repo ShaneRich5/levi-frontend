@@ -1,11 +1,13 @@
 <template>
   <div class="container">
-    <router-link :to="{ name: 'church', params: { id: churchReport.church_id }}">
-      Church
-    </router-link>
-    <router-link :to="{ name: 'district-report', params: { id: churchReport.district_report_id }}">
-      District Report
-    </router-link>
+    <template v-if="churchReport">
+      <router-link :to="{ name: 'church', params: { id: churchReport.church_id }}">
+        Church
+      </router-link>
+      <router-link :to="{ name: 'district-report', params: { id: churchReport.district_report_id }}">
+        District Report
+      </router-link>
+    </template>
 
     <md-table-card v-if="churchReport">
       <md-toolbar>
@@ -28,28 +30,23 @@
           </md-table-header>
 
         <md-table-body>
-          <md-table-row v-for="source in sources" :key="source.id">
+          <md-table-row v-for="(source, index) in sources" :key="index">
             <md-table-cell>{{ source.id }}</md-table-cell>
             <md-table-cell>
               <input
                 type="text"
                 :value="source.name"
-                v-on:keyup.enter="handleSourceNameUpdate(source.id, $event.target.value)"
-              />
+                v-on:keyup.enter="handleSourceNameUpdate(source.id, $event.target.value)">
             </md-table-cell>
             <md-table-cell>
               <input
                 type="number"
                 :value="source.amount"
-                @keyup.enter="handleSourceAmountUpdate(source.id, $event.target.value)"
-              />
+                @keyup.enter="handleSourceAmountUpdate(source.id, $event.target.value)">
             </md-table-cell>
-            <md-table-cell></md-table-cell>
-            <md-table-cell></md-table-cell>
-            <md-table-cell></md-table-cell>
-            <md-table-cell></md-table-cell>
-            <md-table-cell></md-table-cell>
-            <md-table-cell></md-table-cell>
+            <md-table-cell v-for="(multiplier, index) in multipliers" :key="index">
+              {{ formatCurrency(source.amount * multiplier) }}
+            </md-table-cell>
           </md-table-row>
         </md-table-body>
       </md-table>
@@ -59,9 +56,16 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Currency from '../mixins/Currency';
 
 export default {
   props: ['id'],
+  mixins: [Currency],
+  data() {
+    return {
+      multipliers: [0.1, 0.1, 0.1, 0.1, 0.4, 0.6],
+    };
+  },
   created() {
     this.loadChurchReportById(this.id);
     this.listenForSourceUpdates(this.id);

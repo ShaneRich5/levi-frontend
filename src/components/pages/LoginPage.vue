@@ -20,8 +20,7 @@
               placeholder="Email"
               v-model="user.email"
               type="email"
-              autocomplete="off"
-            />
+              autocomplete="off">
           </div>
 
           <div class="field-wrap">
@@ -32,8 +31,7 @@
               v-model="user.password"
               placeholder="Password"
               type="password"
-              autocomplete="off"
-            />
+              autocomplete="off">
           </div>
 
           <p class="forgot"><a href="#">Forgot Password?</a></p>

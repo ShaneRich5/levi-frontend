@@ -16,29 +16,21 @@
         <form v-on:submit.prevent="attemptRegister">
           <div class="top-row">
             <div class="field-wrap">
-              <label>
-                First Name<span class="req">*</span>
-              </label>
-              <input v-model="user.firstName" type="text" required autocomplete="off" />
+              <!--<label>First Name<span class="req">*</span></label>-->
+              <input placeholder="First Name" v-model="user.firstName" type="text" required autocomplete="off">
             </div>
             <div class="field-wrap">
-              <label>
-                Last Name<span class="req">*</span>
-              </label>
-              <input v-model="user.lastName" type="text"required autocomplete="off"/>
+              <!--<label>Last Name<span class="req">*</span></label>-->
+              <input placeholder="Last Name" v-model="user.lastName" type="text"required autocomplete="off">
             </div>
           </div>
           <div class="field-wrap">
-            <label>
-              Email Address<span class="req">*</span>
-            </label>
-            <input v-model="user.email" type="email"required autocomplete="off"/>
+            <!--<label>Email Address<span class="req">*</span></label>-->
+            <input placeholder="Email" v-model="user.email" type="email"required autocomplete="off">
           </div>
           <div class="field-wrap">
-            <label>
-              Set A Password<span class="req">*</span>
-            </label>
-            <input v-model="user.password" type="password" required autocomplete="off"/>
+            <!--<label>Set A Password<span class="req">*</span></label>-->
+            <input placeholder="Password" v-model="user.password" type="password" required autocomplete="off">
           </div>
           <button type="submit" class="button button-block">Get Started</button>
         </form>
