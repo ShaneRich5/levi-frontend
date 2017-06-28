@@ -52,7 +52,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @media (min-width: 1281px) {
   #sidebar-panel.md-theme-default.md-sidenav.main-sidebar .md-sidenav-content {
     box-shadow: 0 1px 5px rgba(0,0,0,.2),

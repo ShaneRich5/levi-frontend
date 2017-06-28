@@ -54,7 +54,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   margin-left: 15px;
   margin-right: 15px;

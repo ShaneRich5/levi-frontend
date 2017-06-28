@@ -6,7 +6,7 @@ import NationalOffice from '@/components/entities/NationalOffice';
 import ChurchReport from '@/components/reports/ChurchReport';
 import DistrictReport from '@/components/reports/DistrictReport';
 import Journal from '@/components/reports/Journal';
-import Home from '@/components/Home';
+import levi from '@/components/levi';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
 import LoginPage from '@/components/pages/LoginPage';
@@ -39,7 +39,7 @@ const routes = [
     path: '/',
     component: MainLayout,
     children: [
-      { path: '', component: Home, name: 'home' },
+      { path: '', component: levi, name: 'levi' },
       { path: '/login', component: LoginPage, name: 'login', beforeEnter: onlyGuest },
       { path: '/register', component: RegistrationPage, name: 'register', beforeEnter: onlyGuest },
       { path: '/contact', component: Contact, name: 'Contact' },
