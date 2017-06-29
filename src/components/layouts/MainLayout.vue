@@ -16,9 +16,9 @@
 
         <ul class = " nav navbar-nav navbar-right">
 
-          <li><a><router-link v-if = "!isAauthenticated" :to = "{ name: 'login' }">Sign In</router-link></a></li>
+          <li><a><router-link v-if = "!isAauthenticated" :to = "{ name: 'SignInpage' }">Sign In</router-link></a></li>
           <li><a><router-link v-if = "!isAauthenticated"  :to = "{ name: 'levi' }">Sign Up</router-link></a></li>
-          <li><a><router-link to = '/Product'>product</router-link></a> </li>
+          <li><a><router-link :to = "{ name: 'Product' }">product</router-link></a> </li>
           <li><a><router-link to = '/price'>price </router-link></a> </li>
           <li><a><router-link :to = "{ name: 'Support'}" >Support  </router-link></a> </li>
         </ul>
