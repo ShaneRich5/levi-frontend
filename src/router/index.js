@@ -9,7 +9,7 @@ import Journal from '@/components/reports/Journal';
 import levi from '@/components/levi';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
-import LoginPage from '@/components/pages/LoginPage';
+import SignInpage from '@/components/pages/SignInpage';
 import Dashboard from '@/components/layouts/Dashboard';
 import WelcomePage from '@/components/pages/WelcomePage';
 import MainLayout from '@/components/layouts/MainLayout';
@@ -40,8 +40,13 @@ const routes = [
     component: MainLayout,
     children: [
       { path: '', component: levi, name: 'levi' },
-      { path: '/login', component: LoginPage, name: 'login', beforeEnter: onlyGuest },
+      { path: '/login', component: SignInpage, name: 'login', beforeEnter: onlyGuest },
+
+      //  What does this mean?
       { path: '/register', component: RegistrationPage, name: 'register', beforeEnter: onlyGuest },
+      //
+
+
       { path: '/contact', component: Contact, name: 'Contact' },
       { path: '/about', component: About, name: 'About' },
     ],
