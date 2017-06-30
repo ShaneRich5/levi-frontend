@@ -17,6 +17,7 @@ import MainLayout from '@/components/layouts/MainLayout';
 import PageNotFound from '@/components/pages/PageNotFound';
 import RegistrationPage from '@/components/pages/RegistrationPage';
 import Product from '@/components/pages/Product';
+import Support from '@/components/pages/Support/';
 
 Vue.use(Router);
 
@@ -49,6 +50,7 @@ const routes = [
       { path: '/contact', component: Contact, name: 'Contact' },
       { path: '/about', component: About, name: 'About' },
       { path: '/Product', component: Product, name: 'Product' },
+      { path: '/Support', component: Support, name: 'Support' },
     ],
   },
   {

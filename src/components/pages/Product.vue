@@ -10,13 +10,14 @@
                 <div class = "row">
 
                   <div class = "col-sm-6">
-                          <h3><b>Connect Soft documents</b></h3>
-                          <p class = "lead">Allow documents that feed into each other to provide a consistent, untainted view of the
-                        financial, operational and social behaviour of the institution.</p>
+                        <img src = "ConnectDocuments.png" alt = "Documents" class = "pull-left img-responsive imG" width = "250" height = "250">
                   </div>
 
                   <div class = "col-sm-4">
-        <img src = "ConnectDocuments.png" alt = "Documents" class = "pull-right img-responsive imG" width = "250" height = "250">
+                    <h3><b>Connect Soft documents</b></h3>
+                    <p class = "lead">Allow documents that feed into each other to provide a consistent, untainted view of the
+                  financial, operational and social behaviour of the institution.</p>
+
 
                   </div>
 
@@ -32,7 +33,7 @@
           making better decisions.</p>
                   </div>
                   <div class = "col-sm-6">
-                   <img src = "Statistics.png" alt = "Statistics" width = "350px" height = "270px"  class = "pull-right img-responsive imG">
+                   <img src = "../../assets/Statistics.png" alt = "Statistics" width = "350px" height = "270px"  class = "pull-right img-responsive imG">
                   </div>
 
                 </div>
@@ -40,12 +41,13 @@
                 <div class = "row">
 
                   <div class = "col-sm-6">
-                      <h3><b>Search. Get what is important to You!</b></h3>
-                      <p class = "lead">All notifications and documents are indexed and
-                      archived so that you can find what is needed at all times.</p>
+                  <img src = "../../assets/SearchDOC.png" alt = "Search" width = "300" height = "250" class = "pull-left img-responsive imG">
                   </div>
                   <div class = "col-sm-6">
 
+                      <h3><b>Search. Get what is important to You!</b></h3>
+                      <p class = "lead">All notifications and documents are indexed and
+                      archived so that you can find what is needed at all times.</p>
                   </div>
 
                 </div>
@@ -60,7 +62,7 @@
 
                   <div class = "col-sm-7">
 
-                    <img src = "Integrate.jpg" alt = "" width = "300" height = "270" class = "pull-right  img-responsive imG">
+                    <img src = "../../assets/Integrate.jpg" alt = "" width = "300" height = "270" class = "pull-right  img-responsive imG">
 
                   </div>
 
@@ -80,7 +82,7 @@ export default {
 
   data() {
     return {
-      Tex: 'Connect to be more',
+      Tex: 'Connect to be more.',
     };
   },
 };
