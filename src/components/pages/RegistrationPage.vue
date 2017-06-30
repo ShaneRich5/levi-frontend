@@ -14,6 +14,7 @@
       <div id="signup">
         <h1>Sign Up for Free</h1>
         <form v-on:submit.prevent="attemptRegister">
+
           <div class="top-row">
             <div class="field-wrap">
               <!--<label>First Name<span class="req">*</span></label>-->
@@ -34,7 +35,14 @@
           </div>
           <button type="submit" class="button button-block">Get Started</button>
         </form>
+<<<<<<< HEAD
       </div> <!-- /form -->
+=======
+      </div>
+
+
+</div> <!-- /form -->
+>>>>>>> dev
     </div>
   </div>
 </template>
@@ -66,6 +74,7 @@ export default {
 </script>
 
 <style scoped>
+<<<<<<< HEAD
 .full-page {
   background: #777;
   width: 100%;
@@ -258,4 +267,6 @@ textarea {
   margin-top: -20px;
   text-align: right;
 }
+=======
+>>>>>>> dev
 </style>
