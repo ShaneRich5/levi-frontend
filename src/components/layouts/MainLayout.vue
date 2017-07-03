@@ -1,5 +1,18 @@
 <template>
-
+  <div>
+    <md-toolbar>
+      <h2 class="md-title" style="flex: 1">Levi</h2>
+      <router-link
+        :to="{ name: 'pricing' }">Pricing</router-link>
+    </md-toolbar>
+    <div class="main-content">
+      <div class="container">
+        <router-view></router-view>
+      </div>
+    </div>
+  </div>
+</template>
+<!--
   <div class = "">
 
     <div class = "navbar navbar-default navbar-fixed-top">
@@ -31,14 +44,10 @@
 </div>
     </div>
 
-
-    <router-view></router-view>
-
   </div>
 
-
 </template>
-
+-->
 <script>
 import { mapGetters, mapActions } from 'vuex';
 
@@ -62,9 +71,28 @@ export default {
 </script>
 
 <style scoped>
+.md-toolbar.md-theme-default {
+  background-color: transparent;
+}
 
-.navbar-brand {
-  font-size: 30px;
+.md-toolbar * {
+  color: black;
+}
+
+.main-content {
+    padding: 16px;
+    -ms-flex: 1;
+    flex: 1;
+    overflow: auto;
+    background-color: #fff;
+    transform: translate3D(0,0,0);
+    transition: all .4s cubic-bezier(.25,.8,.25,1);
+    transition-delay: .2s;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
 }
 
 </style>

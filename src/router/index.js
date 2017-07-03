@@ -6,10 +6,8 @@ import NationalOffice from '@/components/entities/NationalOffice';
 import ChurchReport from '@/components/reports/ChurchReport';
 import DistrictReport from '@/components/reports/DistrictReport';
 import Journal from '@/components/reports/Journal';
-import levi from '@/components/levi';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
-// import LoginPage from '@/components/pages/LoginPage';
 import SignInpage from '@/components/pages/SignInpage';
 import Dashboard from '@/components/layouts/Dashboard';
 import WelcomePage from '@/components/pages/WelcomePage';
@@ -18,6 +16,8 @@ import PageNotFound from '@/components/pages/PageNotFound';
 import RegistrationPage from '@/components/pages/RegistrationPage';
 import Product from '@/components/pages/Product';
 import Support from '@/components/pages/Support/';
+import HomePage from '@/components/pages/HomePage';
+import PricingPage from '@/components/pages/PricingPage';
 
 Vue.use(Router);
 
@@ -42,9 +42,8 @@ const routes = [
     path: '/',
     component: MainLayout,
     children: [
-      { path: '', component: levi, name: 'levi' },
-
-      // { path: '/login', component: LoginPage, name: 'login', beforeEnter: onlyGuest },
+      { path: '', component: HomePage, name: 'homepage' },
+      { path: 'pricing', component: PricingPage, name: 'pricing' },
       { path: '/login', component: SignInpage, name: 'SignInpage', beforeEnter: onlyGuest },
       { path: '/register', component: RegistrationPage, name: 'register', beforeEnter: onlyGuest },
       { path: '/contact', component: Contact, name: 'Contact' },
