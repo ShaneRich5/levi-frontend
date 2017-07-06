@@ -21,7 +21,6 @@
               v-model="user.email"
               type="email"
               autocomplete="off">
-            />
           </div>
 
           <div class="field-wrap">
@@ -32,12 +31,7 @@
               v-model="user.password"
               placeholder="Password"
               type="password"
-<<<<<<< HEAD
               autocomplete="off">
-=======
-              autocomplete="off"
-            />
->>>>>>> dev
           </div>
 
           <p class="forgot"><a href="#">Forgot Password?</a></p>

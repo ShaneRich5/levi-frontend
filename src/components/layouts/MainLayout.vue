@@ -1,9 +1,12 @@
 <template>
   <div>
     <md-toolbar>
-      <h2 class="md-title" style="flex: 1">Levi</h2>
-      <router-link
-        :to="{ name: 'pricing' }">Pricing</router-link>
+      <router-link class="md-title" style="flex: 1" :to="{ name: 'home' }">Levi</router-link>
+      <h2 class="md-title" style="flex: 1">
+        Levi
+      </h2>
+      <router-link v-if = "!isAauthenticated" :to = "{ name: 'login' }">Sign In</router-link>
+      <router-link v-if = "!isAauthenticated"  :to = "{ name: 'register' }" >Sign Up</router-link>
     </md-toolbar>
     <div class="main-content">
       <div class="container">
@@ -12,42 +15,7 @@
     </div>
   </div>
 </template>
-<!--
-  <div class = "">
 
-    <div class = "navbar navbar-default navbar-fixed-top">
-
-<div class = "container">
-  <button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navbar-collapse"
-       name = "button" >
-<span class = "navbar-toggle-Menu">Menu</span>
-      </button>
-      <router-link class = " navbar-brand" :to = "{ name: 'levi' }" style = "text-decoration:none;">levi</router-link>
-
-
-      <div class = "collapse navbar-collapse">
-
-        <ul class = " nav navbar-nav navbar-right">
-
-          <li><a><router-link v-if = "!isAauthenticated" :to = "{ name: 'SignInpage' }">Sign In</router-link></a></li>
-          <li><a><router-link v-if = "!isAauthenticated"  :to = "{ name: 'levi' }" >Sign Up</router-link></a></li>
-          <li><a><router-link :to = "{ name: 'Product' }">product</router-link></a> </li>
-          <li><a><router-link to = '/price'>price </router-link></a> </li>
-          <li><a><router-link :to = "{ name: 'Support'}" >Support  </router-link></a> </li>
-        </ul>
-
-      </div>
-
-      <router-link v-if = "isAauthenticated" class = "nav-link" :to="{ name: 'dashboard' }">Dashboard</router-link>
-      <md-button v-if = "isAauthenticated" @click.native = "logout">Logout</md-button>
-
-</div>
-    </div>
-
-  </div>
-
-</template>
--->
 <script>
 import { mapGetters, mapActions } from 'vuex';
 

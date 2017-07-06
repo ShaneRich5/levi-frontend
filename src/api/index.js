@@ -1,37 +1,8 @@
-import axios from 'axios';
-
-axios.defaults.baseURL = 'http://localhost:8000';
-// axios.defaults.baseURL = 'http://192.241.155.43';
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-
-axios.interceptors.request.use((config) => {
-  const token = localStorage.token;
-
-  if (token !== undefined && token !== null) {
-    /* eslint-disable no-param-reassign*/
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-}, error => Promise.reject(error));
-
-const get = (endpoint, handleData, handleError) => {
-  axios.get(endpoint).then(response => response.data)
-    .then(handleData).catch(handleError);
-};
-
-const post = (endpoint, data, handleReponse, handleError) => {
-  axios.post(endpoint, data).then(response => response.data)
-    .then(handleReponse).catch(handleError);
-};
-
-const update = (endpoint, data, handleReponse, handleError) => {
-  axios.put(endpoint, data).then(response => response.data)
-    .then(handleReponse).catch(handleError);
-};
+import { get, post, update, requestor } from './requests';
 
 const addTokenToHeader = (data) => {
   const { token } = data;
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  requestor.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 export default {
