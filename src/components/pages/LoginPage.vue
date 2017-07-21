@@ -1,53 +1,15 @@
 <template>
-  <div class="form">
-    <ul class="tab-group">
-      <li class="tab">
-        <router-link :to="{ path: 'register' }">Sign Up</router-link>
-      </li>
-      <li class="tab active">
-        <router-link :to="{ path: 'login' }">Log in</router-link>
-      </li>
-    </ul>
-    <div class="tab-content">
-      <div id="login">
-        <h1>Welcome Back!</h1>
-        <form v-on:submit.prevent="attemptLogin">
-          <div class="field-wrap">
-            <label>
-              <!-- Email Address<span class="req">*</span> -->
-            </label>
-            <input
-              placeholder="Email"
-              v-model="user.email"
-              type="email"
-              autocomplete="off">
-          </div>
-
-          <div class="field-wrap">
-            <label>
-              <!-- Password<span class="req">*</span> -->
-            </label>
-            <input
-              v-model="user.password"
-              placeholder="Password"
-              type="password"
-              autocomplete="off">
-          </div>
-
-          <p class="forgot"><a href="#">Forgot Password?</a></p>
-
-          <button class="button button-block">Log In</button>
-        </form>
-      </div>
-    </div><!-- tab-content -->
-  </div> <!-- /form -->
+  <login-form></login-form>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import LoginForm from '../forms/LoginForm';
 
 export default {
   name: 'LoginPage',
+  components: {
+    'login-form': LoginForm,
+  },
   data() {
     return {
       user: {
@@ -55,20 +17,6 @@ export default {
         password: '',
       },
     };
-  },
-  computed: {
-    ...mapGetters([
-      'token',
-    ]),
-  },
-  methods: {
-    ...mapActions([
-      'login',
-    ]),
-    attemptLogin() {
-      this.login(this.user);
-      // this.login({ email: 'admin@admin.com', password: 'password' });
-    },
   },
 };
 </script>

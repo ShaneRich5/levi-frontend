@@ -1,16 +1,27 @@
 <template>
   <div>
-    <h2>National Office</h2>
+    <h2>Organizations</h2>
+
+    <p v-if="organizations.length == 0">No organizations available</p>
 
     <md-layout class="cards" :md-gutter="8">
       <md-layout class="card"
-        v-for="nationalOffice in nationalOffices"
-        :key="nationalOffice.id"
+        v-for="organization in organizations"
+        :key="organization.id"
       >
-        <router-link :to="{ name: 'national-office', params: { id: nationalOffice.id }}">
+      <router-link :to="{ name: 'organization', params: { id: organization.id } }">
+        <md-card>
+          <md-card-header>
+            <div class="md-title">Name</div>
+            <div class="md-subhead">Kingston</div>
+          </md-card-header>
+        </md-card>
+      </router-link>
+      <!--
+        <router-link :to="{ name: 'organization', params: { id: organization.id }}">
           <md-card>
             <md-card-header>
-              <div class="md-title">{{ nationalOffice.name }}</div>
+              <div class="md-title">{{ organization.name }}</div>
               <div class="md-subhead">Kingston</div>
             </md-card-header>
           <md-card-content>
@@ -18,50 +29,13 @@
           </md-card-content>
         </md-card>
         </router-link>
+        -->
       </md-layout>
     </md-layout>
 
-    <h2>District Offices</h2>
-
-    <md-layout class="cards" :md-gutter="8">
-      <md-layout class="card"
-        v-for="districtOffice in districtOffices"
-        :key="districtOffice.id"
-      >
-        <router-link :to="{ name: 'district-office', params: { id: districtOffice.id }}">
-          <md-card>
-            <md-card-header>
-              <div class="md-title">{{ districtOffice.name }}</div>
-              <div class="md-subhead">Kingston</div>
-            </md-card-header>
-          <md-card-content>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
-          </md-card-content>
-        </md-card>
-        </router-link>
-      </md-layout>
-    </md-layout>
-
-    <h2>Churches</h2>
-
-    <md-layout class="cards" :md-gutter="8">
-      <md-layout class="card"
-        v-for="church in churches"
-        :key="church.id"
-      >
-        <router-link :to="{ name: 'church', params: { id: church.id }}">
-          <md-card>
-            <md-card-header>
-              <div class="md-title">{{ church.name }}</div>
-              <div class="md-subhead">Kingston</div>
-            </md-card-header>
-          <md-card-content>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
-          </md-card-content>
-        </md-card>
-        </router-link>
-      </md-layout>
-    </md-layout>
+    <router-link :to="{ name: 'organization-form' }">
+      <md-button class="md-raised md-primary">New Organization</md-button>
+    </router-link>
   </div>
 </template>
 
@@ -72,9 +46,7 @@ export default {
   name: 'welcome-page',
   computed: {
     ...mapGetters([
-      'nationalOffices',
-      'districtOffices',
-      'churches',
+      'organizations',
     ]),
   },
 };

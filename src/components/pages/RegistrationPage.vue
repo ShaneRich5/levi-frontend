@@ -1,54 +1,15 @@
 <template>
-  <div class="form">
-
-    <ul class="tab-group">
-      <li class="tab active">
-        <router-link :to="{ path: 'register' }">Sign Up</router-link>
-      </li>
-      <li class="tab">
-        <router-link :to="{ path: 'login' }">Log in</router-link>
-      </li>
-    </ul>
-
-    <div class="tab-content">
-      <div id="signup">
-        <h1>Sign Up for Free</h1>
-        <form v-on:submit.prevent="attemptRegister">
-
-          <div class="top-row">
-            <div class="field-wrap">
-              <!--<label>First Name<span class="req">*</span></label>-->
-              <input placeholder="First Name" v-model="user.firstName" type="text" required autocomplete="off">
-            </div>
-            <div class="field-wrap">
-              <!--<label>Last Name<span class="req">*</span></label>-->
-              <input placeholder="Last Name" v-model="user.lastName" type="text"required autocomplete="off">
-            </div>
-          </div>
-          <div class="field-wrap">
-            <!--<label>Email Address<span class="req">*</span></label>-->
-            <input placeholder="Email" v-model="user.email" type="email"required autocomplete="off">
-          </div>
-          <div class="field-wrap">
-            <!--<label>Set A Password<span class="req">*</span></label>-->
-            <input placeholder="Password" v-model="user.password" type="password" required autocomplete="off">
-          </div>
-          <button type="submit" class="button button-block">Get Started</button>
-        </form>
-
-      </div>
-
-
-</div> <!-- /form -->
-    </div>
-  </div>
+  <registration-form></registration-form>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import RegistrationForm from '../forms/RegistrationForm';
 
 export default {
   name: 'RegisterPage',
+  components: {
+    'registration-form': RegistrationForm,
+  },
   data() {
     return {
       user: {
@@ -58,14 +19,6 @@ export default {
         password: '',
       },
     };
-  },
-  methods: {
-    ...mapActions([
-      'register',
-    ]),
-    attemptRegister() {
-      this.register(this.user);
-    },
   },
 };
 </script>

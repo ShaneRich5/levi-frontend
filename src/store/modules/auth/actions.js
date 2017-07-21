@@ -8,7 +8,7 @@ const handleAuthentication = (commit, data) => {
   const { token, user } = data;
   localStorage.token = token;
   commit(types.LOGIN, { user, token });
-  router.push('/');
+  router.push({ name: 'dashboard' });
 };
 
 export const login = ({ commit }, { email, password }) => {

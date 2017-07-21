@@ -3,9 +3,8 @@ import * as getters from './getters';
 import mutations from './mutations';
 
 const state = {
-  churches: [],
-  districtOffices: [],
-  nationalOffices: [],
+  organizations: [],
+  organizationTypes: [],
 };
 
 const module = {

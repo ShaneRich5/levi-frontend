@@ -5,8 +5,8 @@
       <h2 class="md-title" style="flex: 1">
         Levi
       </h2>
-      <router-link v-if = "!isAauthenticated" :to = "{ name: 'login' }">Sign In</router-link>
-      <router-link v-if = "!isAauthenticated"  :to = "{ name: 'register' }" >Sign Up</router-link>
+      <router-link class="session-links" v-if = "!isAauthenticated" :to = "{ name: 'login' }">Login</router-link>
+      <router-link class="session-links" v-if = "!isAauthenticated"  :to = "{ name: 'register' }" >Register</router-link>
     </md-toolbar>
     <div class="main-content">
       <div class="container">
@@ -39,6 +39,10 @@ export default {
 </script>
 
 <style scoped>
+.session-links {
+  margin-right: 10px;
+}
+
 .md-toolbar.md-theme-default {
   background-color: transparent;
 }

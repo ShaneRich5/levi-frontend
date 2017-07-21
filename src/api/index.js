@@ -20,6 +20,15 @@ export default {
         successCb(data);
       }, errorCb);
   },
+  getOrganizations(successCb, errorCb) {
+    get('api/organizations', successCb, errorCb);
+  },
+  saveOrganization({ name, street, parish, country }, successCb, errorCb) {
+    post('api/organizations', { name, street, parish, country }, data => successCb(data), errorCb);
+  },
+  getOrganizationTypes(successCb, errorCb) {
+    get('api/organization-types', successCb, errorCb);
+  },
   createExpense({ id, name, amount }, callback, errorCallback) {
     post('api/expenses', { district_report_id: id, name, amount }, callback, errorCallback);
   },
@@ -46,44 +55,5 @@ export default {
   },
   getChurchReportsByChurchId(id, callback) {
     get(`api/churches/${id}/church-reports`, callback);
-  },
-  getOrganizations(callback) {
-    get('api/organizations', callback);
-  },
-  getNationalOffices(callback) {
-    get('api/national-offices', (data) => {
-      const { nationalOffices } = data;
-      callback(nationalOffices);
-    });
-  },
-  getDistrictOffices(callback) {
-    get('api/district-offices', (data) => {
-      const { districtOffices } = data;
-      callback(districtOffices);
-    });
-  },
-  getChurches(callback) {
-    get('api/churches', (data) => {
-      const { churches } = data;
-      callback(churches);
-    });
-  },
-  getNationalOfficeById(id, callback) {
-    get(`api/national-offices/${id}`, (data) => {
-      const { nationalOffice } = data;
-      callback(nationalOffice);
-    });
-  },
-  getDistrictOfficeById(id, callback) {
-    get(`api/district-offices/${id}`, (data) => {
-      const { districtOffice } = data;
-      callback(districtOffice);
-    });
-  },
-  getChurchById(id, callback) {
-    get(`api/churches/${id}`, (data) => {
-      const { church } = data;
-      callback(church);
-    });
   },
 };

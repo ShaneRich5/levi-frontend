@@ -1,20 +1,10 @@
 <template>
   <md-card class="form-card">
     <md-card-header>
-      <div class="md-title">Registration</div>
+      <div class="md-title">Login</div>
     </md-card-header>
 
     <form novalidate v-on:submit.prevent>
-      <md-input-container>
-        <label>First Name</label>
-        <md-input v-model="credentials.firstName"></md-input>
-      </md-input-container>
-
-      <md-input-container>
-        <label>Last Name</label>
-        <md-input v-model="credentials.lastName"></md-input>
-      </md-input-container>
-
       <md-input-container>
         <label>Email</label>
         <md-input v-model="credentials.email" type="email"></md-input>
@@ -26,8 +16,8 @@
       </md-input-container>
 
       <md-button
-        @click="attemptRegistration(credentials)"
-        class="md-raised md-primary">Register</md-button>
+        @click="attemptLogin(credentials)"
+        class="md-raised md-primary">Login</md-button>
     </form>
   </md-card>
 </template>
@@ -36,31 +26,26 @@
 import { mapActions } from 'vuex';
 
 export default {
-  name: 'registration-form',
+  name: 'login-form',
   data() {
     return {
       credentials: {
-        firstName: '',
-        lastName: '',
         email: '',
         password: '',
-        confirmation: '',
       },
     };
   },
   methods: {
     ...mapActions([
-      'register',
+      'login',
     ]),
-    attemptRegistration(credentials) {
+    attemptLogin(credentials) {
       if (this.validateCredentials(credentials)) {
-        this.register(credentials);
+        this.login(credentials);
       }
     },
     validateCredentials(credentials) {
-      return credentials.firstName.length !== 0
-        && credentials.lastName.length !== 0
-        && credentials.email.length !== 0
+      return credentials.email.length !== 0
         && credentials.password.length !== 0;
     },
   },

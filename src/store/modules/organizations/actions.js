@@ -1,48 +1,28 @@
 import api from '../../../api';
 import * as types from '../../mutation-types';
+import router from '../../../router';
 
-export const loadOrganizations = ({ commit }) => {
-  api.getOrganizations((organizations) => {
-    const { nationalOffices, districtOffices, churches } = organizations;
-    commit(types.NATIONAL_OFFICES_LOADED, nationalOffices);
-    commit(types.DISTRICT_OFFICES_LOADED, districtOffices);
-    commit(types.CHURCHES_LOADED, churches);
+export const fetchOrganizationTypes = ({ commit }) => {
+  api.getOrganizationTypes((data) => {
+    const { organizationTypes } = data;
+    commit(types.ORGANIZATION_TYPES_LOADED, organizationTypes);
   });
 };
 
-export const loadNationalOffices = ({ commit }) => {
-  api.getNationalOffices((offices) => {
-    commit(types.NATIONAL_OFFICES_LOADED, offices);
+export const fetchOrganizations = ({ commit }) => {
+  api.getOrganizations((data) => {
+    const { organizations } = data;
+    commit(types.ORGANIZATIONS_LOADED, organizations);
   });
 };
 
-export const loadDistrictOffices = ({ commit }) => {
-  api.getDistrictOffices((districtOffices) => {
-    commit(types.DISTRICT_OFFICES_LOADED, districtOffices);
+export const fetchOrganization = ({ commit }, id) => {
+  api.getOrganization(id, (data) => {
+    const { organization } = data;
+    commit(types.ORGANIZATION_LOADED, organization);
   });
 };
 
-export const loadChurches = ({ commit }) => {
-  api.getChurches((churches) => {
-    commit(types.CHURCHES_LOADED, churches);
-  });
+export const createOrganization = ({ commit }, { name, street, parish, country }) => {
+  api.saveOrganization({ name, street, parish, country }, () => router.push('/dashboard'));
 };
-
-export const loadNationalOfficeById = ({ commit }, id) => {
-  api.getNationalOfficeById(id, (office) => {
-    commit(types.NATIONAL_OFFICE_LOADED, office);
-  });
-};
-
-export const loadDistrictOfficeById = ({ commit }, id) => {
-  api.getDistrictOfficeById(id, (office) => {
-    commit(types.DISTRICT_OFFICE_LOADED, office);
-  });
-};
-
-export const loadChurchById = ({ commit }, id) => {
-  api.getChurchById(id, (church) => {
-    commit(types.CHURCH_LOADED, church);
-  });
-};
-
