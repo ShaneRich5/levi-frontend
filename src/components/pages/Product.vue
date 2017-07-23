@@ -33,7 +33,7 @@
           making better decisions.</p>
                   </div>
                   <div class = "col-sm-6">
-                   <img src = "../../assets/Statistics.png" alt = "Statistics" width = "350px" height = "270px"  class = "pull-right img-responsive imG">
+ <img src = "../../assets/Statistics.png" alt = "Statistics" width = "350px" height = "270px"  class = "pull-right img-responsive imG">
                   </div>
 
                 </div>
