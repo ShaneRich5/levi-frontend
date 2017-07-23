@@ -15,8 +15,23 @@ import './assets/global.css';
 sync(store, router);
 
 Vue.use(VueMaterial);
+Vue.material.registerTheme({
+  default: {
+    primary: {
+      color: 'blue',
+      hue: 200,
+    },
+    accent: 'red',
+  },
+  teal: {
+    primary: 'white',
+    accent: 'blue',
+  },
+});
+
 Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
+
 
 Vue.directive('focus', {
   inserted: el => Vue.nextTick(() => el.focus()),

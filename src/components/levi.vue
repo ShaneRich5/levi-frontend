@@ -1,56 +1,91 @@
 <template>
-  <div>
-          <div class = "home">
-            <h1>{{ message }}</h1>
+  <div class = "bImage">
+   
+   
+      <div class = "md-title">{{ Title }} </div>
+        <div class = "md-subhead">
+            {{ subTitle }} </div>
 
+    
+    
+    <div class = "identity">
+       
+    <md-layout id = "container" >
+     <md-layout md-flex-xsmall="100" md-flex-small="100" md-flex-medium="23" md-flex-large="23" md-flex-xlarge="20">
+      2
+    </md-layout>
+    
+    
+       <md-layout md-flex-xsmall="100" md-flex-small="100" md-flex-medium="100" md-flex-large="60" md-flex-xlarge="60">
+       
+<md-card>
+           <md-card-header>
+       
+        <div class = "md-title">levi</div>
+        
+      </md-card-header>
+          
+          
+           <md-card-content>
+               <md-input-container>
 
-            <div class = "container col-sm-4 col-sm-offset-6">
-              <form class = ""  method = "post">
+          
+          <label>First Name </label>
+          
+          <md-input firstName required v-model = "user.firstName" autocomplete = "off"/>
+          
+        </md-input-container>
+        
+        <md-input-container>
 
-                <div class = "row">
+          
+          <label>Last Name </label>
+          
+          <md-input lastName required v-model = "user.lastName" />
+          
+        </md-input-container>
 
-                  <div class = "col-sm-6">
-                                 <div class = "form-group">
-                                   <input  v-model = "user.firstName" type = "text" name = "" value = "" class = "form-control  input-lg" placeholder = "First Name" equired autocomplete="off" />
-                                 </div>
+       <md-input-container>
 
-                         </div>
+          <label>Email</label>
+          
+          <md-input email required v-model = "user.email" />
+          
+        </md-input-container>
+        
+        
+        <md-input-container >
+          
+          <label>Password</label>
+          
+          <md-input type = "password" required v-model = "user.password" />
+          
+        </md-input-container>
+        
+    
+           </md-card-content>
+           
+           
+           
+         <md-button class="md-raised md-primary" style = "color: white; ">Sign up</md-button>
 
-            <div class = "col-sm-6">
-                      <div class = "form-group">
-                          <input type = "text" name = "" value = "" class = "form-control input-lg" placeholder = "last Name" required autocomplete="off" />
-                      </div>
-
-           </div>
-
-                </div>
-
-                <div class = "row">
-        <div class = "col-sm-12">
-             <div class="form-group">
-
-               <!-- Create a show/hide command above the password field -->
-                 <input  v-model="user.email" type = "email" name = "" value = "" class = "form-control input-lg" placeholder = "Enter Email">
-             </div>
-        </div>
-        </div>
-
-        <div class = "row">
-        <div class = "col-sm-12">
-            <div class = "form-group">
-                <input  v-model="user.password" type = "password" name = "" value = "" class="form-control  input-lg" placeholder = "Choose a password">
-            </div>
-        </div>
-        </div>
-
-              </form>
-
-<!-- User terms will be above the sign up button without the check box -->
-              <input class = "btn btn-info btn-lg" value = "Sign Up" type = "Submit"/>
-            </div>
-
-          </div>
-  </div>
+       </md-card>
+       
+    </md-layout>
+    
+    
+    
+    <md-layout md-flex-xsmall="100" md-flex-small="100" md-flex-medium="23" md-flex-large="23" md-flex-xlarge="20">
+      3
+    </md-layout>
+    
+    </md-layout>
+       
+        
+    </div>
+</div>
+    
+    
 </template>
 
 <script>
@@ -58,7 +93,8 @@ export default {
   name: 'levi',
   data() {
     return {
-      message: 'Chaos. Simplify it all',
+      Title: 'Chaos. Simplify it all',
+      subTitle: 'let\'s improve how you use data',
       user: {
         firstName: '',
         lastName: '',
@@ -76,11 +112,71 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
+    
+    .identity {
+        
+    text-align: center;
+    margin-top: 30px;
 
-h1 {font-size: 90px; text-align: center; font-family: Heiti SC; font-weight: bolder;  line-height: 1em; }
+       
+    }
+.md-title {
+        
+        font-size: 90px;
+        font-family: Heiti SC;
+        line-height: 1.1em;
+        outline-width: thin;
+        margin-top: 40px;
+        text-align: center;
+    }
+    
+    .md-subhead {
+        
+        font-family: Heiti SC;
+        font-size: 25px;
+        padding-top:20px;
+        text-align: center;
+        line-height: 1.3em;
+    }
+        #container > .md-layout {
+/*  background-color: lightgrey;*/
 
-h1 {
-  margin-top: 100px;
+  border-color: black;
+  align-items: center;
+  justify-content: center;
+/*  border-style: dotted;*/
+  border-width: 1px;
+  padding: 8px;
 }
+
+    .md-button {
+         min-height: 53px !important;
+      min-width: 46px !important;
+      font-size: 36px !important;
+      line-height: 0px; 
+     
+
+    }
+    
+        .md-raised {
+        text-transform: none;
+        font-family: Helvetica;
+        font-weight: bolder;
+    }
+    
+    .md-card {
+        width: 670px;
+    }
+    
+/*
+       .bImage {
+        
+        background: url(../assets/whiteCoffeedarken.jpg) no-repeat center ;
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+}
+*/
+
 </style>

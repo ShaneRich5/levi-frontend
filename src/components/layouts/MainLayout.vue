@@ -1,41 +1,32 @@
 <template>
 
-  <div class = "">
+<div>
+   
+   <md-whiteframe class = "main-toolbar  ">
 
-    <div class = "navbar navbar-default navbar-fixed-top">
-
-<div class = "container">
-  <button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navbar-collapse"
-       name = "button" >
-<span class = "navbar-toggle-Menu">Menu</span>
-      </button>
-      <router-link class = " navbar-brand" :to = "{ name: 'levi' }" style = "text-decoration:none;">levi</router-link>
-
-
-      <div class = "collapse navbar-collapse">
-
-        <ul class = " nav navbar-nav navbar-right">
-
-          <li><a><router-link v-if = "!isAauthenticated" :to = "{ name: 'SignInpage' }">Sign In</router-link></a></li>
-          <li><a><router-link v-if = "!isAauthenticated"  :to = "{ name: 'levi' }" >Sign Up</router-link></a></li>
-          <li><a><router-link :to = "{ name: 'Product' }">product</router-link></a> </li>
-          <li><a><router-link to = '/price'>price </router-link></a> </li>
-          <li><a><router-link :to = "{ name: 'Support'}" >Support  </router-link></a> </li>
-        </ul>
-
-      </div>
-
-      <router-link v-if = "isAauthenticated" class = "nav-link" :to="{ name: 'dashboard' }">Dashboard</router-link>
-      <md-button v-if = "isAauthenticated" @click.native = "logout">Logout</md-button>
-
-</div>
-    </div>
-
-
+  <md-theme name = "teal">
+      
+      <md-toolbar  class = "">
+          <router-link class = "nav-link " :to = " { name: 'levi' }">levi</router-link>
+          
+          <router-link class = "nav-link" :to = "{ name: 'Product' }">
+        Product
+    </router-link> 
+     
+     <router-link class = "nav-link" :to = "{ name: 'Support' }">
+        Support
+    </router-link>
+     
+     
+      </md-toolbar>
+      
+  </md-theme>
+   
+   </md-whiteframe>
     <router-view></router-view>
 
-  </div>
 
+</div>
 
 </template>
 
@@ -62,9 +53,19 @@ export default {
 </script>
 
 <style scoped>
-
-.navbar-brand {
-  font-size: 30px;
-}
-
+   
+    .main-toolbar {
+        
+        position: -webkit-sticky;
+        top : 1px;      
+    }
+    
+    .nav-link {
+/*        display: inline;*/
+        font-family: Heiti SC;
+        cursor: pointer;
+        font-size: 30px;
+        padding: 10px;
+        font-weight: bolder;
+    }
 </style>

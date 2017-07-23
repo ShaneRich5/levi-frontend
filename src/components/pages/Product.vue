@@ -1,77 +1,76 @@
 <template lang = "html">
 
     <div>
-  <h1 class = ""> {{ Tex }}</h1>
+  
+       <div class = "edit">
+        <h1 class =  "md-display-3"> {{ Message }}</h1>
+<h2 class = "md-subhead">{{ subHeading }} </h2>
+   
+   
+   
+   </div>
+   
+   
+    <md-layout id = "container">
+    
+    <md-layout md-flex-xsmall="100" md-flex-small="100" md-flex-medium="100" md-flex-large="100" md-flex-xlarge="100">
+      1
+    </md-layout>
+    
+    <md-layout md-flex-xsmall="100" md-flex-small="100" md-flex-medium="50" md-flex-large="50" md-flex-xlarge="50">
+      <h1 id = "entitle" class = "md-display-1">Connect soft documents</h1>
+      
+      <p>Allow documents that feed into each other to provide a consistent, untainted view of what your institution is doing.</p>
+    </md-layout>
+    
+    <md-layout md-flex-xsmall="100" md-flex-small="100" md-flex-medium="50" md-flex-large="50" md-flex-xlarge="50">
+      3
+    </md-layout>
+    
+    
+    <md-layout md-flex-xsmall = "100" md-flex-small = "100" md-flex-medium = "50" md-flex-large = "50" md-flex-xlarge = "50">
+      4
+    </md-layout>
+    
+    <md-layout md-flex-xsmall = "100" md-flex-small = "100" md-flex-medium = "50" md-flex-large = "50" md-flex-xlarge = "50">
+      <h1 class = "md-display-1" > Create better decision models</h1>
+            <p> identify patterns in the data that can help you make better desicions in the face of uncertainty.</p>
+    </md-layout>
+
+    
+    <md-layout md-flex-xsmall = "100" md-flex-small = "100" md-flex-medium = "50" md-flex-large = "50" md-flex-xlarge = "50">
+       <h1 class = "md-display-1" >  Search. Get what is important to You!</h1>
+       
+       <p>All notifications and documents are indexed and archived so that you can find what is needed at all times.</p>
 
 
-    <div class = "container ">
+    </md-layout>
+    
+    <md-layout md-flex-xsmall = "100" md-flex-small = "100" md-flex-medium = "50" md-flex-large = "50" md-flex-xlarge = "50">
+    
+    </md-layout>
+    
+    
+    
+    <md-layout md-flex-xsmall = "100" md-flex-small = "100" md-flex-medium = "50" md-flex-large = "50" md-flex-xlarge = "50">
 
 
-                <div class = "row">
 
-                  <div class = "col-sm-6">
-                        <img src = "ConnectDocuments.png" alt = "Documents" class = "pull-left img-responsive imG" width = "250" height = "250">
-                  </div>
+    </md-layout>
+    
+    <md-layout md-flex-xsmall = "100" md-flex-small = "100" md-flex-medium = "50" md-flex-large = "50" md-flex-xlarge = "50">
+     <h1 class = "md-display-1" >Collaborate with other apps!</h1>
 
-                  <div class = "col-sm-4">
-                    <h3><b>Connect Soft documents</b></h3>
-                    <p class = "lead">Allow documents that feed into each other to provide a consistent, untainted view of the
-                  financial, operational and social behaviour of the institution.</p>
+ <p>Connect to the tools you need to prevent wasting time using so many apps.</p>
 
-
-                  </div>
-
-                </div>
-
-
-        <hr>
-                <div class = "row">
-        <!-- position image to the right when on desktop,, but allow image to occupy the whole  webpage  when the device is less the 768px-->
-                  <div class = "col-sm-5">
-          <h3><b>Improve decision models</b></h3>
-          <p class = "lead">Use statistical modelling to identify patterns and anomalies in the data that can help in
-          making better decisions.</p>
-                  </div>
-                  <div class = "col-sm-6">
-                   <img src = "../../assets/Statistics.png" alt = "Statistics" width = "350px" height = "270px"  class = "pull-right img-responsive imG">
-                  </div>
-
-                </div>
-        <hr>
-                <div class = "row">
-
-                  <div class = "col-sm-6">
-                  <img src = "../../assets/SearchDOC.png" alt = "Search" width = "300" height = "250" class = "pull-left img-responsive imG">
-                  </div>
-                  <div class = "col-sm-6">
-
-                      <h3><b>Search. Get what is important to You!</b></h3>
-                      <p class = "lead">All notifications and documents are indexed and
-                      archived so that you can find what is needed at all times.</p>
-                  </div>
-
-                </div>
-        <hr>
-
-                <div class = "row">
-
-                  <div class = "col-sm-5">
-                    <h3><b>Collaborate with other apps!</b></h3>
-                      <p class = "lead" >Connect to the tools you need to prevent wasting time using so many apps </p>
-                    </div>
-
-                  <div class = "col-sm-7">
-
-                    <img src = "../../assets/Integrate.jpg" alt = "" width = "300" height = "270" class = "pull-right  img-responsive imG">
-
-                  </div>
-
-                </div>
-
-
-        </div>
-
+    </md-layout>
+    
+  </md-layout>
+        
+        
     </div>
+    
+    
 </template>
 
 <script>
@@ -82,7 +81,8 @@ export default {
 
   data() {
     return {
-      Tex: 'Connect to be more.',
+      Message: 'Connect to be more.',
+      subHeading: 'Always be aware of the state of your business ',
     };
   },
 };
@@ -91,20 +91,63 @@ export default {
 
 <style lang = "css" scoped>
 
-
+  .edit {
+        
+        text-align: center;
+          font-family: Heiti SC;
+    }
+    
 /*Tablets */
-@media screen and (max-width: 768px) {
+    
+ @media screen and (max-width: 600px) {
+        
 
-  .imG {
 
+  .md-layout, h1 {
+      
       float: none !important;
       margin: auto;
       text-align: center;
+      width: 95%;
 
   }
 
 }
 
+      
+    #entitle {
+    line-height: 1.2em;
+    }
+    
+    
+#container > .md-layout {
+    
+  /*background-color: white;*/
+  min-height: 100px;
+/*  border-color: black;*/
+    
+    
+/*  specifies the default alignment for items  */
+  align-items: center;
+    
+/*  aligns the flexible container's items when the items do not use all available space on the main-axis (horizontally)  */
+  justify-content: center;
+    
+  padding: 0px 15px 0px;
+    
+/*  border-style: dotted;*/
+    
+  border-width: 1px;
+    
+    font-family: Heiti SC
+}
+    
+    #entitle {
+    line-height: 1.2em;
+    }
+    
+    
+    
 /* Mobile */
 @media screen and (max-width: 480px ) {
 
