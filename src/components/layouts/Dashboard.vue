@@ -18,12 +18,6 @@
           </md-list-item>
         </md-list>
       </div>
-
-      <router-link
-        :to="{ name: 'organizations' }">
-        <p>organizations</p>
-      </router-link>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi cupiditate esse necessitatibus beatae nobis, deserunt ut est fugit, tempora deleniti, eligendi commodi doloribus. Nemo, assumenda possimus, impedit inventore perferendis iusto!</p>
     </md-sidenav>
     <div class="page-content">
       <md-toolbar>
