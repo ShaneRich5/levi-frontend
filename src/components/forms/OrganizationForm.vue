@@ -9,7 +9,7 @@
         <h3>Address</h3>
       </md-layout>
 
-      <md-layout>
+      <md-layout v-if="organization">
         <md-input-container>
           <label>Street</label>
           <md-input v-model="organization.street"></md-input>
@@ -47,7 +47,7 @@
       <div>
         <md-chip
           md-deletable
-          v-for="organizationType in organization.types"
+          v-for="organizationType in mapTypes(organization.types)"
           :key="organizationType.id"
           @delete="deleteOrganizationType(organizationType.id)"
         >
@@ -65,9 +65,6 @@
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  created() {
-    this.fetchOrganizationTypes();
-  },
   data() {
     return {
       organization: {
@@ -84,7 +81,11 @@ export default {
     ...mapGetters(['organizationTypes']),
   },
   methods: {
-    ...mapActions(['createOrganization', 'fetchOrganizationTypes']),
+    ...mapActions(['createOrganization']),
+    mapTypes(types) {
+      return this.organizationTypes
+        .filter(organizationType => types.indexOf(organizationType.id) !== -1);
+    },
     addOrganizationType(id) {
       const selectedType = this.organizationTypes
         .find(organizationType => organizationType.id === id);
@@ -107,12 +108,8 @@ export default {
         this.createOrganization(organization);
       }
     },
-
-    validate({ name, street, parish }) {
-      return name.length !== 0 && street.length !== 0 && parish.length !== 0;
-    },
-    ok(name) {
-      console.log(name);
+    validate({ name, street, parish, types }) {
+      return types.length !== 0 && name.length !== 0 && street.length !== 0 && parish.length !== 0;
     },
   },
 };

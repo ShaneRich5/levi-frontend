@@ -9,10 +9,11 @@
         v-for="organization in organizations"
         :key="organization.id"
       >
-      <router-link :to="{ name: 'organization', params: { id: organization.id } }">
+      <router-link
+        :to="{ name: 'organization', params: { id: organization.id } }">
         <md-card>
           <md-card-header>
-            <div class="md-title">Name</div>
+            <div class="md-title">{{ organization.name }}</div>
             <div class="md-subhead">Kingston</div>
           </md-card-header>
         </md-card>
@@ -68,7 +69,6 @@ h1 {
 
 .card {
   margin-bottom: 10px;
-  max-width: 600px;
 }
 
 .cards {

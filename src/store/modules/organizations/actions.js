@@ -2,17 +2,13 @@ import api from '../../../api';
 import * as types from '../../mutation-types';
 import router from '../../../router';
 
-export const fetchOrganizationTypes = ({ commit }) => {
-  api.getOrganizationTypes((data) => {
-    const { organizationTypes } = data;
-    commit(types.ORGANIZATION_TYPES_LOADED, organizationTypes);
-  });
-};
-
 export const fetchOrganizations = ({ commit }) => {
   api.getOrganizations((data) => {
-    const { organizations } = data;
+    const { organizations, nationalOffices, districtOffices, churches } = data;
     commit(types.ORGANIZATIONS_LOADED, organizations);
+    commit(types.NATIONAL_OFFICES_LOADED, nationalOffices);
+    commit(types.DISTRICT_OFFICES_LOADED, districtOffices);
+    commit(types.CHURCHES_LOADED, churches);
   });
 };
 
@@ -23,6 +19,10 @@ export const fetchOrganization = ({ commit }, id) => {
   });
 };
 
-export const createOrganization = ({ commit }, { name, street, parish, country }) => {
-  api.saveOrganization({ name, street, parish, country }, () => router.push('/dashboard'));
+export const createOrganization = ({ commit }, organization) => {
+  api.saveOrganization(organization, () => router.push({ name: 'dashboard' }));
+};
+
+export const updateOrganization = ({ commit }, organization) => {
+  api.updateOrganization(organization, () => router.push({ name: 'dashboard' }));
 };

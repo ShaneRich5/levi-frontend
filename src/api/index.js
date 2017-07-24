@@ -23,8 +23,12 @@ export default {
   getOrganizations(successCb, errorCb) {
     get('api/organizations', successCb, errorCb);
   },
-  saveOrganization({ name, street, parish, country }, successCb, errorCb) {
-    post('api/organizations', { name, street, parish, country }, data => successCb(data), errorCb);
+  saveOrganization(organization, successCb, errorCb) {
+    post('api/organizations', organization, data => successCb(data), errorCb);
+  },
+  updateOrganization(organization, successCb, errorCb) {
+    const { id } = organization;
+    update(`api/organizations/${id}`, successCb, errorCb);
   },
   getOrganizationTypes(successCb, errorCb) {
     get('api/organization-types', successCb, errorCb);

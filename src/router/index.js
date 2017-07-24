@@ -10,6 +10,8 @@ import PageNotFound from '@/components/pages/PageNotFound';
 import RegistrationPage from '@/components/pages/RegistrationPage';
 import OrganizationForm from '@/components/forms/OrganizationForm';
 import OrganizationPage from '@/components/pages/OrganizationPage';
+import OrganizationList from '@/components/entities/OrganizationList';
+import Organization from '@/components/entities/Organization';
 
 Vue.use(Router);
 
@@ -46,8 +48,15 @@ const routes = [
     beforeEnter: requireAuth,
     children: [
       { path: '', component: WelcomePage, name: 'dashboard' },
-      { path: 'organizations/new', component: OrganizationForm, name: 'organization-form' },
-      { path: 'organizations/:id', component: OrganizationPage, name: 'organization', props: true },
+      {
+        path: 'organizations',
+        component: OrganizationPage,
+        children: [
+          { path: '', component: OrganizationList, name: 'organizations' },
+          { path: 'new', component: OrganizationForm, name: 'organization-form' },
+          { path: ':id', component: Organization, name: 'organization', props: true },
+        ],
+      },
     ],
   },
   { path: '*', component: PageNotFound, name: 'PageNotFound' },

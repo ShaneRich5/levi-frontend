@@ -1,17 +1,19 @@
 <template>
-  <h1>Organization</h1>
+  <div>
+    <h2>Organizations Page</h2>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 
 export default {
-  props: ['id'],
   created() {
-    this.fetchOrganization(1);
+    this.fetchOrganizations();
   },
   methods: {
-    ...mapActions(['fetchOrganization']),
+    ...mapActions(['fetchOrganizations']),
   },
 };
 </script>
