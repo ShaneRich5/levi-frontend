@@ -1,7 +1,9 @@
 <template>
   <div>
     <md-layout>
-      Home
+    <div class="home">
+      <h1>Home</h1>
+    </div>
     </md-layout>
   </div>
 </template>
