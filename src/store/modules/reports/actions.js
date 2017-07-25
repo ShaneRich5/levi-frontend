@@ -4,17 +4,39 @@ import * as types from '../../mutation-types';
 
 const socket = io('http://localhost:3000');
 
-export const loadChurchReportsByChurch = ({ commit }, id) => {
+export const fetchChurchReportsByChurch = ({ commit }, id) => {
   api.getChurchReportsByChurchId(id, (data) => {
     const { churchReports } = data;
     commit(types.CHURCH_REPORTS_LOADED, churchReports);
   });
 };
 
-export const loadDistrictReportsByDistrictOffice = ({ commit }, id) => {
+export const fetchDistrictReportsByDistrictOffice = ({ commit }, id) => {
   api.getDistrictReportsByDistrictOfficeId(id, (data) => {
     const { districtReports } = data;
     commit(types.DISTRICT_REPORTS_LOADED, districtReports);
+  });
+};
+
+export const fetchJournalsByNationalOffice = ({ commit }, id) => {
+  api.getJournalsByNationalOfficeId(id, (data) => {
+    const { journals } = data;
+    commit(types.JOURNALS_LOADED, journals);
+  });
+};
+
+export const fetchReportsByOrganization = ({ commit }, typeIds) => {
+  api.getReportsByTypeIds(typeIds, (data) => {
+    const reports = { ...data };
+    return reports;
+  });
+};
+
+export const addJournalToNationalOffice = ({ commit }, nationalOffice) => {
+  api.createJournal(nationalOffice, (data) => {
+    // const { journal, districtReports, churchReports } = data;
+    const { journal } = data;
+    return journal;
   });
 };
 
