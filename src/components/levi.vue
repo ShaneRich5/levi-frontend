@@ -3,6 +3,8 @@
    
    
       <div class = "md-title">{{ Title }} </div>
+       
+       
         <div class = "md-subhead">
             {{ subTitle }} </div>
 
@@ -67,7 +69,7 @@
            
            
            
-         <md-button class="md-raised md-primary" style = "color: white; ">Sign up</md-button>
+         <md-button class="md-raised md-primary" style = "color: white; ">Create Account</md-button>
 
        </md-card>
        
@@ -93,8 +95,8 @@ export default {
   name: 'levi',
   data() {
     return {
-      Title: 'Chaos. Simplify it all',
-      subTitle: 'let\'s improve how you use data',
+      Title: ' levi makes data useful to you',
+      subTitle: 'levi refines how you collect, arrange, analyse and represent data when making critical decisions',
       user: {
         firstName: '',
         lastName: '',
@@ -123,11 +125,11 @@ export default {
     }
 .md-title {
         
-        font-size: 90px;
+        font-size: 85px;
         font-family: Heiti SC;
         line-height: 1.1em;
         outline-width: thin;
-        margin-top: 40px;
+        margin-top: 90px;
         text-align: center;
     }
     
@@ -138,6 +140,9 @@ export default {
         padding-top:20px;
         text-align: center;
         line-height: 1.3em;
+        margin: auto;
+        width: 500px;
+        
     }
         #container > .md-layout {
 /*  background-color: lightgrey;*/
@@ -153,15 +158,16 @@ export default {
     .md-button {
          min-height: 53px !important;
       min-width: 46px !important;
-      font-size: 36px !important;
+      font-size: 26px !important;
       line-height: 0px; 
+        
      
 
     }
     
         .md-raised {
         text-transform: none;
-        font-family: Helvetica;
+        font-family: Heiti SC;
         font-weight: bolder;
     }
     
