@@ -2,13 +2,13 @@ language: node_js
 node_js:
 - '7'
 cache: yarn
-
 before_script:
-  - npm install -g firebase-tools
-  - npm install -g wintersmith
-
+- npm install -g firebase-tools
+- npm install -g wintersmith
 script: npm run unit
-
 after_success:
-  - npm run build
-  - firebase deploy --token=${FIREBASE_API_TOKEN}
+- npm run build
+- firebase deploy --token=${FIREBASE_API_TOKEN}
+env:
+  global:
+    secure: rZ2S4UMf3beJ+Qbq+0K+AXVsyzJguMNRvIlEOcoY/gB4xfVdGNKtBZ5WIEIvzso6AVNd2I9zFYIs1Cvc2XPZwW6Pcj2JCPQFhmnYiCLBqqtjSmzBaSyz8Uw9pkYB0SIopsmvAc9NsPJYXRYoVD3/XuiSzyh2l9pBkMrktrUHd06udotO6y7EM5GLAtkibOEOTyDTMHqt7VqiuOfbTlUltxIxCo+gLASHYDqBL5ZNDhNTp5pqMcBZ63jZY33yXmgcbYW9cFg0SE3g9zQ6PPRvL3m9ZXlgLV5qIxWY4nrD5IzZIEWM+by4gEeR5C6ZAyIrwvUPpwolSmwzDone8xu962bd+oeLtYORQfHaCgeR2LbkIYFV+ylG30+nUquagAFW/eAUjSWg5KC6iH+02ydWan47JsC1/HaUWbXeWWgqabxAcoNAo83yznIgqoy3oEF7F+wQ4TFITG7E8LiwyD+Us0cV1wTzQk1R/zTp03W3SiozgAgi+wnFLwf8dbpQxhZC2xnREqF6+Ud1xsMLnzTOCytEspbAlRyiS8vksWC5E28X2eS9b5xIYDWcL5sIMt4kwR3LxA/vbTBREsEIRf8kjFfsRP18yP4oQlkxTOpEE3YBY7fHZp2yWW7lr1pceNK3ERZa4qlkzc9pIc3QneDS9WXpz14aw2pT1fE2aZFwVgw=

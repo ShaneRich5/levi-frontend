@@ -3,7 +3,11 @@ import humps from 'humps';
 
 /* eslint-disable no-param-reassign*/
 
-axios.defaults.baseURL = 'http://localhost:8000';
+if (process.env.NODE_ENV === 'production') {
+  axios.defaults.baseURL = 'https://api.levihq.com';
+} else {
+  axios.defaults.baseURL = 'http://localhost:8000';
+}
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 const transformStream = (transformer, stream) => {
