@@ -39,7 +39,9 @@
    
     <md-layout class = "md-display-2">Company</md-layout>
     <md-layout>WHO are we ? </md-layout>
-    <md-layout>Contact Us</md-layout>
+    <md-layout>      <router-link  :to = "{ name: 'Contact' }">
+      Contact Us
+    </router-link> </md-layout>
      <md-layout>Support</md-layout>
   </md-layout>
   
