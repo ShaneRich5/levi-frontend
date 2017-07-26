@@ -14,7 +14,7 @@
      <md-layout id = "technicalSupport" md-flex-xmall = "100" md-flex-small = "100" md-flex-medium = "23" md-flex-large="23" md-flex-xlarge="20">
        
               <p> 
-          <span class = "md-headline">Technical or Account Support</span>  <br><br>
+          <span class = "md-headline">Technical or Account Support.</span>  <br><br>
             We're here to help! If you have questions about your account or have technical issues, contact <a href = "mailto:levi@support.com">levi@support.com</a> to send a quick message.</p>
 
      </md-layout>
@@ -62,7 +62,7 @@
     </md-card>
     
     
-     <md-button class = "md-raised">
+     <md-button class = "md-raised md-primary">
             Submit
         </md-button>
     
