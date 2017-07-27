@@ -19,9 +19,9 @@ Vue.material.registerTheme({
   default: {
     primary: {
       color: 'blue',
-      hue: 500,
+      hue: 600,
     },
-    accent: 'red',
+    accent: 'grey',
   },
   teal: {
     primary: 'white',

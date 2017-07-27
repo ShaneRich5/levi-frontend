@@ -1,23 +1,27 @@
 <template>
 
-<div>
+          <div>
    
-   <md-whiteframe class = "main-toolbar  ">
+   <md-whiteframe class = "main-toolbar ">
 
   <md-theme name = "teal">
       
-      <md-toolbar  class = "">
-          <router-link class = "nav-link " :to = " { name: 'levi' }">levi</router-link>
+      <md-toolbar   >
+
+     <router-link id = "nav" class = "nav-link " :to = " { name: 'levi' }" style = " text-decoration: none;  color: #ffffff; flex:1;">levi</router-link>
+     
+     
+    <router-link class = "nav-link" :to = "{ name: 'Product' }" style = " text-decoration: none;  color: #ffffff; ">Product </router-link> 
+     
+     <router-link  class = "nav-link" :to = "{ name: 'Support' }" style = " text-decoration: none; color: #ffffff;"> Support </router-link>
+     
+         <md-button class = "md-raised md-accent">
+         
+          <router-link id = "navbutton" style = " text-decoration: none; color: #ffffff;" class = "nav-link" :to = "{ name: 'Support' }" > Sign
+           in</router-link>
           
-          <router-link class = "nav-link" :to = "{ name: 'Product' }">
-        Product
-    </router-link> 
      
-     <router-link class = "nav-link" :to = "{ name: 'Support' }">
-        Support
-    </router-link>
-     
-     
+</md-button>
       </md-toolbar>
       
   </md-theme>
@@ -30,7 +34,9 @@
     <router-view></router-view>
 
 
+     
 
+<!--
    <footer>
    
    <md-layout id = "container" md-gutter >
@@ -63,6 +69,7 @@
 
 </md-layout>
     </footer>
+-->
 </div>
 
 </template>
@@ -94,14 +101,38 @@ export default {
     .main-toolbar {
         
         position: -webkit-sticky;
-        top : 1px;      
+        top : 1px;    
+        width: 100%;
     }
     
+/*
+    .main-toolbar .md-toolbar {
+        
+        display: flex;
+        justify-content: center;
+        
+    }
+    .main-toolbar .nav-link {
+        color: #ffffff;
+      
+    }
+*/
+    
+    #nav {
+        
+        font-size: 55px;
+    }
+    
+    #navbutton {
+        text-transform: none;
+        font-weight: bolder;
+    }
+      
     .nav-link {
 /*        display: inline;*/
-        font-family: Heiti SC;
+        font-family: Helvetica neue;
         cursor: pointer;
-        font-size: 30px;
+        font-size: 19px;
         padding: 10px;
         font-weight: bolder;
     }
@@ -126,5 +157,10 @@ export default {
         margin-top: 100px ;
 margin-bottom: 60px ;
     }
-
+    
+    
+    .router-link {
+                 position: absolute;
+                right: 0px;
+    }
 </style>
