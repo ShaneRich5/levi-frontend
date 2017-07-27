@@ -11,7 +11,7 @@
      <router-link id = "nav" class = "nav-link " :to = " { name: 'levi' }" style = " text-decoration: none;  color: #ffffff; flex:1;">levi</router-link>
      
      
-    <router-link class = "nav-link" :to = "{ name: 'Product' }" style = " text-decoration: none;  color: #ffffff; ">Product </router-link> 
+    <router-link class = "nav-link" :to = "{ name: 'Product' }" style = " text-decoration: none;  color: #ffffff; ">Using levi</router-link> 
      
      <router-link  class = "nav-link" :to = "{ name: 'Support' }" style = " text-decoration: none; color: #ffffff;"> Support </router-link>
      
@@ -36,40 +36,46 @@
 
      
 
-<!--
    <footer>
    
-   <md-layout id = "container" md-gutter >
    
-  <md-layout md-column md-gutter md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="33" md-flex-xlarge="33">
+<md-layout id = "container" md-gutter >
    
-    <md-layout class = "md-display-2">Company</md-layout>
-    <md-layout>WHO are we ? </md-layout>
-    <md-layout>Contact Us</md-layout>
-     <md-layout>Support</md-layout>
-  </md-layout>
-  
-  
-   <md-layout md-column md-gutter md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="33" md-flex-xlarge="33">
-   
-    <md-layout class = "md-display-2">Product</md-layout>
-    <md-layout>Business</md-layout>
-    <md-layout> <router-link class = "" :to = "{ name: 'Product' }">
-        Features
-    </router-link> </md-layout>
-        <md-layout>Pricing</md-layout>
-  </md-layout>
-  
-     <md-layout md-column md-gutter  md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="33" md-flex-xlarge="33">
-    <md-layout></md-layout>
-    <md-layout></md-layout>
-        <md-layout></md-layout>
-  </md-layout>
+                  <md-layout md-column md-gutter md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="33" md-flex-xlarge="33">
+
+                    <md-layout class = "md-display-2">levi</md-layout>
+
+                    <md-layout> <router-link :to = "{ name: 'About' }">About </router-link> </md-layout>
+
+                    <md-layout>Contact Us</md-layout>
+
+                     <md-layout>Support</md-layout>
+
+                  </md-layout>
+
+
+                   <md-layout md-column md-gutter md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="33" md-flex-xlarge="33">
+
+                    <md-layout class = "md-display-2">Using levi</md-layout>
+                    <md-layout>Business</md-layout>
+                    <md-layout> <router-link class = "" :to = "{ name: 'Product' }">
+                        Features
+                    </router-link> </md-layout>
+                        <md-layout>Pricing</md-layout>
+                  </md-layout>
+
+                     <md-layout md-column md-gutter  md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="33" md-flex-xlarge="33">
+                    <md-layout></md-layout>
+                    <md-layout></md-layout>
+                        <md-layout></md-layout>
+                  </md-layout>
 
 
 </md-layout>
-    </footer>
--->
+  
+     </footer>
+     
+     
 </div>
 
 </template>
@@ -141,21 +147,23 @@ export default {
         font-family: Heiti SC;
         font-size: 20px;
     }
+    
     #container > .md-layout {
-  background-color: #F9FBFB;
+/*  background-color: #F9FBFB;*/
   min-height: 100px;
   border-color: black;
   align-items: center;
   justify-content: center;
-  border-style: dotted;
+/*  border-style: dotted;*/
   border-width: 1px;
   padding: 8px;
+margin-bottom: 100px;
+        font-family: Heiti SC;
 
 }
     
     footer {
         margin-top: 100px ;
-margin-bottom: 60px ;
     }
     
     
