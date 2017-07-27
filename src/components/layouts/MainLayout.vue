@@ -15,9 +15,9 @@
      
      <router-link  class = "nav-link" :to = "{ name: 'Support' }" style = " text-decoration: none; color: #ffffff;"> Support </router-link>
      
-         <md-button class = "md-raised md-accent">
+         <md-button class = "md-raised md-button">
          
-          <router-link id = "navbutton" style = " text-decoration: none; color: #ffffff;" class = "nav-link" :to = "{ name: 'Support' }" > Sign
+          <router-link id = "navbutton" style = " text-decoration: none; color: #429bf4;" class = "nav-link" :to = "{ name: 'Support' }" > Sign
            in</router-link>
           
      

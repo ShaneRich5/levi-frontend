@@ -21,7 +21,10 @@ Vue.material.registerTheme({
       color: 'blue',
       hue: 600,
     },
+  },
+  button: {
     accent: 'grey',
+    hue: 200,
   },
   teal: {
     primary: 'white',
