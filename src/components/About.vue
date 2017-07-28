@@ -125,7 +125,7 @@ font-family: Heiti SC;
 
 }
     
-    #GridAbout {
+    #gridAbout {
                 margin-top: 90px;
     }
     
