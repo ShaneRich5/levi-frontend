@@ -41,43 +41,38 @@
    
 <md-layout id = "container" md-gutter >
    
-                  <md-layout md-column md-gutter md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="33" md-flex-xlarge="33">
+                  <md-layout md-column md-gutter md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="33" md-flex-xlarge="33" style = "justify-content: flex-start">
 
-                    <md-layout class = "md-display-2">levi</md-layout>
-
-                    <md-layout> <router-link :to = "{ name: 'About' }">About </router-link> </md-layout>
-
-                    <md-layout>Contact Us</md-layout>
-
-                     <md-layout>Support</md-layout>
-
+                 <md-row class = "md-display-2" >levi</md-row>
+                        <router-link :to = "{name: 'About'}"><md-row >About</md-row ></router-link>
+                         <router-link :to = "{ name: 'Customers' }"><md-row >Customers</md-row ></router-link>
+                        <router-link :to = "{ name: 'Contact' }"> <md-row >Contact Us</md-row ></router-link>
+                         <router-link :to = "{ name: 'Contact' }"> <md-row >levi blog</md-row></router-link>
                   </md-layout>
 
 
-                   <md-layout md-column md-gutter md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="33" md-flex-xlarge="33">
+                   <md-layout md-column md-gutter md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="33" md-flex-xlarge="33" style = "justify-content: flex-start">
 
-                    <md-layout class = "md-display-2">Using levi</md-layout>
-                    <md-layout>Business</md-layout>
-                    <md-layout> <router-link class = "" :to = "{ name: 'Product' }">
-                        Features
-                    </router-link> </md-layout>
-                        <md-layout>Pricing</md-layout>
+                    <md-row class = "md-display-2" >Using levi</md-row>
+              <router-link :to = "{ name: 'Product' }"> <md-row >Features</md-row ></router-link>
+                          <router-link :to = "{ name: 'Price' }"> <md-row >Pricing</md-row ></router-link>
                   </md-layout>
 
                      <md-layout md-column md-gutter  md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="33" md-flex-xlarge="33">
                     <md-layout></md-layout>
                     <md-layout></md-layout>
                         <md-layout></md-layout>
+                        
                   </md-layout>
 
 
-</md-layout>
+
  
  
- <md-layout id = "container">
+
    
    
-    <md-layout md-column md-gutter md-flex-xsmall="100" md-flex-small="100" md-flex-medium="70" md-flex-large="33" md-flex-xlarge="33">
+    <md-layout md-column md-gutter md-flex-xsmall="100" md-flex-small="100" md-flex-medium="50" md-flex-large="33" md-flex-xlarge="33">
 
                     <h3>Subscribe to hear from us</h3>
                     
@@ -172,8 +167,8 @@ export default {
     }
     
     .btnSub {
-                text-transform: none;
-        min-width: 200px !important;
+        text-transform: none;
+/*        min-width: 200px !important;*/
     }
     
     .md-display-2 {
@@ -190,24 +185,19 @@ export default {
 /*  border-style: dotted;*/
   border-width: 1px;
   padding: 8px;
-margin-bottom: 100px;
+margin-bottom: 50px;
         font-family: Heiti SC;
 
 }
     
     footer {
-        margin-top: 100px ;
+        margin-top: 90px ;
     }
     
-    
-    .router-link {
-                 position: absolute;
-                right: 0px;
-    }
+
     
     .md-layout .md-input-container . md-input {
         
-        margin-left: 10px;
-        margin-right: 8px;
+        margin-left: 40px;
     }
 </style>
