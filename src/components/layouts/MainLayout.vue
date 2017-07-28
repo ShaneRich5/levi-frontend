@@ -72,6 +72,34 @@
 
 
 </md-layout>
+ 
+ 
+ <md-layout id = "container">
+   
+   
+    <md-layout md-column md-gutter md-flex-xsmall="100" md-flex-small="100" md-flex-medium="70" md-flex-large="33" md-flex-xlarge="33">
+
+                    <h3>Subscribe to hear from us</h3>
+                    
+                    
+         <md-input-container>
+            
+
+            <label>
+Enter your email address to subscribe
+</label>
+             <md-input required>
+                 
+             </md-input>
+         </md-input-container>
+         
+         <md-button class = "md-raised md-primary btnSub">
+             Submit
+         </md-button>
+         
+    </md-layout>
+     
+ </md-layout>
   
      </footer>
      
@@ -143,6 +171,11 @@ export default {
         font-weight: bolder;
     }
     
+    .btnSub {
+                text-transform: none;
+        min-width: 200px !important;
+    }
+    
     .md-display-2 {
         font-family: Heiti SC;
         font-size: 20px;
@@ -170,5 +203,11 @@ margin-bottom: 100px;
     .router-link {
                  position: absolute;
                 right: 0px;
+    }
+    
+    .md-layout .md-input-container . md-input {
+        
+        margin-left: 10px;
+        margin-right: 8px;
     }
 </style>
