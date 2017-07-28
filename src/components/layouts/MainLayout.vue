@@ -65,7 +65,8 @@
                   </md-layout>
 
                      <md-layout md-column md-gutter  md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="33" md-flex-xlarge="33">
-                    <md-layout></md-layout>
+                     
+                    <md-layout  class = "md-display-2"></md-layout>
                     <md-layout></md-layout>
                         <md-layout></md-layout>
                   </md-layout>
