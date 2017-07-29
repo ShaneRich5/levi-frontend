@@ -59,7 +59,7 @@ import { mapActions, mapGetters } from 'vuex';
 import Currency from '../mixins/Currency';
 
 export default {
-  props: ['id'],
+  props: ['churchReportId'],
   mixins: [Currency],
   data() {
     return {
@@ -67,12 +67,12 @@ export default {
     };
   },
   created() {
-    this.loadChurchReportById(this.id);
-    this.listenForSourceUpdates(this.id);
+    this.loadChurchReportById(this.churchReportId);
+    this.listenForSourceUpdates(this.churchReportId);
   },
   computed: {
     churchReport() {
-      return this.$store.getters.churchReportById(this.id);
+      return this.$store.getters.churchReportById(this.churchReportId);
     },
     ...mapGetters(['sources']),
   },

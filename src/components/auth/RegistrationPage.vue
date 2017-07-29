@@ -1,18 +1,20 @@
 <template>
-  <login-form></login-form>
+  <registration-form></registration-form>
 </template>
 
 <script>
-import LoginForm from '../forms/LoginForm';
+import RegistrationForm from './RegistrationForm';
 
 export default {
-  name: 'LoginPage',
+  name: 'RegisterPage',
   components: {
-    'login-form': LoginForm,
+    'registration-form': RegistrationForm,
   },
   data() {
     return {
       user: {
+        firstName: '',
+        lastName: '',
         email: '',
         password: '',
       },
@@ -22,6 +24,21 @@ export default {
 </script>
 
 <style scoped>
+
+.full-page {
+  background: #777;
+  width: 100%;
+  height: 100vh;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  min-height: 24em;
+  justify-content: center;
+  flex-direction: column;
+}
+
 *, *:before, *:after {
   box-sizing: border-box;
 }

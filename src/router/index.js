@@ -1,17 +1,21 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import About from '@/components/About';
+import About from '@/components/pages/About';
 import HomePage from '@/components/pages/HomePage';
-import LoginPage from '@/components/pages/LoginPage';
+import LoginPage from '@/components/auth/LoginPage';
 import Dashboard from '@/components/layouts/Dashboard';
 import WelcomePage from '@/components/pages/WelcomePage';
 import MainLayout from '@/components/layouts/MainLayout';
 import PageNotFound from '@/components/pages/PageNotFound';
-import RegistrationPage from '@/components/pages/RegistrationPage';
-import OrganizationForm from '@/components/forms/OrganizationForm';
-import OrganizationPage from '@/components/pages/OrganizationPage';
-import OrganizationList from '@/components/entities/OrganizationList';
-import Organization from '@/components/entities/Organization';
+import RegistrationPage from '@/components/auth/RegistrationPage';
+import OrganizationForm from '@/components/organizations/OrganizationForm';
+import OrganizationPage from '@/components/organizations/OrganizationPage';
+import OrganizationList from '@/components/organizations/OrganizationList';
+import Organization from '@/components/organizations/Organization';
+import OrganizationChurchReport from '@/components/organizations/OrganizationChurchReport';
+import OrganizationDistrictReport from '@/components/organizations/OrganizationDistrictReport';
+import OrganizationJournal from '@/components/organizations/OrganizationJournal';
+import OrganizationReportList from '@/components/organizations/OrganizationReportList';
 
 Vue.use(Router);
 
@@ -31,16 +35,18 @@ const requireAuth = (to, from, next) => {
   }
 };
 
+const generalPages = [
+  { path: '', component: HomePage, name: 'home' },
+  { path: '/login', component: LoginPage, name: 'login', beforeEnter: onlyGuest },
+  { path: '/register', component: RegistrationPage, name: 'register', beforeEnter: onlyGuest },
+  { path: '/about', component: About, name: 'About' },
+];
+
 const routes = [
   {
     path: '/',
     component: MainLayout,
-    children: [
-      { path: '', component: HomePage, name: 'home' },
-      { path: '/login', component: LoginPage, name: 'login', beforeEnter: onlyGuest },
-      { path: '/register', component: RegistrationPage, name: 'register', beforeEnter: onlyGuest },
-      { path: '/about', component: About, name: 'About' },
-    ],
+    children: generalPages,
   },
   {
     path: '/dashboard',
@@ -54,7 +60,18 @@ const routes = [
         children: [
           { path: '', component: OrganizationList, name: 'organizations' },
           { path: 'new', component: OrganizationForm, name: 'organization-form' },
-          { path: ':id', component: Organization, name: 'organization', props: true },
+          {
+            path: ':organizationId',
+            component: Organization,
+            name: 'organization',
+            props: true,
+            children: [
+              { path: 'reports', component: OrganizationReportList, name: 'organization-reports' },
+              { path: 'church-reports/:churchReportId', component: OrganizationChurchReport, name: 'organization-church-report', props: true },
+              { path: 'district-reports/:districtReportId', component: OrganizationDistrictReport, name: 'organization-district-report', props: true },
+              { path: 'journals/:journalId', component: OrganizationJournal, name: 'organization-journal', props: true },
+            ],
+          },
         ],
       },
     ],

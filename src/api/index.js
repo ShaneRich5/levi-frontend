@@ -23,6 +23,15 @@ export default {
   getOrganizations(successCb, errorCb) {
     get('api/organizations', successCb, errorCb);
   },
+  getJournalsByNationalOfficeId(id, successCb, errorCb) {
+    get(`api/national-offices/${id}/journals`, successCb, errorCb);
+  },
+  getDistrictReportsByDistrictOfficeById(id, successCb, errorCb) {
+    get(`api/district-offices/${id}/district-reports`, successCb, errorCb);
+  },
+  getChurchReportsByChurchId(id, successCb, errorCb) {
+    get(`api/churches/${id}/church-reports`, successCb, errorCb);
+  },
   saveOrganization(organization, successCb, errorCb) {
     post('api/organizations', organization, data => successCb(data), errorCb);
   },
@@ -30,9 +39,21 @@ export default {
     const { id } = organization;
     update(`api/organizations/${id}`, successCb, errorCb);
   },
-  getOrganizationTypes(successCb, errorCb) {
-    get('api/organization-types', successCb, errorCb);
+  createJournalOnNationalOffice(nationalOfficeId, successCb, errorCb) {
+    // post(`api/national-offices/${nationalOfficeId}/journals`, successCb, errorCb);
+    requestor.post(`api/national-offices/${nationalOfficeId}/journals`).then(response => response.data)
+      .then(successCb).catch(errorCb);
   },
+  createDistrictReportOnDistrictOffice(districtOfficeId, successCb, errorCb) {
+    post(`api/district-offices/${districtOfficeId}/district-reports`, successCb, errorCb);
+  },
+  createChurchReportOnChurch(churchId, successCb, errorCb) {
+    post(`api/churches/${churchId}/church-reports`, successCb, errorCb);
+  },
+
+  // getOrganizationTypes(successCb, errorCb) {
+  //   get('api/organization-types', successCb, errorCb);
+  // },
   createExpense({ id, name, amount }, callback, errorCallback) {
     post('api/expenses', { district_report_id: id, name, amount }, callback, errorCallback);
   },
@@ -47,17 +68,5 @@ export default {
   },
   updateSourceAmount({ id, amount }, callback, errorCallback) {
     update(`api/sources/${id}`, { id, amount }, callback, errorCallback);
-  },
-  getDistrictReportById(id, callback) {
-    get(`api/district-reports/${id}`, callback);
-  },
-  getDistrictReportsByDistrictOfficeId(id, callback) {
-    get(`api/district-offices/${id}/district-reports`, callback);
-  },
-  getChurchReportById(id, callback) {
-    get(`api/church-reports/${id}`, callback);
-  },
-  getChurchReportsByChurchId(id, callback) {
-    get(`api/churches/${id}/church-reports`, callback);
   },
 };

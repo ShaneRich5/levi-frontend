@@ -4,6 +4,10 @@ import * as types from '../../mutation-types';
 
 const socket = io('http://localhost:3000');
 
+export const invalidateRepors = ({ commit }) => {
+  commit(types.CLEAR_ALL_REPORTS);
+};
+
 export const fetchChurchReportsByChurch = ({ commit }, id) => {
   api.getChurchReportsByChurchId(id, (data) => {
     const { churchReports } = data;
@@ -18,27 +22,52 @@ export const fetchDistrictReportsByDistrictOffice = ({ commit }, id) => {
   });
 };
 
-export const fetchJournalsByNationalOffice = ({ commit }, id) => {
-  api.getJournalsByNationalOfficeId(id, (data) => {
-    const { journals } = data;
-    commit(types.JOURNALS_LOADED, journals);
-  });
-};
-
 export const fetchReportsByOrganization = ({ commit }, typeIds) => {
-  api.getReportsByTypeIds(typeIds, (data) => {
-    const reports = { ...data };
-    return reports;
-  });
+  const { nationalOffice, districtOffice, church } = typeIds;
+
+  if (nationalOffice !== undefined) {
+    api.getJournalsByNationalOfficeId(nationalOffice, (data) => {
+      const { journals } = data;
+      commit(types.JOURNALS_LOADED, journals);
+    });
+  }
+
+  if (districtOffice !== undefined) {
+    api.getDistrictReportsByDistrictOfficeById(districtOffice, (data) => {
+      const { districtReports } = data;
+      commit(types.DISTRICT_REPORTS_LOADED, districtReports);
+    });
+  }
+
+  if (church !== undefined) {
+    api.getChurchReportsByChurchId(church, (data) => {
+      const { churchReports } = data;
+      commit(types.CHURCH_REPORTS_LOADED, churchReports);
+    });
+  }
 };
 
 export const addJournalToNationalOffice = ({ commit }, nationalOffice) => {
-  api.createJournal(nationalOffice, (data) => {
-    // const { journal, districtReports, churchReports } = data;
+  api.createJournalOnNationalOffice(nationalOffice, (data) => {
     const { journal } = data;
-    return journal;
+    commit(types.JOURNAL_LOADED, journal);
   });
 };
+
+export const addDistrictReportToDistrictOffice = ({ commit }, districtOffice) => {
+  api.createDistrictReportOnDistrictOffice(districtOffice, (data) => {
+    const { districtReport } = data;
+    commit(types.DISTRICT_REPORT_LOADED, districtReport);
+  });
+};
+
+export const addChurchReportToChurch = ({ commit }, church) => {
+  api.createChurchReportOnChurch(church, (data) => {
+    const { churchReport } = data;
+    commit(types.CHURCH_REPORT_LOADED, churchReport);
+  });
+};
+
 
 export const loadChurchReportById = ({ commit }, id) => {
   api.getChurchReportById(id, (data) => {
@@ -151,6 +180,6 @@ export const updateExpenseAmount = ({ commit }, { id, amount }) => {
   });
 };
 
-export const updateDistrictReportOpeningFund = ({ commit }, { id, amount }) => {
-  commit(types.DISTRICT_REPORT_OPENING_FUND_UPDATED, { id, amount });
-};
+// export const updateDistrictReportOpeningFund = ({ commit }, { id, amount }) => {
+//   commit(types.DISTRICT_REPORT_OPENING_FUND_UPDATED, { id, amount });
+// };

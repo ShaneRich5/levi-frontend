@@ -19,7 +19,7 @@
         >
           <md-table-cell>
             <router-link
-              :to="{ name: 'organization', params: { id: organization.id }}">
+              :to="{ name: 'organization', params: { organizationId: organization.id }}">
             {{ organization.name }}
             </router-link>
           </md-table-cell>

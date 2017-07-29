@@ -1,7 +1,14 @@
 export const organizations = state => [...state.organizations];
 
-export const organizationById = state => id =>
-  JSON.parse(JSON.stringify(state.organizations.find(organization => organization.id === +id)));
+export const organizationById = state => (id) => {
+  const found = state.organizations.find(organization => organization.id === +id);
+
+  if (found === null) {
+    return {};
+  }
+
+  return JSON.parse(JSON.stringify(found));
+};
 
 export const nationalOffices = state => [...state.nationalOffices];
 

@@ -123,7 +123,7 @@ import { mapActions, mapGetters } from 'vuex';
 import Currency from '../mixins/Currency';
 
 export default {
-  props: ['id'],
+  props: ['districtReportId'],
   mixins: [Currency],
   data() {
     return {
@@ -136,13 +136,13 @@ export default {
     };
   },
   created() {
-    this.loadDistrictReportById(this.id);
-    this.listenForChurchReportUpdates(this.id);
-    this.listenForExpenseUpdates(this.id);
+    this.loadDistrictReportById(this.districtReportId);
+    this.listenForChurchReportUpdates(this.districtReportId);
+    this.listenForExpenseUpdates(this.districtReportId);
   },
   computed: {
     districtReport() {
-      return this.$store.getters.districtReportById(this.id);
+      return this.$store.getters.districtReportById(this.districtReportId);
     },
     grandTotal() {
       return this.churchReports.reduce((total, report) => report.total + total, 0);
@@ -177,11 +177,11 @@ export default {
       if (this.newExpenseName === '') {
         return;
       }
-      this.createExpense({ id: this.id, name: this.newExpenseName });
+      this.createExpense({ id: this.districtReportId, name: this.newExpenseName });
       this.newExpenseName = '';
     },
     handleOpeningFundUpdate(amount) {
-      const fund = { id: this.id, amount };
+      const fund = { id: this.districtReportId, amount };
       this.updateDistrictReportOpeningFund(fund);
     },
   },
