@@ -2,7 +2,15 @@ import io from 'socket.io-client';
 import api from '../../../api';
 import * as types from '../../mutation-types';
 
-const socket = io('http://localhost:3000');
+let socketUrl;
+
+if (process.env.NODE_ENV === 'production') {
+  socketUrl = 'https://api.levihq.com:3000';
+} else {
+  socketUrl = 'http://localhost:3000';
+}
+
+const socket = io(socketUrl);
 
 export const invalidateRepors = ({ commit }) => {
   commit(types.CLEAR_ALL_REPORTS);
