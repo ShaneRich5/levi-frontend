@@ -34,41 +34,6 @@ export default {
   //     report,
   //     ...state.districtReports.split(index + 1)];
   // },
-  [types.SOURCES_LOADED] (state, sources) {
-    state.sources = [...sources];
-  },
-  [types.EXPENSES_LOADED] (state, expenses) {
-    state.expenses = [...expenses];
-  },
-  [types.EXPENSE_ADDED] (state, expense) {
-    state.expenses = state.expenses.concat(expense);
-  },
-  [types.SOURCE_NAME_UPDATED] (state, source) {
-    const index = state.sources.findIndex(s => s.id === +source.id);
-    if (index === -1) return;
-    state.sources = [...state.sources.split(0, index), source, ...state.sources.split(index + 1)];
-  },
-  [types.SOURCE_AMOUNT_UPDATED] (state, source) {
-    const index = state.sources.findIndex(s => s.id === +source.id);
-    if (index === -1) return;
-    state.sources = [...state.sources.slice(0, index),
-      source,
-      ...state.sources.slice(index + 1)];
-  },
-  [types.SOURCE_UPDATED] (state, source) {
-    const index = state.sources.findIndex(s => s.id === +source.id);
-    if (index === -1) return;
-    state.sources = [...state.sources.slice(0, index),
-      source,
-      ...state.sources.slice(index + 1)];
-  },
-  [types.EXPENSE_UPDATED] (state, expense) {
-    const index = state.expenses.findIndex(s => s.id === +expense.id);
-    if (index === -1) return;
-    state.expenses = [...state.expenses.slice(0, index),
-      expense,
-      ...state.expenses.slice(index + 1)];
-  },
   // [types.CHURCH_REPORT_UPDATED] (state, churchReport) {
   //   const index = state.churchReports.findIndex(report => report.id === +churchReport.id);
   //   if (index === -1) return;

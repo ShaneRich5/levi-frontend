@@ -14,7 +14,10 @@
     <md-layout md-vertical-align="center" md-column>
       <h1>{{ organization.name }}</h1>
       <p><md-icon>location_on</md-icon>{{ organization.address.street }}, {{ organization.address.country }}</p>
-      <md-button class="md-primary md-raised" @click="addJournal">Create Journal</md-button>
+      <md-button
+        v-if="isNationalOffice()"
+        class="md-primary md-raised"
+        @click="addJournal">Create Journal</md-button>
     </md-layout>
 
     <router-link :to="{ name: 'organization-reports',  }">Reports</router-link>
@@ -33,7 +36,7 @@ export default {
     this.fetchReportsByOrganization(this.organization.types);
   },
   beforeDestroy() {
-    this.invalidateRepors();
+    this.invalidateReports();
   },
   computed: {
     organization() {
@@ -41,7 +44,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['invalidateRepors', 'fetchReportsByOrganization', 'addJournalToNationalOffice']),
+    ...mapActions(['invalidateReports', 'fetchReportsByOrganization', 'addJournalToNationalOffice']),
+    isNationalOffice() {
+      return 'nationalOffice' in this.organization.types;
+    },
     addJournal() {
       const { nationalOffice } = this.organization.types;
       if (nationalOffice !== null) {

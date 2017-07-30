@@ -32,6 +32,9 @@ export default {
   getChurchReportsByChurchId(id, successCb, errorCb) {
     get(`api/churches/${id}/church-reports`, successCb, errorCb);
   },
+  getSourcesByChurchReportId(id, successCb, errorCb) {
+    get(`api/church-reports/${id}/sources`, successCb, errorCb);
+  },
   saveOrganization(organization, successCb, errorCb) {
     post('api/organizations', organization, data => successCb(data), errorCb);
   },
@@ -51,22 +54,22 @@ export default {
     post(`api/churches/${churchId}/church-reports`, successCb, errorCb);
   },
 
-  // getOrganizationTypes(successCb, errorCb) {
-  //   get('api/organization-types', successCb, errorCb);
-  // },
-  createExpense({ id, name, amount }, callback, errorCallback) {
-    post('api/expenses', { district_report_id: id, name, amount }, callback, errorCallback);
+  createExpenseOnDistrictReport({ districtReport, name }, successCb, errorCb) {
+    post(`api/district-reports/${districtReport}/expenses`, { name }, successCb, errorCb);
   },
-  updateExpenseName({ id, name }, callback, errorCallback) {
-    update(`api/expenses/${id}`, { id, name }, callback, errorCallback);
+  createSourceOnChurchReport({ churchReport, name }, successCb, errorCb) {
+    post(`api/church-reports/${churchReport}/sources`, { name }, successCb, errorCb);
   },
-  updateExpenseAmount({ id, amount }, callback, errorCallback) {
-    update(`api/expenses/${id}`, { id, amount }, callback, errorCallback);
+  updateExpenseName({ churchReport, name }, successCb, errorCb) {
+    update(`api/expenses/${churchReport}`, { name }, successCb, errorCb);
   },
-  updateSourceName({ id, name }, callback, errorCallback) {
-    update(`api/sources/${id}`, { id, name }, callback, errorCallback);
+  updateExpenseAmount({ id, amount }, successCb, errorCb) {
+    update(`api/expenses/${id}`, { id, amount }, successCb, errorCb);
   },
-  updateSourceAmount({ id, amount }, callback, errorCallback) {
-    update(`api/sources/${id}`, { id, amount }, callback, errorCallback);
+  updateSourceNameOnChurchReport({ id, churchReport, name }, successCb, errorCb) {
+    update(`api/church-reports/${churchReport}/sources/${id}`, { id, name }, successCb, errorCb);
+  },
+  updateSourceAmountOnChurchReport({ id, churchReport, amount }, successCb, errorCb) {
+    update(`api/church-reports/${churchReport}/sources/${id}`, { id, amount }, successCb, errorCb);
   },
 };
