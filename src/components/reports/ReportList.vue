@@ -6,8 +6,5 @@
 
 <script>
 export default {
-  computed: {
-    ...mapGetters(['journals', 'districtReports', 'churchReports']),
-  },
 };
 </script>
