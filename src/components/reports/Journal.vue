@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    Journal {{ id }}
+    Journal {{ journalId }}
   </div>
 </template>
 
 <script>
 export default {
-  props: ['id'],
+  props: ['journalId'],
   created() {
   },
   computed: {

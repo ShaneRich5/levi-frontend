@@ -1,0 +1,23 @@
+<template>
+  <div>
+    <h2>Organizations Page</h2>
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+import { mapActions } from 'vuex';
+
+export default {
+  created() {
+    this.fetchOrganizations();
+  },
+  methods: {
+    ...mapActions(['fetchOrganizations']),
+  },
+};
+</script>
+
+<style scoped>
+
+</style>

@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Home from '@/components/Home';
+import Home from '@/components/pages/HomePage';
 
 describe('Home.vue', () => {
   it('should render correct contents', () => {

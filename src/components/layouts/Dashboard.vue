@@ -1,29 +1,35 @@
 <template>
   <div class="main">
-    <md-sidenav id="sidebar-panel" class="main-sidebar" ref="main-sidebar">
+    <md-sidenav class="sidebar md-fixed" ref="sidebarPanel">
       <md-toolbar>
-        <h2 class="md-title" style="flex: 1">Default</h2>
+        <h2 class="md-title" style="flex: 1">Levi</h2>
       </md-toolbar>
       <div class="main-sidebar-links">
-        <div class="phone-viewport">
-          <md-list>
-            <md-list-item href="/dashboard">
-              <md-icon>whatshot</md-icon>
-              <span>Organizations</span>
-            </md-list-item>
-          </md-list>
-        </div>
+        <md-list>
+          <md-list-item>
+            <router-link :to="{ name: 'dashboard' }">
+              Dashboard
+            </router-link>
+          </md-list-item>
+          <md-list-item>
+            <router-link :to="{ name: 'organizations' }">
+              Organizations
+            </router-link>
+          </md-list-item>
+        </md-list>
       </div>
     </md-sidenav>
     <div class="page-content">
       <md-toolbar>
-        <md-button class="md-icon-button">
+        <md-button class="md-icon-button" @click="toggleSidebarPanel">
           <md-icon>menu</md-icon>
         </md-button>
-        <h2 class="md-title" style="flex: 1">Levi</h2>
+        <h2 class="md-title" style="flex: 1"></h2>
         <md-button @click.native="logout">Logout</md-button>
       </md-toolbar>
-      <router-view></router-view>
+      <div class="container">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
@@ -34,25 +40,53 @@ import { mapActions } from 'vuex';
 export default {
   name: 'dashboard',
   created() {
-    this.$store.dispatch('loadOrganizations');
+    this.$store.dispatch('fetchOrganizations');
   },
   data() {
     return {
     };
   },
   methods: {
-    toggleSidenav() {
-      this.$refs['main-sidebar'].toggle();
+    toggleSidebarPanel() {
+      // this.$refs.sidebarPanel.toggle();
     },
     closeSidenav() {
       this.$refs['main-sidebar'].close();
     },
-    ...mapActions(['logout', 'loadOrganizations']),
+    ...mapActions(['logout', 'fetchOrganizations']),
   },
 };
 </script>
 
-<style scoped>
+<style >
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.main {
+  display: flex;
+}
+
+.page-content {
+  flex-grow: 1;
+}
+
+.md-sidenav.md-fixed .md-sidenav-content {
+  position: static;
+  height: 100vh;
+}
+
+.main-sidebar-links {
+
+}
+
+.md-theme-default.md-sidenav .md-sidenav-content {
+  transform: translateZ(0)!important;
+  pointer-events: auto;
+}
+
+/**
 @media (min-width: 1281px) {
   #sidebar-panel.md-theme-default.md-sidenav.main-sidebar .md-sidenav-content {
     box-shadow: 0 1px 5px rgba(0,0,0,.2),
@@ -90,4 +124,5 @@ export default {
 .page-content {
   flex: 1;
 }
+ */
 </style>

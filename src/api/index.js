@@ -1,82 +1,75 @@
-import axios from 'axios';
+import { get, post, update, requestor } from './requests';
 
-axios.defaults.baseURL = 'http://localhost:8000';
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-
-const get = (endpoint, handleData, handleError) => {
-  axios.get(endpoint).then(response => response.data)
-    .then(handleData).catch(handleError);
-};
-
-const post = (endpoint, data, handleReponse, handleError) => {
-  axios.post(endpoint, data).then(response => response.data)
-    .then(handleReponse).catch(handleError);
-};
-
-const update = (endpoint, data, handleReponse, handleError) => {
-  axios.put(endpoint, data).then(response => response.data)
-    .then(handleReponse).catch(handleError);
+const addTokenToHeader = (data) => {
+  const { token } = data;
+  requestor.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 export default {
   login({ email, password }, successCb, errorCb) {
     post('api/login', { email, password },
       (data) => {
-        const { token } = data;
-        axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+        addTokenToHeader(data);
         successCb(data);
-      })
-      .error(errorCb);
+      }, errorCb);
   },
-  updateSourceName({ id, name }, callback, errorCallback) {
-    update(`api/sources/${id}`, { id, name }, callback, errorCallback);
+  register({ email, password, firstName, lastName }, successCb, errorCb) {
+    post('api/register', { email, password, firstName, lastName },
+      (data) => {
+        addTokenToHeader(data);
+        successCb(data);
+      }, errorCb);
   },
-  updateSourceAmount({ id, amount }, callback, errorCallback) {
-    update(`api/sources/${id}`, { id, amount }, callback, errorCallback);
+  getOrganizations(successCb, errorCb) {
+    get('api/organizations', successCb, errorCb);
   },
-  getChurchReportById(id, callback) {
-    get(`api/church-reports/${id}`, callback);
+  getJournalsByNationalOfficeId(id, successCb, errorCb) {
+    get(`api/national-offices/${id}/journals`, successCb, errorCb);
   },
-  getChurchReportsByChurchId(id, callback) {
-    get(`api/churches/${id}/church-reports`, callback);
+  getDistrictReportsByDistrictOfficeById(id, successCb, errorCb) {
+    get(`api/district-offices/${id}/district-reports`, successCb, errorCb);
   },
-  getOrganizations(callback) {
-    get('api/organizations', callback);
+  getChurchReportsByChurchId(id, successCb, errorCb) {
+    get(`api/churches/${id}/church-reports`, successCb, errorCb);
   },
-  getNationalOffices(callback) {
-    get('api/national-offices', (data) => {
-      const { nationalOffices } = data;
-      callback(nationalOffices);
-    });
+  getSourcesByChurchReportId(id, successCb, errorCb) {
+    get(`api/church-reports/${id}/sources`, successCb, errorCb);
   },
-  getDistrictOffices(callback) {
-    get('api/district-offices', (data) => {
-      const { districtOffices } = data;
-      callback(districtOffices);
-    });
+  saveOrganization(organization, successCb, errorCb) {
+    post('api/organizations', organization, data => successCb(data), errorCb);
   },
-  getChurches(callback) {
-    get('api/churches', (data) => {
-      const { churches } = data;
-      callback(churches);
-    });
+  updateOrganization(organization, successCb, errorCb) {
+    const { id } = organization;
+    update(`api/organizations/${id}`, successCb, errorCb);
   },
-  getNationalOfficeById(id, callback) {
-    get(`api/national-offices/${id}`, (data) => {
-      const { nationalOffice } = data;
-      callback(nationalOffice);
-    });
+  createJournalOnNationalOffice(nationalOfficeId, successCb, errorCb) {
+    // post(`api/national-offices/${nationalOfficeId}/journals`, successCb, errorCb);
+    requestor.post(`api/national-offices/${nationalOfficeId}/journals`).then(response => response.data)
+      .then(successCb).catch(errorCb);
   },
-  getDistrictOfficeById(id, callback) {
-    get(`api/district-offices/${id}`, (data) => {
-      const { districtOffice } = data;
-      callback(districtOffice);
-    });
+  createDistrictReportOnDistrictOffice(districtOfficeId, successCb, errorCb) {
+    post(`api/district-offices/${districtOfficeId}/district-reports`, successCb, errorCb);
   },
-  getChurchById(id, callback) {
-    get(`api/churches/${id}`, (data) => {
-      const { church } = data;
-      callback(church);
-    });
+  createChurchReportOnChurch(churchId, successCb, errorCb) {
+    post(`api/churches/${churchId}/church-reports`, successCb, errorCb);
+  },
+
+  createExpenseOnDistrictReport({ districtReport, name }, successCb, errorCb) {
+    post(`api/district-reports/${districtReport}/expenses`, { name }, successCb, errorCb);
+  },
+  createSourceOnChurchReport({ churchReport, name }, successCb, errorCb) {
+    post(`api/church-reports/${churchReport}/sources`, { name }, successCb, errorCb);
+  },
+  updateExpenseName({ churchReport, name }, successCb, errorCb) {
+    update(`api/expenses/${churchReport}`, { name }, successCb, errorCb);
+  },
+  updateExpenseAmount({ id, amount }, successCb, errorCb) {
+    update(`api/expenses/${id}`, { id, amount }, successCb, errorCb);
+  },
+  updateSourceNameOnChurchReport({ id, churchReport, name }, successCb, errorCb) {
+    update(`api/church-reports/${churchReport}/sources/${id}`, { id, name }, successCb, errorCb);
+  },
+  updateSourceAmountOnChurchReport({ id, churchReport, amount }, successCb, errorCb) {
+    update(`api/church-reports/${churchReport}/sources/${id}`, { id, amount }, successCb, errorCb);
   },
 };
