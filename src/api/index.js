@@ -23,17 +23,32 @@ export default {
   getOrganizations(successCb, errorCb) {
     get('api/organizations', successCb, errorCb);
   },
+  getReportsByOrganization(id, successCb, errorCb) {
+    get(`api/organizations/${id}/reports`, successCb, errorCb);
+  },
   getJournalsByNationalOfficeId(id, successCb, errorCb) {
     get(`api/national-offices/${id}/journals`, successCb, errorCb);
   },
   getDistrictReportsByDistrictOfficeById(id, successCb, errorCb) {
     get(`api/district-offices/${id}/district-reports`, successCb, errorCb);
   },
+  getChurchReport(id, successCb, errorCb) {
+    get(`api/church-reports/${id}`, successCb, errorCb);
+  },
+  getDistrictReport(id, successCb, errorCb) {
+    get(`api/district-reports/${id}`, successCb, errorCb);
+  },
   getChurchReportsByChurchId(id, successCb, errorCb) {
     get(`api/churches/${id}/church-reports`, successCb, errorCb);
   },
   getSourcesByChurchReportId(id, successCb, errorCb) {
     get(`api/church-reports/${id}/sources`, successCb, errorCb);
+  },
+  getExpensesByDistrictReportId(id, successCb, errorCb) {
+    get(`api/district-reports/${id}/expenses`, successCb, errorCb);
+  },
+  getIndicatorsByDistrictReportId(id, successCb, errorCb) {
+    get(`api/district-reports/${id}/indicators`, successCb, errorCb);
   },
   saveOrganization(organization, successCb, errorCb) {
     post('api/organizations', organization, data => successCb(data), errorCb);
@@ -71,5 +86,11 @@ export default {
   },
   updateSourceAmountOnChurchReport({ id, churchReport, amount }, successCb, errorCb) {
     update(`api/church-reports/${churchReport}/sources/${id}`, { id, amount }, successCb, errorCb);
+  },
+  updateExpenseNameOnDistrictReport({ id, districtReport, name }, successCb, errorCb) {
+    update(`api/district-reports/${districtReport}/expenses/${id}`, { id, name }, successCb, errorCb);
+  },
+  updateExpenseAmountOnDistrictReport({ id, districtReport, amount }, successCb, errorCb) {
+    update(`api/district-reports/${districtReport}/expenses/${id}`, { id, amount }, successCb, errorCb);
   },
 };

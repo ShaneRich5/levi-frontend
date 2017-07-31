@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+
     <template v-if="churchReport">
       <router-link :to="{ name: 'church', params: { id: churchReport.church_id }}">
         Church

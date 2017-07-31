@@ -1,9 +1,6 @@
 <template>
   <div>
     <md-layout md-flex>
-      <md-button @click="goBack" class="md-icon-button">
-        <md-icon>arrow_back</md-icon>
-      </md-button>
       <div style="flex-grow: 1;"></div>
       <router-link
         :to="{ name: 'organization-form'}"
@@ -20,7 +17,8 @@
         @click="addJournal">Create Journal</md-button>
     </md-layout>
 
-    <router-link :to="{ name: 'organization-reports',  }">Reports</router-link>
+    <router-link
+      :to="{ name: 'organization-reports' }">Reports</router-link>
 
     <router-view></router-view>
   </div>
@@ -28,23 +26,18 @@
 
 <script>
 import { mapActions } from 'vuex';
-import router from '../../router';
 
 export default {
   props: ['organizationId'],
-  created() {
-    this.fetchReportsByOrganization(this.organization.types);
-  },
-  beforeDestroy() {
-    this.invalidateReports();
-  },
   computed: {
     organization() {
       return this.$store.getters.organizationById(this.organizationId);
     },
   },
   methods: {
-    ...mapActions(['invalidateReports', 'fetchReportsByOrganization', 'addJournalToNationalOffice']),
+    ...mapActions([
+      'addJournalToNationalOffice',
+    ]),
     isNationalOffice() {
       return 'nationalOffice' in this.organization.types;
     },
@@ -53,9 +46,6 @@ export default {
       if (nationalOffice !== null) {
         this.addJournalToNationalOffice(this.organization.types.nationalOffice);
       }
-    },
-    goBack() {
-      router.go(-1);
     },
   },
 };

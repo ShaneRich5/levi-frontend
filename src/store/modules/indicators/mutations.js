@@ -3,6 +3,12 @@ import * as types from '../../mutation-types';
 /* eslint-disable no-param-reassign */
 /* eslint-disable space-before-function-paren */
 export default {
+  [types.SOURCE_CREATED] (state, source) {
+    state.sources = [...state.sources, source];
+  },
+  [types.EXPENSE_CREATED] (state, expense) {
+    state.expenses = [...state.expenses, expense];
+  },
   [types.SOURCES_LOADED] (state, sources) {
     state.sources = [...sources];
   },

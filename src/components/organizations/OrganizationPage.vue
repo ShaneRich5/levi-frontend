@@ -12,8 +12,14 @@ export default {
   created() {
     this.fetchOrganizations();
   },
+  watch: {
+    $route: 'fetchOrganizations',
+  },
   methods: {
     ...mapActions(['fetchOrganizations']),
+    loadOrganizations() {
+      this.fetchOrganizations();
+    },
   },
 };
 </script>

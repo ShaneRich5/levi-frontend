@@ -1,7 +1,28 @@
 <template>
   <div>
+    <md-dialog
+      md-open-from="#button-add-source"
+      md-close-to="#button-add-source"
+      ref="source-dialog">
+      <md-dialog-title>Create Source</md-dialog-title>
+      <md-dialog-content>
+        <form>
+          <md-input-container>
+            <label>Name</label>
+            <md-input
+              type="text"
+              v-model="newSource"></md-input>
+          </md-input-container>
+        </form>
+      </md-dialog-content>
+
+      <md-dialog-actions>
+        <md-button class="md-primary" @click="closeDialog('source-dialog')">Cancel</md-button>
+        <md-button class="md-primary" @click="createSource()">Create</md-button>
+      </md-dialog-actions>
+    </md-dialog>
     <md-table-card>
-      <md-toolbar>
+      <md-toolbar v-if="churchReport">
         <h1 class="md-title">{{ churchReport.title }}</h1>
       </md-toolbar>
       <md-table>
@@ -39,24 +60,12 @@
               {{ formatCurrency(source.amount * multiplier) }}
             </md-table-cell>
           </md-table-row>
-          <md-table-row>
-            <md-table-cell>
-              <input
-                type="text"
-                class="editbox"
-                :value="newSource"
-                v-on:keyup.enter="createSource(newSource)">
-            </md-table-cell>
-            <md-table-cell></md-table-cell>
-            <md-table-cell></md-table-cell>
-            <md-table-cell></md-table-cell>
-            <md-table-cell></md-table-cell>
-            <md-table-cell></md-table-cell>
-            <md-table-cell></md-table-cell>
-            <md-table-cell></md-table-cell>
-          </md-table-row>
         </md-table-body>
       </md-table>
+      <md-button
+        class="md-primary md-raised"
+        id="button-add-source"
+        @click="openSourceDialog('source-dialog')">Add Source</md-button>
     </md-table-card>
   </div>
 </template>
@@ -75,25 +84,30 @@ export default {
     };
   },
   created() {
-    this.fetchSourcesForChurchReport(this.churchReportId);
-    this.listenForSourceChangesOnChurchReport(this.churchReportId);
+    const id = this.churchReportId;
+    this.fetchChurchReport(id);
+    this.listenForSourceChangesOnChurchReport(id);
   },
   beforeDestroy() {
     this.invalidateSources();
+    this.invalidateReports();
   },
   methods: {
     ...mapActions([
-      'fetchSourcesForChurchReport',
+      'fetchChurchReport',
       'invalidateSources',
+      'invalidateReports',
       'updateSourceNameOnChurchReport',
       'updateSourceAmountOnChurchReport',
       'createSourceOnChurchReport',
       'listenForSourceChangesOnChurchReport',
     ]),
-    createSource(name) {
+    createSource() {
+      const name = this.newSource;
       if (name === '') {
         return;
       }
+      this.closeDialog('source-dialog');
       const churchReport = this.churchReport.id;
       this.createSourceOnChurchReport({ churchReport, name });
       this.newSource = '';
@@ -105,6 +119,12 @@ export default {
     handleSourceAmountUpdate(id, amount) {
       const churchReport = this.churchReport.id;
       this.updateSourceAmountOnChurchReport({ id, churchReport, amount });
+    },
+    openSourceDialog(ref) {
+      this.$refs[ref].open();
+    },
+    closeDialog(ref) {
+      this.$refs[ref].close();
     },
   },
   computed: {

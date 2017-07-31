@@ -13,6 +13,7 @@
       <table class="form">
         <tr>
           <th class="no-border"></th>
+
           <th class="no-border"></th>
           <th colspan="4">Receipts</th>
         </tr>
@@ -31,15 +32,16 @@
           :key="report.id">
           <td>{{ index + 1 }}</td>
           <td>
-            <router-link :to="{ name: 'church-report', params: { id: report.id }}">
-              {{ report.church_name }}
+            <router-link
+              :to="{ name: 'organization-church-report', params: { organizationId, churchReportId: report.churchId }}">
+              {{ retrieveChurchNameById(report.churchId) }}
             </router-link>
           </td>
           <td
             v-for="(multiplier, index) in multipliers"
             :key="index"
           >
-            {{ formatCurrency(multiplier * report.total) }}
+            {{ formatCurrency(multiplier * calculateChurchReportTotal(report.id)) }}
           </td>
         </tr>
         <tr>
@@ -79,16 +81,6 @@
         </tr>
         <tr>
           <td class="no-border"></td>
-          <td colspan="4">
-            <input
-              v-model="newExpenseName"
-              v-on:keyup.enter="handleExpenseCreation()"
-            />
-          </td>
-          <td>0.00</td>
-        </tr>
-        <tr>
-          <td class="no-border"></td>
           <td colspan="4">Total Expenses for the Month</td>
           <td>{{ formatCurrency(totalExpenses) }}</td>
         </tr>
@@ -96,22 +88,6 @@
           <td class="no-border"></td>
           <td colspan="4">Net Income (Expenditure) for the Month</td>
           <td>{{ formatCurrency(netIncome) }}</td>
-        </tr>
-        <tr>
-          <td class="no-border"></td>
-          <td colspan="4">Opening District Fund Balance</td>
-          <td>
-            <input
-              type="number"
-              v-if="districtReport !== undefined"
-              :value="districtReport.opening_fund"
-              v-on:keyup.enter="handleOpeningFundUpdate($event.target.value)" />
-          </td>
-        </tr>
-        <tr>
-          <td class="no-border"></td>
-          <td colspan="4">Closing District Fund Balance</td>
-          <td v-if="districtReport">{{ formatCurrency(districtReport.opening_fund + netIncome) }}</td>
         </tr>
       </table>
     </md-layout>

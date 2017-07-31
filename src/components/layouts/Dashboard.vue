@@ -60,7 +60,7 @@ export default {
 
 <style >
 .container {
-    max-width: 960px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 

@@ -66,7 +66,7 @@ const routes = [
             name: 'organization',
             props: true,
             children: [
-              { path: 'reports', component: OrganizationReportList, name: 'organization-reports' },
+              { path: 'reports', component: OrganizationReportList, name: 'organization-reports', props: true },
               { path: 'church-reports/:churchReportId', component: OrganizationChurchReport, name: 'organization-church-report', props: true },
               { path: 'district-reports/:districtReportId', component: OrganizationDistrictReport, name: 'organization-district-report', props: true },
               { path: 'journals/:journalId', component: OrganizationJournal, name: 'organization-journal', props: true },
