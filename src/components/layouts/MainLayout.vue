@@ -17,8 +17,8 @@
      
          <md-button class = "md-raised md-button">
          
-          <router-link id = "navbutton" style = " text-decoration: none; color: #429bf4;" class = "nav-link" :to = "{ name: 'Support' }" > Sign
-           in</router-link>
+          <router-link id = "navbutton" style = " text-decoration: none; color: #429bf4;" class = "nav-link" :to = "{ name: 'levi' }" > 
+           Create Account</router-link>
           
      
 </md-button>
