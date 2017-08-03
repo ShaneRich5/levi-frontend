@@ -1,3 +1,8 @@
+// download
+export const PROGRESS_UPDATED = 'PROGRESS_UPDATED';
+export const DOWNLOAD_STARTED = 'DOWNLOAD_STARTED';
+export const DOWNLOAD_COMPLETED = 'DOWNLOAD_COMPLETED';
+
 // auth
 export const REGISTER = 'REGISTER';
 export const LOGIN = 'LOGIN';

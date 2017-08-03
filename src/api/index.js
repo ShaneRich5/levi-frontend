@@ -20,8 +20,8 @@ export default {
         successCb(data);
       }, errorCb);
   },
-  getOrganizations(successCb, errorCb) {
-    get('api/organizations', successCb, errorCb);
+  getOrganizations(successCb, errorCb, config) {
+    get('api/organizations', successCb, errorCb, config);
   },
   getReportsByOrganization(id, successCb, errorCb) {
     get(`api/organizations/${id}/reports`, successCb, errorCb);

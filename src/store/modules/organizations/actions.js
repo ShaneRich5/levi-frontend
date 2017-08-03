@@ -9,7 +9,7 @@ export const fetchOrganizations = ({ commit }) => {
     commit(types.NATIONAL_OFFICES_LOADED, nationalOffices);
     commit(types.DISTRICT_OFFICES_LOADED, districtOffices);
     commit(types.CHURCHES_LOADED, churches);
-  });
+  }, () => {});
 };
 
 export const fetchOrganization = ({ commit }, id) => {

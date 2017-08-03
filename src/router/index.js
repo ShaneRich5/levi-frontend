@@ -8,6 +8,7 @@ import WelcomePage from '@/components/pages/WelcomePage';
 import MainLayout from '@/components/layouts/MainLayout';
 import PageNotFound from '@/components/pages/PageNotFound';
 import RegistrationPage from '@/components/auth/RegistrationPage';
+import UserPage from '@/components/users/UserPage';
 import OrganizationForm from '@/components/organizations/OrganizationForm';
 import OrganizationPage from '@/components/organizations/OrganizationPage';
 import OrganizationList from '@/components/organizations/OrganizationList';
@@ -74,6 +75,7 @@ const routes = [
           },
         ],
       },
+      { path: 'users', component: UserPage, name: 'users' },
     ],
   },
   { path: '*', component: PageNotFound, name: 'PageNotFound' },

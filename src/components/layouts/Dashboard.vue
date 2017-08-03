@@ -42,10 +42,6 @@ export default {
   created() {
     this.$store.dispatch('fetchOrganizations');
   },
-  data() {
-    return {
-    };
-  },
   methods: {
     toggleSidebarPanel() {
       // this.$refs.sidebarPanel.toggle();
