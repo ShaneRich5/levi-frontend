@@ -14,6 +14,7 @@ if (process.env.NODE_ENV === 'production') {
 const socket = io.connect(socketUrl, { secure: true });
 
 /* eslint-disable no-console*/
+console.log('using socket url', socketUrl);
 
 export const invalidateSources = ({ commit }) => {
   commit(types.SOURCES_CLEARED);
@@ -96,16 +97,18 @@ export const listenForSourceChangesOnChurchReport = ({ commit }, churchReportId)
 
     if (+source.churchReportId === +churchReportId) {
       commit(types.SOURCE_UPDATED, source);
+      console.log('incomming source', source);
     }
   });
 
   socket.on('levi-notifications:App\\Events\\SourceCreated', (data) => {
     const { source } = humps.camelizeKeys(data);
-    console.log('source updated', source);
+    console.log('updated source', source);
     console.log(+source.churchReportId === +churchReportId);
 
     if (+source.churchReportId === +churchReportId) {
       commit(types.SOURCE_CREATED, source);
+      console.log('created source', source);
     }
   });
 };

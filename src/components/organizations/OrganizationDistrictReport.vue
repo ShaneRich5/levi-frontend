@@ -51,7 +51,7 @@
               v-for="(multiplier, index) in multipliers"
               :key="index"
             >
-              {{ formatCurrency(multiplier * calculateChurchReportTotal(report.id)) }}
+              {{ (calculateChurchReportTotal(report.id)) }}
             </md-table-cell>
           </md-table-row>
         </md-table-body>
@@ -209,14 +209,13 @@ export default {
       const districtReport = this.districtReport.id;
       this.updateExpenseAmountOnDistrictReport({ id, districtReport, amount });
     },
-    calculateChurchReportTotal(reportId) {
-      return this.sources
-        .reduce((total, source) => {
-          if (+source.churchReportId === +reportId) {
-            return total;
-          }
+    calculateChurchReportTotal(churchReportId) {
+      return this.sources.reduce((total, source) => {
+        if (+source.churchReportId === +churchReportId) {
           return total + source.amount;
-        }, 0);
+        }
+        return total;
+      }, 0);
     },
     openExpenseDialog(ref) {
       this.$refs[ref].open();
