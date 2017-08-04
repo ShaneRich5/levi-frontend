@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD:src/components/Contact.vue
 
 
  <div id = "Contact">
@@ -79,10 +80,14 @@
   
   
   
+=======
+  <h1>Contact Us</h1>
+>>>>>>> 27e104af9bb91c94513441c530fa290b76f0a531:src/components/pages/ContactForm.vue
 </template>
 
 <script>
 export default {
+<<<<<<< HEAD:src/components/Contact.vue
   name: 'contact',
   data() {
     return {
@@ -90,10 +95,14 @@ export default {
       subTitle: ' Have a question, comment, or suggestion? Let us know, we\'re always here to help.',
     };
   },
+=======
+  name: 'contact-form',
+>>>>>>> 27e104af9bb91c94513441c530fa290b76f0a531:src/components/pages/ContactForm.vue
 };
 </script>
 
 <style scoped>
+<<<<<<< HEAD:src/components/Contact.vue
     # {
 
 
@@ -155,4 +164,7 @@ font-family: Heiti SC;
         text-align: center;
         font-size: 20px;
     }
+=======
+
+>>>>>>> 27e104af9bb91c94513441c530fa290b76f0a531:src/components/pages/ContactForm.vue
 </style>

@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
 
 <div>
    
@@ -67,6 +68,24 @@
     </footer>
 </div>
 
+=======
+  <div>
+    <md-toolbar>
+      <router-link class="md-title" style="flex: 1" :to="{ name: 'home' }">Levi</router-link>
+      <h2 class="md-title" style="flex: 1">
+        Levi
+      </h2>
+      <router-link class="session-links" v-if = "!isAuthenticated" :to = "{ name: 'login' }">Login</router-link>
+      <router-link class="session-links" v-if = "!isAuthenticated"  :to = "{ name: 'register' }" >Register</router-link>
+      <router-link class="session-links" v-if = "isAuthenticated" :to = "{ name: 'dashboard' }">Dashboard</router-link>
+    </md-toolbar>
+    <div class="main-content">
+      <div class="container">
+        <router-view></router-view>
+      </div>
+    </div>
+  </div>
+>>>>>>> 27e104af9bb91c94513441c530fa290b76f0a531
 </template>
 
 <script>
@@ -80,7 +99,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'isAauthenticated',
+      'isAuthenticated',
     ]),
   },
   methods: {
@@ -92,6 +111,7 @@ export default {
 </script>
 
 <style scoped>
+<<<<<<< HEAD
    
     .main-toolbar {
         
@@ -122,6 +142,34 @@ export default {
   border-width: 1px;
   padding: 8px;
 
+=======
+.session-links {
+  margin-right: 10px;
+}
+
+.md-toolbar.md-theme-default {
+  background-color: transparent;
+}
+
+.md-toolbar * {
+  color: black;
+}
+
+.main-content {
+    padding: 16px;
+    -ms-flex: 1;
+    flex: 1;
+    overflow: auto;
+    background-color: #fff;
+    transform: translate3D(0,0,0);
+    transition: all .4s cubic-bezier(.25,.8,.25,1);
+    transition-delay: .2s;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+>>>>>>> 27e104af9bb91c94513441c530fa290b76f0a531
 }
     
     footer {

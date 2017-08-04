@@ -6,8 +6,6 @@ const state = {
   journals: [],
   districtReports: [],
   churchReports: [],
-  sources: [],
-  expenses: [],
 };
 
 const module = {

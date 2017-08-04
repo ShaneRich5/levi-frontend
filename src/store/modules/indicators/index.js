@@ -3,17 +3,15 @@ import * as getters from './getters';
 import mutations from './mutations';
 
 const state = {
-  organizations: [],
-  churches: [],
-  districtOffices: [],
-  nationalOffices: [],
+  sources: [],
+  expenses: [],
 };
 
 const module = {
   state,
-  mutations,
   getters,
   actions,
+  mutations,
 };
 
 export default module;

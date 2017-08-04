@@ -1,22 +1,32 @@
-import { deepCopy } from '../../util';
+export const organizations = state => [...state.organizations];
+
+export const organizationById = state => (id) => {
+  const found = state.organizations.find(organization => organization.id === +id);
+
+  if (found === null || found === undefined) {
+    return {};
+  }
+
+  return JSON.parse(JSON.stringify(found));
+};
 
 export const nationalOffices = state => [...state.nationalOffices];
 
+export const nationalOfficeById = state => (id) => {
+  const office = state.nationalOffices.find(nationalOffice => nationalOffice.id === +id);
+  if (office === undefined || office === null) {
+    return {};
+  }
+  return JSON.parse(JSON.stringify(office));
+};
+
 export const districtOffices = state => [...state.districtOffices];
+
+export const districtOfficeById = state => id =>
+  JSON.parse(JSON.stringify(state.districtOffices
+    .find(districtOffice => districtOffice.id === +id)));
 
 export const churches = state => [...state.churches];
 
-export const nationalOfficeById = state => id =>
-  deepCopy(state.nationalOffices.find(office => office.id === +id));
-
-export const districtOfficeById = state => id =>
-  deepCopy(state.districtOffices.find(office => office.id === +id));
-
 export const churchById = state => id =>
-  deepCopy(state.churches.find(church => church.id === +id));
-
-export const districtOfficesByNationalOffice = state => id =>
-  [...state.districtOffices.filter(office => office.id === +id)];
-
-export const churchesByDistrictOffice = state => id =>
-  [...state.churches.filter(church => church.id === +id)];
+  JSON.parse(JSON.stringify(state.churches.find(church => church.id === +id)));

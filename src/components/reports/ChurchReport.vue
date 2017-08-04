@@ -1,11 +1,14 @@
 <template>
   <div class="container">
-    <router-link :to="{ name: 'church', params: { id: churchReport.church_id }}">
-      Church
-    </router-link>
-    <router-link :to="{ name: 'district-report', params: { id: churchReport.district_report_id }}">
-      District Report
-    </router-link>
+
+    <template v-if="churchReport">
+      <router-link :to="{ name: 'church', params: { id: churchReport.church_id }}">
+        Church
+      </router-link>
+      <router-link :to="{ name: 'district-report', params: { id: churchReport.district_report_id }}">
+        District Report
+      </router-link>
+    </template>
 
     <md-table-card v-if="churchReport">
       <md-toolbar>
@@ -14,29 +17,36 @@
 
       <md-table>
         <md-table-header>
-          <md-table-row>
-            <md-table-head md-numeric>ID</md-table-head>
-            <md-table-head>Name</md-table-head>
-            <md-table-head md-numeric>Amount ($)</md-table-head>
-          </md-table-row>
-        </md-table-header>
+            <md-table-row>
+              <md-table-head>Id</md-table-head>
+              <md-table-head>Source</md-table-head>
+              <md-table-head>Raised</md-table-head>
+              <md-table-head>Island Office</md-table-head>
+              <md-table-head>District Office</md-table-head>
+              <md-table-head>Departments</md-table-head>
+              <md-table-head>Minister I/C</md-table-head>
+              <md-table-head>Total</md-table-head>
+              <md-table-head>Balance (To Church)</md-table-head>
+            </md-table-row>
+          </md-table-header>
 
         <md-table-body>
-          <md-table-row v-for="source in sources" :key="source.id">
+          <md-table-row v-for="(source, index) in sources" :key="index">
             <md-table-cell>{{ source.id }}</md-table-cell>
             <md-table-cell>
               <input
                 type="text"
                 :value="source.name"
-                v-on:keyup.enter="handleSourceNameUpdate(source.id, $event.target.value)"
-              />
+                v-on:keyup.enter="handleSourceNameUpdate(source.id, $event.target.value)">
             </md-table-cell>
             <md-table-cell>
               <input
                 type="number"
                 :value="source.amount"
-                @keyup.enter="handleSourceAmountUpdate(source.id, $event.target.value)"
-              />
+                @keyup.enter="handleSourceAmountUpdate(source.id, $event.target.value)">
+            </md-table-cell>
+            <md-table-cell v-for="(multiplier, index) in multipliers" :key="index">
+              {{ formatCurrency(source.amount * multiplier) }}
             </md-table-cell>
           </md-table-row>
         </md-table-body>
@@ -47,23 +57,30 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Currency from '../mixins/Currency';
 
 export default {
-  props: ['id'],
+  props: ['churchReportId'],
+  mixins: [Currency],
+  data() {
+    return {
+      multipliers: [0.1, 0.1, 0.1, 0.1, 0.4, 0.6],
+    };
+  },
   created() {
-    this.loadChurchReportById(this.id);
-    this.listenForSourceChanges(this.id);
+    this.loadChurchReportById(this.churchReportId);
+    this.listenForSourceUpdates(this.churchReportId);
   },
   computed: {
     churchReport() {
-      return this.$store.getters.churchReportById(this.id);
+      return this.$store.getters.churchReportById(this.churchReportId);
     },
     ...mapGetters(['sources']),
   },
   methods: {
     ...mapActions([
       'loadChurchReportById',
-      'listenForSourceChanges',
+      'listenForSourceUpdates',
       'updateSourceName',
       'updateSourceAmount',
     ]),

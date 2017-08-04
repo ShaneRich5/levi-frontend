@@ -4,12 +4,22 @@ import Config from '../../../config';
 import api from '../../../api';
 import * as types from '../../mutation-types';
 
+const handleAuthentication = (commit, data) => {
+  const { token, user } = data;
+  localStorage.token = token;
+  commit(types.LOGIN, { user, token });
+  router.push({ name: 'dashboard' });
+};
+
 export const login = ({ commit }, { email, password }) => {
   api.login({ email, password }, (data) => {
-    const { token, user } = data;
-    localStorage.token = token;
-    commit(types.LOGIN, { user, token });
-    router.push('/');
+    handleAuthentication(commit, data);
+  });
+};
+
+export const register = ({ commit }, { firstName, lastName, email, password }) => {
+  api.register({ email, password, firstName, lastName }, (data) => {
+    handleAuthentication(commit, data);
   });
 };
 
