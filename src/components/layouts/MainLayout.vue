@@ -1,7 +1,15 @@
 <template>
   <div>
+  
+  
+   <md-white-frame class = "main-layout">
+   
     <md-toolbar>
-      <router-link class="md-title" style="flex: 1" :to="{ name: 'home' }">Levi</router-link>
+       
+        <router-link id = "nav" class = "nav-link " :to = " { name: 'home' }" style = " text-decoration: none;  color: blue; flex:1;">levi</router-link>
+        
+        
+        
       <h2 class="md-title" style="flex: 1">
         Levi
       </h2>
@@ -9,11 +17,25 @@
       <router-link class="session-links" v-if = "!isAuthenticated"  :to = "{ name: 'register' }" >Register</router-link>
       <router-link class="session-links" v-if = "isAuthenticated" :to = "{ name: 'dashboard' }">Dashboard</router-link>
     </md-toolbar>
+    
+    
+    
+           </md-white-frame>
+           
     <div class="main-content">
       <div class="container">
+       
+
+       
+       
+       
         <router-view></router-view>
       </div>
     </div>
+    
+    
+    
+    
   </div>
 </template>
 
