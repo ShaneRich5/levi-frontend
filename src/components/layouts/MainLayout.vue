@@ -28,19 +28,22 @@
            </md-white-frame>
            
            
+<!--
     <div class="main-content">
       <div class="container">
        
 
        
        
-       
-        <router-view></router-view>
+
       </div>
     </div>
     
     
+-->
     
+           
+        <router-view></router-view>
     
   </div>
 </template>
