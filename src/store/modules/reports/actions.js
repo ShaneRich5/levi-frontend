@@ -30,29 +30,40 @@ export const fetchDistrictReportsByDistrictOffice = ({ commit }, id) => {
   });
 };
 
-export const fetchReportsByOrganization = ({ commit }, typeIds) => {
-  const { nationalOffice, districtOffice, church } = typeIds;
+export const fetchChurchReport = ({ commit }, id) => {
+  api.getChurchReport(id, (data) => {
+    const { churchReport, sources } = data;
+    commit(types.CHURCH_REPORT_LOADED, churchReport);
+    commit(types.SOURCES_LOADED, sources);
+  });
+};
 
-  if (nationalOffice !== undefined) {
-    api.getJournalsByNationalOfficeId(nationalOffice, (data) => {
-      const { journals } = data;
+export const fetchDistrictReport = ({ commit }, id) => {
+  api.getDistrictReport(id, (data) => {
+    const { districtReport, churchReports, sources, expenses } = data;
+    commit(types.DISTRICT_REPORT_LOADED, districtReport);
+    commit(types.CHURCH_REPORTS_LOADED, churchReports);
+    commit(types.SOURCES_LOADED, sources);
+    commit(types.EXPENSES_LOADED, expenses);
+  });
+};
+
+export const fetchReportsByOrganization = ({ commit }, id) => {
+  api.getReportsByOrganization(id, (data) => {
+    const { journals, districtReports, churchReports } = data;
+
+    if (Array.isArray(journals)) {
       commit(types.JOURNALS_LOADED, journals);
-    });
-  }
+    }
 
-  if (districtOffice !== undefined) {
-    api.getDistrictReportsByDistrictOfficeById(districtOffice, (data) => {
-      const { districtReports } = data;
+    if (Array.isArray(districtReports)) {
       commit(types.DISTRICT_REPORTS_LOADED, districtReports);
-    });
-  }
+    }
 
-  if (church !== undefined) {
-    api.getChurchReportsByChurchId(church, (data) => {
-      const { churchReports } = data;
+    if (Array.isArray(churchReports)) {
       commit(types.CHURCH_REPORTS_LOADED, churchReports);
-    });
-  }
+    }
+  });
 };
 
 export const addJournalToNationalOffice = ({ commit }, nationalOffice) => {

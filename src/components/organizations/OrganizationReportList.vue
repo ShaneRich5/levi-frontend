@@ -16,12 +16,21 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import OrganizationJournalList from './OrganizationJournalList';
 import OrganizationDistrictReportList from './OrganizationDistrictReportList';
 import OrganizationChurchReportList from './OrganizationChurchReportList';
 
 export default {
+  props: ['organizationId'],
+  created() {
+    this.invalidateReports();
+    this.invalidateIndicators();
+    this.fetchReportsByOrganization(this.organizationId);
+  },
+  beforeDestroy() {
+    this.invalidateReports();
+  },
   components: {
     'journal-list': OrganizationJournalList,
     'district-report-list': OrganizationDistrictReportList,
@@ -29,6 +38,16 @@ export default {
   },
   computed: {
     ...mapGetters(['journals', 'districtReports', 'churchReports']),
+    organization() {
+      return this.$store.getters.organizationById(this.organizationId);
+    },
+  },
+  methods: {
+    ...mapActions([
+      'invalidateReports',
+      'invalidateIndicators',
+      'fetchReportsByOrganization',
+    ]),
   },
 };
 </script>

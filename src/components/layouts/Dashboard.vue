@@ -42,10 +42,6 @@ export default {
   created() {
     this.$store.dispatch('fetchOrganizations');
   },
-  data() {
-    return {
-    };
-  },
   methods: {
     toggleSidebarPanel() {
       // this.$refs.sidebarPanel.toggle();
@@ -60,7 +56,7 @@ export default {
 
 <style >
 .container {
-    max-width: 960px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
