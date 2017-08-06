@@ -15,6 +15,23 @@ import './assets/global.css';
 sync(store, router);
 
 Vue.use(VueMaterial);
+Vue.material.registerTheme({
+  default: {
+    primary: {
+      color: 'blue',
+      hue: 600,
+    },
+  },
+  button: {
+    accent: 'grey',
+    hue: 200,
+  },
+  teal: {
+    primary: 'white',
+    accent: 'blue',
+  },
+});
+
 Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 

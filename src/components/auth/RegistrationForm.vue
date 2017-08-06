@@ -1,7 +1,7 @@
 <template>
   <md-card class="form-card">
     <md-card-header>
-      <div class="md-title">Registration</div>
+      <div class="md-title">Create Account</div>
     </md-card-header>
 
     <form novalidate v-on:submit.prevent>
@@ -27,7 +27,7 @@
 
       <md-button
         @click="attemptRegistration(credentials)"
-        class="md-raised md-primary">Register</md-button>
+        class="md-raised md-primary">Create Account</md-button>
     </form>
   </md-card>
 </template>

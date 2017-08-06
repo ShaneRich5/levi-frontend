@@ -1,26 +1,32 @@
 <template>
+ 
   <div>
   
   
-   <md-white-frame class = "main-layout">
+   <md-white-frame class = "main-toolbar">
    
     <md-toolbar>
        
-        <router-link id = "nav" class = "nav-link " :to = " { name: 'home' }" style = " text-decoration: none;  color: blue; flex:1;">levi</router-link>
+        <router-link id = "nav" class = "nav-link " :to = " { name: 'home' }" style = " text-decoration: none;  color: #ffffff; flex:1;">levi</router-link>
         
         
-        
-      <h2 class="md-title" style="flex: 1">
-        Levi
-      </h2>
-      <router-link class="session-links" v-if = "!isAuthenticated" :to = "{ name: 'login' }">Login</router-link>
-      <router-link class="session-links" v-if = "!isAuthenticated"  :to = "{ name: 'register' }" >Register</router-link>
+ 
+      <router-link class = "session-links" v-if = "!isAuthenticated" :to = "{ name: 'login' }" style = " text-decoration: none;  color: #ffffff;">Sign In </router-link>
+      
+               <md-button class = "md-raised md-button">
+      
+                <router-link id = "navbutton"  v-if = "!isAuthenticated"  style = " text-decoration: none; color: #429bf4;" class = "nav-link" :to = "{ name: 'register' }" > 
+           Create Account</router-link>
+           
+        </md-button>
+      
       <router-link class="session-links" v-if = "isAuthenticated" :to = "{ name: 'dashboard' }">Dashboard</router-link>
     </md-toolbar>
     
     
     
            </md-white-frame>
+           
            
     <div class="main-content">
       <div class="container">
@@ -62,6 +68,7 @@ export default {
 </script>
 
 <style scoped>
+/*
 .session-links {
   margin-right: 10px;
 }
@@ -89,5 +96,25 @@ export default {
     max-width: 960px;
     margin: 0 auto;
 }
+*/
+    
+    
+        .main-toolbar {
+        
+        position: -webkit-sticky;
+        top : 1px;    
+        width: 100%;
+    }
+    
+      #nav {
+        font-size: 55px;
+        font-weight: bolder;
+    }
+    
+        #navbutton {
+        text-transform: none;
+        font-weight: bolder;
+    }
+    
 
 </style>
